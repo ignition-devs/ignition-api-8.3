@@ -64,6 +64,9 @@ def listTopics(connector):
 
     Args:
         connector: The name of the Kafka connector.
+
+    Returns:
+        A list of topics for the provided connector.
     """
     print(connector)
     return []

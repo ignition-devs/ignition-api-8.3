@@ -137,8 +137,8 @@ def storeAnnotations(*args, **kwargs):
     """Store a list of annotations to the specified Historian.
 
     Args:
-        args: Variable length argument list.
-        kwargs: Arbitrary keyword arguments.
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
 
     Returns:
         A list of qualified values. The quality code will indicate
@@ -153,8 +153,8 @@ def storeDataPoints(*args, **kwargs):
     """Store a list of data points to the specified Historian.
 
     Args:
-        args: Variable length argument list.
-        kwargs: Arbitrary keyword arguments.
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
 
     Returns:
         A list of qualified values. The quality code will indicate
@@ -169,8 +169,8 @@ def storeMetadata(*args, **kwargs):
     """Store a list of metadata to the specified Historian.
 
     Args:
-        args: Variable length argument list.
-        kwargs: Arbitrary keyword arguments.
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
 
     Returns:
         A list of qualified values. The quality code will indicate
