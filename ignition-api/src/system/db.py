@@ -361,8 +361,8 @@ def execUpdate(
     project=None,  # type: Optional[AnyStr]
 ):
     # type: (...) -> int
-    """Executes an update query from a Named Query resource. If the
-    Named Query is through a Store and Forward system, use
+    """Executes an update query from a Named Query resource. Named Query
+    is through a Store and Forward system, use If the
     system.db.execUpdateAsync instead.
 
     Args:
