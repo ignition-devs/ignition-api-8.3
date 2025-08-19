@@ -12,7 +12,6 @@ __all__ = [
     "ACCL_FAST_TO_SLOW",
     "ACCL_NONE",
     "ACCL_SLOW_TO_FAST",
-    "APPLET_FLAG",
     "CLIENT_FLAG",
     "CONNECTION_MODE_DISCONNECTED",
     "CONNECTION_MODE_READ_ONLY",
@@ -22,11 +21,9 @@ __all__ = [
     "DESIGNER_FLAG",
     "FULLSCREEN_FLAG",
     "LANDSCAPE",
-    "MOBILE_FLAG",
     "PORTRAIT",
     "PREVIEW_FLAG",
     "SSL_FLAG",
-    "WEBSTART_FLAG",
     "beep",
     "centerWindow",
     "closeDesktop",
@@ -42,6 +39,8 @@ __all__ = [
     "exportExcel",
     "exportHTML",
     "findWindow",
+    "getAvailableLocales",
+    "getAvailableTerms",
     "getClientId",
     "getConnectTimeout",
     "getConnectionMode",
@@ -73,6 +72,8 @@ __all__ = [
     "isOverlaysEnabled",
     "isScreenLocked",
     "isTouchscreenMode",
+    "lockScreen",
+    "logout",
     "openDesktop",
     "openFile",
     "openFiles",
@@ -91,7 +92,9 @@ __all__ = [
     "setReadTimeout",
     "setScreenIndex",
     "setTouchscreenMode",
+    "showColorInput",
     "showConfirm",
+    "showDiagnostics",
     "showError",
     "showInput",
     "showMessage",
@@ -101,8 +104,11 @@ __all__ = [
     "showWarning",
     "swapTo",
     "swapWindow",
+    "switchUser",
     "transform",
+    "unlockScreen",
     "updateProject",
+    "validateUser",
 ]
 
 import getpass
@@ -146,14 +152,11 @@ LANDSCAPE = 0
 PORTRAIT = 1
 
 # Util constants
-APPLET_FLAG = 16
 CLIENT_FLAG = 4
 DESIGNER_FLAG = 1
 FULLSCREEN_FLAG = 32
-MOBILE_FLAG = 128
 PREVIEW_FLAG = 2
 SSL_FLAG = 64
-WEBSTART_FLAG = 8
 
 # Vision constants
 CONNECTION_MODE_DISCONNECTED = 1
@@ -423,6 +426,30 @@ def findWindow(path):
     """
     print(path)
     return [FPMIWindow("Window")]
+
+
+def getAvailableLocales():
+    # type: () -> List[AnyStr]
+    """Returns a collection of strings representing the Locales added to
+    the Translation Manager, such as 'en' for English.
+
+    Returns:
+        A collection of strings representing the Locales added to the
+        Translation Manager.
+    """
+    return ["en_US", "es_MX"]
+
+
+def getAvailableTerms():
+    # type: () -> List[AnyStr]
+    """Returns a collection of available terms defined in the
+    translation system.
+
+    Returns:
+         A collection of all of the terms available from the Translation
+         Manager, as strings.
+    """
+    return ["term1", "term2"]
 
 
 def getClientId():
@@ -1287,6 +1314,24 @@ def setScreenIndex(index):
     print(index)
 
 
+def showColorInput(initialColor, dialogTitle="Choose Color"):
+    # type: (Color, AnyStr) -> Color
+    """Prompts the user to pick a color using the default color-chooser
+    dialog box.
+
+    Args:
+        initialColor: A color to use as a starting point in the color
+            choosing popup.
+        dialogTitle: The title for the color choosing popup. Defaults to
+            "Choose Color". Optional.
+
+    Returns:
+        The new color chosen by the user.
+    """
+    print(initialColor, dialogTitle)
+    return Color()
+
+
 def showConfirm(message, title="Confirm", allowCancel=False):
     # type: (AnyStr, AnyStr, bool) -> Optional[bool]
     """Displays a confirmation dialog box to the user with "Yes", "No"
@@ -1322,6 +1367,19 @@ def showConfirm(message, title="Confirm", allowCancel=False):
         if choice in [JOptionPane.YES_OPTION, JOptionPane.NO_OPTION]
         else None
     )
+
+
+def showDiagnostics():
+    # type: () -> None
+    """Opens the client runtime diagnostics window, which provides
+    information regarding performance, logging, active threads,
+    connection status, and the console.
+
+    This provides an opportunity to open the diagnostics window in
+    situations where the menu bar in the client is hidden, and the
+    keyboard shortcut can not be used.
+    """
+    pass
 
 
 def showError(message, title="Error"):
@@ -1642,3 +1700,24 @@ def updateProject():
     the Vision Client System Tag ProjectUpdateAvailable.
     """
     pass
+
+
+def validateUser(username, password, authProfile="", timeout=60000):
+    # type: (AnyStr, AnyStr, AnyStr, int) -> bool
+    """Tests credentials (username and password) against a user source.
+
+    Args:
+        username: The username to validate.
+        password: The password for the user.
+        authProfile: The name of the authentication profile to run
+            against. Leaving this out will use the project's default
+            profile. Optional.
+        timeout: Timeout for Client-to-Gateway communication. Default is
+            60,000ms. Optional.
+
+    Returns:
+        False if the user failed to authenticate, True if the
+        username/password was a valid combination.
+    """
+    print(username, password, authProfile, timeout)
+    return True

@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, List, Optional
 
 from com.inductiveautomation.ignition.common.script.builtin.http import JythonHttpClient
 from dev.coatl.helper.types import AnyStr
@@ -17,29 +17,6 @@ def httpClient(
     version: AnyStr = ...,
     customizer: Optional[Callable[..., Any]] = ...,
 ) -> JythonHttpClient: ...
-def httpDelete(
-    url: AnyStr,
-    contentType: Optional[AnyStr] = ...,
-    connectTimeout: int = ...,
-    readTimeout: int = ...,
-    username: Optional[AnyStr] = ...,
-    password: Optional[AnyStr] = ...,
-    headerValues: Optional[Dict[AnyStr, AnyStr]] = ...,
-    bypassCertValidation: bool = ...,
-) -> AnyStr: ...
-def httpGet(
-    url: AnyStr,
-    connectTimeout: int = ...,
-    readTimeout: int = ...,
-    username: Optional[AnyStr] = ...,
-    password: Optional[AnyStr] = ...,
-    headerValues: Optional[Dict[AnyStr, AnyStr]] = ...,
-    bypassCertValidation: Optional[bool] = ...,
-    useCaches: bool = ...,
-    throwOnError: bool = ...,
-) -> AnyStr: ...
-def httpPost(url: AnyStr, *args: Any, **kwargs: Any) -> AnyStr: ...
-def httpPut(url: AnyStr, *args: Any, **kwargs: Any) -> AnyStr: ...
 def sendEmail(
     smtp: Optional[AnyStr] = ...,
     fromAddr: AnyStr = ...,

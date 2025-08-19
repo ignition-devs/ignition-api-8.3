@@ -7,10 +7,16 @@ Client data, as well as interact with other various systems.
 from __future__ import print_function
 
 __all__ = [
+    "APPLET_FLAG",
+    "CLIENT_FLAG",
+    "DESIGNER_FLAG",
+    "FULLSCREEN_FLAG",
+    "MOBILE_FLAG",
+    "PREVIEW_FLAG",
+    "SSL_FLAG",
+    "WEBSTART_FLAG",
     "audit",
     "execute",
-    "getAvailableLocales",
-    "getAvailableTerms",
     "getGatewayStatus",
     "getGlobals",
     "getLogger",
@@ -50,6 +56,16 @@ from com.inductiveautomation.ignition.common.util import LoggerEx
 from dev.coatl.helper.types import AnyStr
 from java.lang import Thread
 from java.util import Date
+
+APPLET_FLAG = 16
+CLIENT_FLAG = 4
+DESIGNER_FLAG = 1
+FULLSCREEN_FLAG = 32
+MOBILE_FLAG = 128
+PREVIEW_FLAG = 2
+SSL_FLAG = 64
+WEBSTART_FLAG = 8
+
 
 globals = {}  # type: Dict[AnyStr, Any]
 
@@ -117,30 +133,6 @@ def execute(commands):
             associated arguments (remaining entries) to execute.
     """
     print(commands)
-
-
-def getAvailableLocales():
-    # type: () -> List[AnyStr]
-    """Returns a collection of strings representing the Locales added to
-    the Translation Manager, such as 'en' for English.
-
-    Returns:
-        A collection of strings representing the Locales added to the
-        Translation Manager.
-    """
-    return ["en_US", "es_MX"]
-
-
-def getAvailableTerms():
-    # type: () -> List[AnyStr]
-    """Returns a collection of available terms defined in the
-    translation system.
-
-    Returns:
-         A collection of all of the terms available from the Translation
-         Manager, as strings.
-    """
-    return ["term1", "term2"]
 
 
 def getGatewayStatus(

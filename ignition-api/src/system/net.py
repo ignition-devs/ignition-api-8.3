@@ -10,15 +10,11 @@ __all__ = [
     "getIpAddress",
     "getRemoteServers",
     "httpClient",
-    "httpDelete",
-    "httpGet",
-    "httpPost",
-    "httpPut",
     "sendEmail",
 ]
 
 import socket
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, List, Optional
 
 from com.inductiveautomation.ignition.common.script.builtin.http import JythonHttpClient
 from dev.coatl.helper.types import AnyStr
@@ -142,157 +138,6 @@ def httpClient(
         customizer,
     )
     return JythonHttpClient()
-
-
-def httpDelete(
-    url,  # type: AnyStr
-    contentType=None,  # type: Optional[AnyStr]
-    connectTimeout=10000,  # type: int
-    readTimeout=60000,  # type: int
-    username=None,  # type: Optional[AnyStr]
-    password=None,  # type: Optional[AnyStr]
-    headerValues=None,  # type: Optional[Dict[AnyStr, AnyStr]]
-    bypassCertValidation=True,  # type: bool
-):
-    # type: (...) -> AnyStr
-    """Performs an HTTP DELETE to the given URL.
-
-    Args:
-        url: The URL to send the request to.
-        contentType: The MIME type used in the HTTP 'Content-type'
-            header. Optional.
-        connectTimeout: The timeout for connecting to the URL in
-            milliseconds. Default is 10,000. Optional.
-        readTimeout: The read timeout for the operation in
-            milliseconds. Default is 60,000. Optional.
-        username: If specified, the call will attempt to authenticate
-            with basic HTTP authentication. Optional.
-        password: The password used for basic HTTP authentication, if
-            the username parameter is also present. Optional.
-        headerValues: A dictionary of name/value pairs that will be set
-            in the HTTP header. Optional.
-        bypassCertValidation: If the target address in an HTTPS address,
-            and this parameter is TRUE, the system will bypass all SSL
-            certificate validation. This is not recommended, though is
-            sometimes necessary for self-signed certificates. Optional.
-
-    Returns:
-        The content returned for the DELETE operation.
-    """
-    print(
-        url,
-        contentType,
-        connectTimeout,
-        readTimeout,
-        username,
-        password,
-        headerValues,
-        bypassCertValidation,
-    )
-    return "DELETE"
-
-
-def httpGet(
-    url,  # type: AnyStr
-    connectTimeout=10000,  # type: int
-    readTimeout=60000,  # type: int
-    username=None,  # type: Optional[AnyStr]
-    password=None,  # type: Optional[AnyStr]
-    headerValues=None,  # type: Optional[Dict[AnyStr, AnyStr]]
-    bypassCertValidation=None,  # type: Optional[bool]
-    useCaches=True,  # type: bool
-    throwOnError=True,  # type: bool
-):
-    # type: (...) -> AnyStr
-    """Retrieves the document at the given URL using the HTTP GET
-    protocol.
-
-    The document is returned as a string. For example, if you use the
-    URL of a website, you'll get the same thing you'd get by going to
-    that website in a browser and using the browser's "View Source"
-    function.
-
-    Args:
-        url: The URL to retrieve.
-        connectTimeout: The timeout for connecting to the URL. In
-            milliseconds. Default is 10,000. Optional.
-        readTimeout: The read timeout for the get operation. In
-            milliseconds. Default is 60,000. Optional.
-        username: If specified, the call will attempt to authenticate
-            with basic HTTP authentication. Optional.
-        password: The password used for basic HTTP authentication, if
-            the username parameter is also present. Optional.
-        headerValues: A dictionary of name/value pairs that will be set
-            in the HTTP header. Optional.
-        bypassCertValidation: If the target address is an HTTPS address,
-            and this parameter is True, the system will bypass all SSL
-            certificate validation. This is not recommended, though is
-            sometimes necessary for self-signed certificates. Optional.
-        useCaches: Will cache the information returned by the httpGet
-            call. If using this for something that constantly updates
-            like an rss feed, it would be better to set this to False.
-            Default is True. Optional.
-        throwOnError: Set to False if you wish to get the error body
-            rather than a Python exception if the GET request returns an
-            error code (non-200 responsive). Default is True. Optional.
-
-    Returns:
-        The content found at the given URL.
-    """
-    print(
-        url,
-        connectTimeout,
-        readTimeout,
-        username,
-        password,
-        headerValues,
-        bypassCertValidation,
-        useCaches,
-        throwOnError,
-    )
-    return ""
-
-
-def httpPost(url, *args, **kwargs):
-    # type: (AnyStr, *Any, **Any) -> AnyStr
-    """Retrieves the document at the given URL using the HTTP POST
-    protocol.
-
-    If a parameter dictionary argument is specified, the entries in the
-    dictionary will encoded in "application/x-www-form-urlencoded"
-    format, and then posted. You can post arbitrary data as well, but
-    you'll need to specify the MIME type. The document is then returned
-    as a string.
-
-    Args:
-        url: The URL to post to.
-        *args: Variable length argument list.
-        **kwargs: Arbitrary keyword arguments.
-
-    Returns:
-        The content returned for the POST operation.
-    """
-    print(url, args, kwargs)
-    return ""
-
-
-def httpPut(url, *args, **kwargs):
-    # type: (AnyStr, *Any, **Any) -> AnyStr
-    """Performs an HTTP PUT to the given URL.
-
-    Encodes the given dictionary of parameters using
-    "applications/x-www-form-urlencoded" format.
-
-    Args:
-        url: The URL to put to.
-        *args: Variable length argument list.
-        **kwargs: Arbitrary keyword arguments.
-
-    Returns:
-        The content returned by the PUT operation.
-    """
-    print(url, args, kwargs)
-    return ""
 
 
 def _sendEmail(

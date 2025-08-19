@@ -55,6 +55,7 @@ __all__ = [
     "closeTransaction",
     "commitTransaction",
     "createSProcCall",
+    "execQuery",
     "execSProcCall",
     "execUpdate",
     "execUpdateAsync",
@@ -64,8 +65,7 @@ __all__ = [
     "rollbackTransaction",
     "runPrepQuery",
     "runPrepUpdate",
-    "runSFNamedQuery",
-    "runSFUpdateQuery",
+    "runUpdateQuery",
     "setDatasourceConnectURL",
     "setDatasourceEnabled",
     "setDatasourceMaxConnections",
@@ -338,6 +338,31 @@ def createSProcCall(
     return SProcCall()
 
 
+def execQuery(
+    path,  # type: AnyStr
+    parameters=None,  # type: Optional[Dict[AnyStr, Any]]
+    tx=None,  # type: Optional[AnyStr]
+    project=None,  # type: Optional[AnyStr]
+):
+    # type: (...) -> Any
+    """Executes a query from a Named Query resource.
+
+    Args:
+        path: The full path of the Named Query.
+        parameters: A dictionary of parameters for the query. Optional.
+        tx: A transaction ID, obtained from beginNamedQueryTransaction.
+            If not specified, will not be part of a transaction.
+            Optional.
+        project: A project name that the query exists in. Optional.
+
+    Returns:
+        The result of the query, as a dataset or a single value for a
+        scalar query.
+    """
+    print(path, parameters, tx, project)
+    return BasicDataset()
+
+
 def execSProcCall(callContext):
     # type: (SProcCall) -> None
     """Executes a stored procedure call.
@@ -583,45 +608,50 @@ def runPrepUpdate(
     return 1
 
 
-def runSFNamedQuery(*args, **kwargs):
-    # type: (*Any, **Any) -> bool
-    """Runs a named query that goes through the Store and Forward
-    system.
+def runUpdateQuery(
+    query,  # type: AnyStr
+    database="",  # type: AnyStr
+    tx=None,  # type: Optional[AnyStr]
+    getKey=False,  # type: bool
+    skipAudit=True,  # type: bool
+):
+    # type: (...) -> int
+    """Runs a query against a database connection, returning the number
+    of rows affected.
 
-    Note that the number of parameters in the function is determined by
-    scope.
+    Typically this is an UPDATE, INSERT, or DELETE query. If no database
+    is specified, or the database is the empty-string "", then the
+    current project's default database connection will be used.
 
-    When calling from the Project Scope use:
-    system.db.runSFNamedQuery(path, params)
-
-    When calling from the Gateway Scope use:
-    system.db.runSFNamedQuery(project, path, params)
-
-    Args:
-        *args: Variable length argument list.
-        **kwargs: Arbitrary keyword arguments.
-
-    Returns:
-        True if successfully sent to the Store and Forward system.
-    """
-    print(args, kwargs)
-    return True
-
-
-def runSFUpdateQuery(query, datasources):
-    # type: (AnyStr, List[AnyStr]) -> bool
-    """Runs a query through the store and forward system and to multiple
-    datasources at the same time.
+    Note:
+        You may want to use the runPrepUpdate query if your query is
+        constructed with user input (to avoid the user's input from
+        breaking your syntax) or if you need to insert binary or BLOB
+        data.
 
     Args:
-        query: A query (typically an UPDATE, INSERT, or DELETE) to run.
-        datasources: List of datasources to run the query through.
+        query: A SQL query, usually an INSERT, UPDATE, or DELETE query,
+            to run.
+        database: The name of the database connection to execute
+            against. If omitted or "", the project's default database
+            connection will be used.
+        tx: A transaction identifier. If omitted, the update will be
+            executed in its own transaction.
+        getKey: A flag indicating whether or not the result should be
+            the number of rows returned (getKey=0) or the newly
+            generated key value that was created as a result of the
+            update (getKey=1). Not all databases support automatic
+            retrieval of generated keys.
+        skipAudit: A flag which, if set to True, will cause the update
+            query to skip the audit system. Useful for some queries that
+            have fields which won't fit into the audit log.
 
     Returns:
-        True if successful and False if not.
+        The number of rows affected by the query, or the key value that
+        was generated, depending on the value of the getKey flag.
     """
-    print(query, datasources)
-    return True
+    print(query, database, tx, getKey, skipAudit)
+    return 1
 
 
 def setDatasourceConnectURL(name, connectUrl):
