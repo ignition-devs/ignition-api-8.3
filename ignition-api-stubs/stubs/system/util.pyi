@@ -11,6 +11,14 @@ from dev.coatl.helper.types import AnyStr
 from java.lang import Thread
 from java.util import Date
 
+APPLET_FLAG: int
+CLIENT_FLAG: int
+DESIGNER_FLAG: int
+FULLSCREEN_FLAG: int
+MOBILE_FLAG: int
+PREVIEW_FLAG: int
+SSL_FLAG: int
+WEBSTART_FLAG: int
 globals: Dict[AnyStr, Any]
 
 def audit(
@@ -25,8 +33,6 @@ def audit(
     statusCode: int = ...,
 ) -> None: ...
 def execute(commands: List[AnyStr]) -> None: ...
-def getAvailableLocales() -> List[AnyStr]: ...
-def getAvailableTerms() -> List[AnyStr]: ...
 def getGatewayStatus(
     gatewayAddress: AnyStr,
     connectTimeoutMillis: Optional[int] = ...,

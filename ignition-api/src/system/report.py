@@ -7,6 +7,7 @@ ability to run reports.
 from __future__ import print_function
 
 __all__ = [
+    "QueryResults",
     "executeAndDistribute",
     "executeReport",
     "getReportNamesAsDataset",
@@ -16,6 +17,7 @@ __all__ = [
 from typing import Any, Dict, List, Optional
 
 from com.inductiveautomation.ignition.common import BasicDataset
+from com.inductiveautomation.reporting.common.api import QueryResults
 from dev.coatl.helper.types import AnyStr
 from java.lang import IllegalArgumentException
 

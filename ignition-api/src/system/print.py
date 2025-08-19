@@ -6,11 +6,16 @@ The following functions allow you to send to a printer.
 from __future__ import print_function
 
 __all__ = [
+    "LANDSCAPE",
+    "PORTRAIT",
     "getDefaultPrinterName",
     "getPrinterNames",
 ]
 
 from typing import List, Optional
+
+LANDSCAPE = 0
+PORTRAIT = 1
 
 
 def getDefaultPrinterName():

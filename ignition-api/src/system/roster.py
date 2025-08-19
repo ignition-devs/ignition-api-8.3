@@ -13,6 +13,7 @@ __all__ = [
     "getRoster",
     "getRosterNames",
     "getRosters",
+    "getUsers",
     "removeUsers",
 ]
 
@@ -108,6 +109,21 @@ def getRosters():
         been added to the roster.
     """
     return {}
+
+
+def getUsers(rosterName):
+    # type: (AnyStr) -> List[PyUser]
+    """Returns the list of users corresponding to the given rosterName.
+
+    Args:
+        rosterName: TThe name of the roster, not null
+
+    Returns:
+        A list of User objects in the roster. If no users have been
+        added to the roster, an empty list is returned.
+    """
+    print(rosterName)
+    return []
 
 
 def removeUsers(rosterName, users):

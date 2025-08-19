@@ -8,13 +8,14 @@ from __future__ import print_function
 
 __all__ = [
     "browse",
-    "convertToQualifiedPath",
     "deleteAnnotations",
+    "queryAggregatedPoints",
     "queryAnnotations",
     "queryMetadata",
-    "queryValues",
+    "queryRawPoints",
     "storeAnnotations",
     "storeDataPoints",
+    "storeMetadata",
     "updateRegisteredNodePath",
 ]
 
@@ -34,26 +35,6 @@ def browse(rootPath, *args, **kwargs):
     return Results()
 
 
-def convertToQualifiedPath(stringPath, isHistorical):
-    # type: (AnyStr, bool) -> AnyStr
-    """Converts a string path into a qualified path to use for storing
-    or querying.
-
-    Args:
-        stringPath: The original string to be converted into a qualified
-            path.
-        isHistorical: Designates whether the string represents a tag or
-            a historical path. If not specified, the path is assumed to
-            be of a tag.
-
-    Returns:
-        A string of the qualified path that can be used for storage and
-        queries.
-    """
-    print(stringPath, isHistorical)
-    return ""
-
-
 def deleteAnnotations(paths, storageIds):
     # type: (List[AnyStr], List[AnyStr]) -> List[BasicQualifiedValue]
     """Deletes desired annotations from the specified Historian.
@@ -71,6 +52,57 @@ def deleteAnnotations(paths, storageIds):
     """
     print(paths, storageIds)
     return [BasicQualifiedValue() for _ in paths]
+
+
+def queryAggregatedPoints(
+    paths,  # type: List[AnyStr]
+    startTime=None,  # type: Optional[Date]
+    endTime=None,  # type: Optional[Date]
+    aggregates=None,  # type: Optional[List[AnyStr]]
+    fillModes=None,  # type: Optional[List[AnyStr]]
+    columnNames=None,  # type: Optional[List[AnyStr]]
+    returnFormat="Wide",  # type: str
+    returnSize=1,  # type: int
+    includeBounds=False,  # type: bool
+    excludeObservations=False,  # type: bool
+):
+    # type: (...) -> BasicDataset
+    """Queries aggregated data points for the specified historian.
+
+    Args:
+        paths: A list of historical paths to query aggregated data
+            points for.
+        startTime: A start time to query aggregated data points for.
+        endTime: An end time to query aggregated data points for.
+        aggregates: A list of aggregate functions to apply to the query.
+            Optional.
+        fillModes: A list of fill modes to apply to the query. Optional.
+        columnNames: A list of alias column names for the returned
+            dataset. Optional.
+        returnFormat: The desired return format for the query. Optional.
+        returnSize: The number maximum of results to return. Optional.
+        includeBounds: Whether to include the bounds in the query
+            results. Optional.
+        excludeObservations: Whether to exclude observed aggregated data
+            points in the query results. Optional.
+
+    Returns:
+        A dataset representing the aggregated points for the specified
+        historical paths.
+    """
+    print(
+        paths,
+        startTime,
+        endTime,
+        aggregates,
+        fillModes,
+        columnNames,
+        returnFormat,
+        returnSize,
+        includeBounds,
+        excludeObservations,
+    )
+    return BasicDataset()
 
 
 def queryAnnotations(
@@ -115,20 +147,47 @@ def queryMetadata(paths, startDate=None, endDate=None):
     return Results()
 
 
-def queryValues(definitions, filter):
-    # type: (List[Any], Any) -> BasicDataset
-    """Queries values for the specified Historian.
+def queryRawPoints(
+    paths,  # type: List[AnyStr]
+    startTime=None,  # type: Optional[Date]
+    endTime=None,  # type: Optional[Date]
+    columnNames=None,  # type: Optional[List[AnyStr]]
+    returnFormat="Wide",  # type: str
+    returnSize=-1,  # type: int
+    includeBounds=False,  # type: bool
+    excludeObservations=False,  # type: bool
+):
+    # type: (...) -> BasicDataset
+    """Queries raw data points for the specified Historian.
 
     Args:
-        definitions: A list of historical paths to query values for.
-        filter: Filters to include/exclude value data within the
-            returned query results, such as quality and timestamp.
+        paths: list A list of historical paths to query raw data points
+            for.
+        startTime: Date A start time to query raw data points for.
+        endTime: Date An end time to query raw data points for.
+        columnNames: A list of alias column names for the returned
+            dataset. Optional.
+        returnFormat: The desired return format for the query. Optional.
+        returnSize: The maximum number of results to return. Optional.
+        includeBounds: Whether to include the bounds in the query
+            results. Optional.
+        excludeObservations: Whether to exclude observed raw data points
+            in the query results. Optional.
 
     Returns:
-        A dataset representing the historian values for the specified
+        A dataset representing the raw data points for the specified
         historical paths.
     """
-    print(definitions, filter)
+    print(
+        paths,
+        startTime,
+        endTime,
+        columnNames,
+        returnFormat,
+        returnSize,
+        includeBounds,
+        excludeObservations,
+    )
     return BasicDataset()
 
 
