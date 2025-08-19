@@ -48,7 +48,6 @@ __all__ = [
     "TINYINT",
     "VARBINARY",
     "VARCHAR",
-    "addDatasource",
     "beginNamedQueryTransaction",
     "beginTransaction",
     "clearQueryCache",
@@ -61,14 +60,15 @@ __all__ = [
     "execUpdateAsync",
     "getConnectionInfo",
     "getConnections",
-    "removeDatasource",
     "rollbackTransaction",
+    "runNamedQuery",
     "runPrepQuery",
     "runPrepUpdate",
+    "runSFNamedQuery",
+    "runSFPrepUpdate",
+    "runSFUpdateQuery",
+    "runScalarPrepQuery",
     "runUpdateQuery",
-    "setDatasourceConnectURL",
-    "setDatasourceEnabled",
-    "setDatasourceMaxConnections",
 ]
 
 from typing import Any, Dict, List, Optional
@@ -127,48 +127,6 @@ READ_COMMITTED = 2
 READ_UNCOMMITTED = 1
 REPEATABLE_READ = 4
 SERIALIZABLE = 8
-
-
-def addDatasource(
-    jdbcDriver,  # type: AnyStr
-    name,  # type: AnyStr
-    description="",  # type: AnyStr
-    connectUrl=None,  # type: Optional[AnyStr]
-    username=None,  # type: Optional[AnyStr]
-    password=None,  # type: Optional[AnyStr]
-    props=None,  # type: Optional[AnyStr]
-    validationQuery=None,  # type: Optional[AnyStr]
-    maxConnections=8,  # type: int
-):
-    # type: (...) -> None
-    """Adds a new database connection in Ignition.
-
-    Args:
-        jdbcDriver: The name of the JDBC driver configuration to use.
-            Available options are based off the JDBC driver
-            configurations on the Gateway.
-        name: The datasource name.
-        description: Description of the datasource. Optional.
-        connectUrl: Default is the connect URL for JDBC driver.
-            Optional.
-        username: Username to login to the datasource with. Optional.
-        password: Password for the login. Optional.
-        props: The extra connection parameters. Optional.
-        validationQuery: Default is the validation query for the JDBC
-            driver. Optional.
-        maxConnections: Default is 8. Optional.
-    """
-    print(
-        jdbcDriver,
-        name,
-        description,
-        connectUrl,
-        username,
-        password,
-        props,
-        validationQuery,
-        maxConnections,
-    )
 
 
 def beginNamedQueryTransaction(*args, **kwargs):
@@ -475,16 +433,6 @@ def getConnections():
     return BasicDataset()
 
 
-def removeDatasource(name):
-    # type: (AnyStr) -> None
-    """Removes a database connection from Ignition.
-
-    Args:
-        name: The name of the database connection in Ignition.
-    """
-    print(name)
-
-
 def rollbackTransaction(tx):
     # type: (AnyStr) -> None
     """Performs a rollback on the given connection.
@@ -500,6 +448,34 @@ def rollbackTransaction(tx):
         tx: The transaction ID.
     """
     print(tx)
+
+
+def runNamedQuery(*args, **kwargs):
+    # type: (*Any, **Any) -> Any
+    """Runs a named query and returns the results.
+
+    Note that the number of parameters in the function is determined by
+    scope. Both versions of the function are listed below.
+
+    When calling from the Project Scope use:
+    system.db.runNamedQuery(path, parameters, [tx], [getKey])
+
+    When calling from the Gateway Scope use:
+    system.db.runNamedQuery(project, path, parameters, [tx], [getKey])
+
+    Args:
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
+
+    Returns:
+        The results of the query. The exact object returned depends on
+        the Query Type property of the Named Query: typically either a
+        dataset when set to Query, an integer representing the number of
+        rows affected when set to Update Query, or an object matching
+        the datatype of the value returned by a Scalar Query.
+    """
+    print(args, kwargs)
+    return True
 
 
 def runPrepQuery(
@@ -608,6 +584,110 @@ def runPrepUpdate(
     return 1
 
 
+def runSFNamedQuery(*args, **kwargs):
+    # type: (*Any, **Any) -> bool
+    """Runs a named query that goes through the Store and Forward
+    system.
+
+    Note that the number of parameters in the function is determined by
+    scope.
+
+    When calling from the Project Scope use:
+    system.db.runSFNamedQuery(path, params)
+
+    When calling from the Gateway Scope use:
+    system.db.runSFNamedQuery(project, path, params)
+
+    Args:
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
+
+    Returns:
+        True if successfully sent to the Store and Forward system.
+    """
+    print(args, kwargs)
+    return True
+
+
+def runSFPrepUpdate(query, args, datasources):
+    # type: (AnyStr, List[Any], List[AnyStr]) -> bool
+    """Runs a prepared statement query through the store and forward
+    system and to multiple datasources at the same time.
+
+    Prepared statements differ from regular queries in that they can use
+    a special placeholder, the question-mark character (?) in the query
+    where any dynamic arguments would go, and then use an array of
+    values to provide real information for those arguments. Make sure
+    that the length of your argument array matches the number of
+    question-mark placeholders in your query. This call should be used
+    for UPDATE, INSERT, and DELETE queries.
+
+    Args:
+        query: A query (typically an UPDATE, INSERT, or DELETE) to run
+            as a prepared statement, with placeholders (?) denoting
+            where the arguments go.
+        args: A list of arguments. Will be used in order to match each
+            placeholder (?) found in the query.
+        datasources: List of datasources to run the query through.
+
+    Returns:
+        True if successfully sent to Store and Forward system.
+    """
+    print(query, args, datasources)
+    return True
+
+
+def runSFUpdateQuery(query, datasources):
+    # type: (AnyStr, List[AnyStr]) -> bool
+    """Runs a query through the store and forward system and to multiple
+    datasources at the same time.
+
+    Args:
+        query: A query (typically an UPDATE, INSERT, or DELETE) to run.
+        datasources: List of datasources to run the query through.
+
+    Returns:
+        True if successful and False if not.
+    """
+    print(query, datasources)
+    return True
+
+
+def runScalarPrepQuery(
+    query,  # type: AnyStr
+    args,  # type: List[Any]
+    database="",  # type: AnyStr
+    tx=None,  # type: Optional[AnyStr]
+):
+    # type: (...) -> Any
+    """Runs a prepared statement against a database connection just like
+    the runPrepQuery function, but only returns the value from the first
+    row and column.
+
+    If no results are returned from the query, the special value None is
+    returned.
+
+    Args:
+        query: A SQL query (typically a SELECT) to run as a prepared
+            statement with placeholders (?) denoting where the arguments
+            go, that should be designed to return one row and one
+            column.
+        args: A list of arguments. Will be used in order to match each
+            placeholder (?) found in the query.
+        database: The name of the database connection to execute
+            against. If omitted or "", the project's default database
+            connection will be used. Optional.
+        tx: A transaction identifier. If omitted, the query will be
+            executed in its own transaction. Optional.
+
+    Returns:
+         The value from the first row and first column of the results.
+         Returns None if no rows were returned.
+    """
+    print(query, args, database, tx)
+    return 42
+
+
 def runUpdateQuery(
     query,  # type: AnyStr
     database="",  # type: AnyStr
@@ -652,38 +732,3 @@ def runUpdateQuery(
     """
     print(query, database, tx, getKey, skipAudit)
     return 1
-
-
-def setDatasourceConnectURL(name, connectUrl):
-    # type: (AnyStr, AnyStr) -> None
-    """Changes the connect URL for a given database connection.
-
-    Args:
-        name: The name of the database connection in Ignition.
-        connectUrl: The new connect URL.
-    """
-    print(name, connectUrl)
-
-
-def setDatasourceEnabled(name, enabled):
-    # type: (AnyStr, bool) -> None
-    """Enables/disables a given database connection.
-
-    Args:
-        name: The name of the database connection in Ignition.
-        enabled: Specifies whether the database connection will be set
-            to enabled or disabled state.
-    """
-    print(name, enabled)
-
-
-def setDatasourceMaxConnections(name, maxConnections):
-    # type: (AnyStr, int) -> None
-    """Sets the Max Active and Max Idle parameters of a given database
-    connection.
-
-    Ags:
-        name: The name of the database connection in Ignition.
-        maxConnections: The new value for Max Active and Max Idle.
-    """
-    print(name, maxConnections)
