@@ -120,7 +120,7 @@ Libraries for Java 32.0.1-jre API. For more information, see documentation here:
 
 This package includes supporting Inductive Automation's classes and interfaces.
 For more information, see documentation here:
-<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.0-beta4/index.html>.
+<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.0-rc1/index.html>.
 
 #### java/javax
 
@@ -148,11 +148,16 @@ This package includes supporting classes and interfaces from Apache POI 4.1.2
 API. For more information, see documentation here:
 <https://www.javadoc.io/doc/org.apache.poi/poi/4.1.2/index.html>
 
+#### org.joda.time
+This package includes supporting classes and interfaces from Joda Time 2.10.2,
+see documentation here:
+<https://javadoc.io/doc/joda-time/joda-time/2.10.2/org/joda/time/package-summary.html>
+
 #### org.json
 
 This package includes supporting classes and interfaces from the Inductive
 Automation's `org.json` package, see documentation here:
-<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.0-beta4/org/json/package-summary.html>
+<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.0-rc1/org/json/package-summary.html>
 
 #### org.python
 
