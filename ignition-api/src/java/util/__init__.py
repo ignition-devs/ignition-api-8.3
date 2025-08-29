@@ -21,6 +21,7 @@ __all__ = [
     "Dictionary",
     "Enumeration",
     "EventObject",
+    "GregorianCalendar",
     "HashMap",
     "Hashtable",
     "Iterator",
@@ -63,7 +64,7 @@ from java.util.function import (
 if TYPE_CHECKING:
     from java.io import InputStream, OutputStream
     from java.nio import ByteBuffer
-    from java.time import Instant, ZoneId
+    from java.time import Instant, ZonedDateTime, ZoneId
 
 
 class Collection(object):
@@ -865,7 +866,7 @@ class Calendar(Object):
 
     def add(self, field, amount):
         # type: (int, int) -> None
-        raise NotImplementedError
+        pass
 
     def after(self, when):
         # type: (Object) -> bool
@@ -927,7 +928,7 @@ class Calendar(Object):
 
     def getGreatestMinimum(self, field):
         # type: (int) -> int
-        raise NotImplementedError
+        pass
 
     @staticmethod
     def getInstance(*args):
@@ -936,11 +937,11 @@ class Calendar(Object):
 
     def getLeastMaximum(self, field):
         # type: (int) -> int
-        raise NotImplementedError
+        pass
 
     def getMaximum(self, field):
         # type: (int) -> int
-        raise NotImplementedError
+        pass
 
     def getMinimalDaysInFirstWeek(self):
         # type: () -> int
@@ -948,7 +949,7 @@ class Calendar(Object):
 
     def getMinimum(self, field):
         # type: (int) -> int
-        raise NotImplementedError
+        pass
 
     def getTime(self):
         # type: () -> Date
@@ -1020,6 +1021,32 @@ class Calendar(Object):
 
     def toInstant(self):
         # type: () -> Instant
+        pass
+
+
+class GregorianCalendar(Calendar):
+    AD = None  # type: int
+    BC = None  # type: int
+
+    def __init__(self, *args):
+        # type: (*Any) -> None
+        super(GregorianCalendar, self).__init__()
+        print(args)
+
+    def getGregorianChange(self):
+        # type: () -> Date
+        pass
+
+    def isLeapYear(self, year):
+        # type: (int) -> bool
+        return True
+
+    def setGregorianChange(self, date):
+        # type: (Date) -> None
+        pass
+
+    def toZonedDatetime(self):
+        # type: () -> ZonedDateTime
         pass
 
 
