@@ -103,11 +103,11 @@ This project consists of the following packages:
 - [javax](#javajavax)
 - org
   - [apache](#orgapache)
-  - bson
-  - joda
-  - json
+  - [bson](#orgbson)
+  - [joda.time](#orgjodatime)
+  - [json](#orgjson)
   - [python](#orgpython)
-  - slf4j
+  - [slf4j](#orgslf4j)
 - [system](#system)
 
 #### com.google
@@ -148,10 +148,15 @@ This package includes supporting classes and interfaces from Apache POI 4.1.2
 API. For more information, see documentation here:
 <https://www.javadoc.io/doc/org.apache.poi/poi/4.1.2/index.html>
 
+#### org.bson
+This package includes supporting classes and interfaces from Mongo Java driver
+4.8.1, see documentation here:
+<https://javadoc.io/doc/org.mongodb/bson/4.8.1/index.html>
+
 #### org.joda.time
 This package includes supporting classes and interfaces from Joda Time 2.10.2,
 see documentation here:
-<https://javadoc.io/doc/joda-time/joda-time/2.10.2/org/joda/time/package-summary.html>
+<https://javadoc.io/doc/joda-time/joda-time/2.10.2/overview-summary.html>
 
 #### org.json
 
