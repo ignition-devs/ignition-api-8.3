@@ -3,6 +3,26 @@ from typing import Optional, Union
 from dev.coatl.helper.types import AnyStr
 from java.util import Date, Locale
 
+APRIL: int
+AUGUST: int
+DECEMBER: int
+FEBRUARY: int
+JANUARY: int
+JULY: int
+JUNE: int
+MARCH: int
+MAY: int
+NOVEMBER: int
+OCTOBER: int
+SEPTEMBER: int
+FRIDAY: int
+MONDAY: int
+SATURDAY: int
+SUNDAY: int
+THURSDAY: int
+TUESDAY: int
+WEDNESDAY: int
+
 def addDays(date: Date, value: int) -> Date: ...
 def addHours(date: Date, value: int) -> Date: ...
 def addMillis(date: Date, value: int) -> Date: ...

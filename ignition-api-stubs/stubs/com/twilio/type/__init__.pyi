@@ -1,0 +1,6 @@
+from dev.coatl.helper.types import AnyStr
+from java.lang import Object
+
+class PhoneNumber(Object):
+    def __init__(self, number: AnyStr) -> None: ...
+    def getEndPoint(self) -> AnyStr: ...

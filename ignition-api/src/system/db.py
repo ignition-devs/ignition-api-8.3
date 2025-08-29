@@ -48,6 +48,7 @@ __all__ = [
     "TINYINT",
     "VARBINARY",
     "VARCHAR",
+    "addDatasource",
     "beginNamedQueryTransaction",
     "beginTransaction",
     "clearQueryCache",
@@ -56,10 +57,12 @@ __all__ = [
     "createSProcCall",
     "execQuery",
     "execSProcCall",
+    "execScalar",
     "execUpdate",
     "execUpdateAsync",
     "getConnectionInfo",
     "getConnections",
+    "removeDatasource",
     "rollbackTransaction",
     "runNamedQuery",
     "runPrepQuery",
@@ -78,7 +81,7 @@ from com.inductiveautomation.ignition.common.script.builtin import (
     DatasetUtilities,
     SProcCall,
 )
-from dev.coatl.helper.types import AnyStr
+from dev.coatl.helper.types import AnyNum, AnyStr
 
 # Type codes
 # These are codes defined by the JDBC specification.
@@ -127,6 +130,48 @@ READ_COMMITTED = 2
 READ_UNCOMMITTED = 1
 REPEATABLE_READ = 4
 SERIALIZABLE = 8
+
+
+def addDatasource(
+    jdbcDriver,  # type: AnyStr
+    name,  # type: AnyStr
+    description="",  # type: AnyStr
+    connectUrl=None,  # type: Optional[AnyStr]
+    username=None,  # type: Optional[AnyStr]
+    password=None,  # type: Optional[AnyStr]
+    props=None,  # type: Optional[AnyStr]
+    validationQuery=None,  # type: Optional[AnyStr]
+    maxConnections=8,  # type: int
+):
+    # type: (...) -> None
+    """Adds a new database connection in Ignition.
+
+    Args:
+        jdbcDriver: The name of the JDBC driver configuration to use.
+            Available options are based off the JDBC driver
+            configurations on the Gateway.
+        name: The datasource name.
+        description: Description of the datasource. Optional.
+        connectUrl: Default is the connect URL for JDBC driver.
+            Optional.
+        username: Username to login to the datasource with. Optional.
+        password: Password for the login. Optional.
+        props: The extra connection parameters. Optional.
+        validationQuery: Default is the validation query for the JDBC
+            driver. Optional.
+        maxConnections: Default is 8. Optional.
+    """
+    print(
+        jdbcDriver,
+        name,
+        description,
+        connectUrl,
+        username,
+        password,
+        props,
+        validationQuery,
+        maxConnections,
+    )
 
 
 def beginNamedQueryTransaction(*args, **kwargs):
@@ -336,6 +381,35 @@ def execSProcCall(callContext):
     print(callContext)
 
 
+def execScalar(
+    path,  # type: AnyStr
+    parameters=None,  # type: Optional[Dict[AnyStr, Any]]
+    tx=None,  # type: Optional[AnyStr]
+    project=None,  # type: Optional[AnyStr]
+):
+    # type: (...) -> Optional[AnyNum]
+    """Executes a scalar query from a named query resource.
+
+    Args:
+        path: The path of the named query.
+        parameters: AA dictionary supplying parameters for the query.
+            Optional.
+        tx: A transaction ID, obtained from beginNamedQueryTransaction.
+            If not specified, will not be part of a transaction.
+            Optional.
+        project: An optional project name that the query exists in.
+            When run in the Gateway scope, if project is not included,
+            either an associated project or the gateway scripting
+            project will be used. Optional.
+
+    Returns:
+        The scalar result of the query; either a single value or None
+        if no rows were returned.
+    """
+    print(path, parameters, tx, project)
+    return 42
+
+
 def execUpdate(
     path,  # type: AnyStr
     parameters=None,  # type: Optional[Dict[AnyStr, Any]]
@@ -431,6 +505,16 @@ def getConnections():
         A dataset, where each row represents a database connection.
     """
     return BasicDataset()
+
+
+def removeDatasource(name):
+    # type: (AnyStr) -> None
+    """Removes a database connection from Ignition.
+
+    Args:
+        name: The name of the database connection in Ignition.
+    """
+    print(name)
 
 
 def rollbackTransaction(tx):

@@ -6,6 +6,12 @@ The following functions give you access to read and write to files.
 from __future__ import print_function
 
 __all__ = [
+    "ISO8859_1",
+    "US_ASCII",
+    "UTF_16",
+    "UTF_16BE",
+    "UTF_16LE",
+    "UTF_8",
     "fileExists",
     "getTempFile",
     "readFileAsBytes",
@@ -19,6 +25,14 @@ import tempfile
 from typing import Any, Optional
 
 from dev.coatl.helper.types import AnyStr
+
+# Encoding Constants
+ISO8859_1 = "ISO-8859-1"
+US_ASCII = "US-ASCII"
+UTF_8 = "UTF-8"
+UTF_16 = "UTF-16"
+UTF_16BE = "UTF-16BE"
+UTF_16LE = "UTF-16LE"
 
 
 def fileExists(filepath):

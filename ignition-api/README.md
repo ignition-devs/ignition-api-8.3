@@ -96,7 +96,7 @@ This project consists of the following packages:
 
 - com
   - codahale
-  - google
+  - [google]
   - [inductiveautomation](#cominductiveautomation)
   - palantir
 - [java](#javajavax)
@@ -104,10 +104,17 @@ This project consists of the following packages:
 - org
   - [apache](#orgapache)
   - bson
+  - joda
   - json
   - [python](#orgpython)
   - slf4j
 - [system](#system)
+
+#### com.google
+
+This package includes supporting classes and interfaces from Guava: Google Core
+Libraries for Java 32.0.1-jre API. For more information, see documentation here:
+<https://javadoc.io/doc/com.google.guava/guava/32.0.1-jre/index.html>
 
 #### com.inductiveautomation
 

@@ -1,0 +1,13 @@
+from typing import Iterable
+
+from dev.coatl.helper.types import AnyStr
+from java.util import Locale
+from org.joda.time import DateTimeZone
+
+class NameProvider:
+    def getName(self, locale: Locale, id_: AnyStr, nameKey: AnyStr) -> AnyStr: ...
+    def getShortName(self, locale: Locale, id_: AnyStr, nameKey: AnyStr) -> AnyStr: ...
+
+class Provider:
+    def getAvailableIDs(self) -> Iterable[AnyStr]: ...
+    def getZone(self, id_: AnyStr) -> DateTimeZone: ...

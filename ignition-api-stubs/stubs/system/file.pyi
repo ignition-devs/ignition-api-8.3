@@ -2,6 +2,13 @@ from typing import Any, Optional
 
 from dev.coatl.helper.types import AnyStr
 
+ISO8859_1: str
+US_ASCII: str
+UTF_8: str
+UTF_16: str
+UTF_16BE: str
+UTF_16LE: str
+
 def fileExists(filepath: AnyStr) -> bool: ...
 def getTempFile(extension: AnyStr) -> AnyStr: ...
 def readFileAsBytes(filepath: AnyStr) -> Any: ...

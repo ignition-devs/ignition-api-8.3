@@ -5,7 +5,7 @@ from com.inductiveautomation.ignition.common.script.builtin import (
     DatasetUtilities,
     SProcCall,
 )
-from dev.coatl.helper.types import AnyStr
+from dev.coatl.helper.types import AnyNum, AnyStr
 
 BIT: int
 REAL: int
@@ -49,6 +49,17 @@ READ_UNCOMMITTED: int
 REPEATABLE_READ: int
 SERIALIZABLE: int
 
+def addDatasource(
+    jdbcDriver: AnyStr,
+    name: AnyStr,
+    description: AnyStr = ...,
+    connectUrl: Optional[AnyStr] = ...,
+    username: Optional[AnyStr] = ...,
+    password: Optional[AnyStr] = ...,
+    props: Optional[AnyStr] = ...,
+    validationQuery: Optional[AnyStr] = ...,
+    maxConnections: int = ...,
+) -> None: ...
 def beginNamedQueryTransaction(*args: Any, **kwargs: Any) -> AnyStr: ...
 def beginTransaction(
     database: Optional[AnyStr] = ...,
@@ -73,6 +84,12 @@ def execQuery(
     project: Optional[AnyStr] = ...,
 ) -> Any: ...
 def execSProcCall(callContext: SProcCall) -> None: ...
+def execScalar(
+    path: AnyStr,
+    parameters: Optional[Dict[AnyStr, Any]] = ...,
+    tx: Optional[AnyStr] = ...,
+    project: Optional[AnyStr] = ...,
+) -> Optional[AnyNum]: ...
 def execUpdate(
     path: AnyStr,
     parameters: Optional[Dict[AnyStr, Any]] = ...,
@@ -87,6 +104,7 @@ def execUpdateAsync(
 ) -> bool: ...
 def getConnectionInfo(name: Optional[AnyStr] = ...) -> BasicDataset: ...
 def getConnections() -> BasicDataset: ...
+def removeDatasource(name: AnyStr) -> None: ...
 def rollbackTransaction(tx: AnyStr) -> None: ...
 def runNamedQuery(*args: Any, **kwargs: Any) -> Any: ...
 def runPrepQuery(
