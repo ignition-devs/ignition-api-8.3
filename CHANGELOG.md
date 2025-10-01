@@ -1,3 +1,9 @@
+## 8.3.0.post1 (2025-10-01)
+
+### Feat
+
+- **system**: add dnp and bring back security (#15)
+
 ## 8.3.0 (2025-09-16)
 
 ## 8.3.0rc1 (2025-08-29)
