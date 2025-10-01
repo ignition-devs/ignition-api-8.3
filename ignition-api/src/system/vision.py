@@ -108,7 +108,6 @@ __all__ = [
     "transform",
     "unlockScreen",
     "updateProject",
-    "validateUser",
 ]
 
 import getpass
@@ -1700,24 +1699,3 @@ def updateProject():
     the Vision Client System Tag ProjectUpdateAvailable.
     """
     pass
-
-
-def validateUser(username, password, authProfile="", timeout=60000):
-    # type: (AnyStr, AnyStr, AnyStr, int) -> bool
-    """Tests credentials (username and password) against a user source.
-
-    Args:
-        username: The username to validate.
-        password: The password for the user.
-        authProfile: The name of the authentication profile to run
-            against. Leaving this out will use the project's default
-            profile. Optional.
-        timeout: Timeout for Client-to-Gateway communication. Default is
-            60,000ms. Optional.
-
-    Returns:
-        False if the user failed to authenticate, True if the
-        username/password was a valid combination.
-    """
-    print(username, password, authProfile, timeout)
-    return True
