@@ -64,14 +64,14 @@ __all__ = [
     "getConnections",
     "removeDatasource",
     "rollbackTransaction",
-    "runNamedQuery",
     "runPrepQuery",
     "runPrepUpdate",
-    "runSFNamedQuery",
     "runSFPrepUpdate",
-    "runSFUpdateQuery",
     "runScalarPrepQuery",
     "runUpdateQuery",
+    "setDatasourceConnectURL",
+    "setDatasourceEnabled",
+    "setDatasourceMaxConnections",
 ]
 
 from typing import Any, Dict, List, Optional
@@ -534,34 +534,6 @@ def rollbackTransaction(tx):
     print(tx)
 
 
-def runNamedQuery(*args, **kwargs):
-    # type: (*Any, **Any) -> Any
-    """Runs a named query and returns the results.
-
-    Note that the number of parameters in the function is determined by
-    scope. Both versions of the function are listed below.
-
-    When calling from the Project Scope use:
-    system.db.runNamedQuery(path, parameters, [tx], [getKey])
-
-    When calling from the Gateway Scope use:
-    system.db.runNamedQuery(project, path, parameters, [tx], [getKey])
-
-    Args:
-        *args: Variable length argument list.
-        **kwargs: Arbitrary keyword arguments.
-
-    Returns:
-        The results of the query. The exact object returned depends on
-        the Query Type property of the Named Query: typically either a
-        dataset when set to Query, an integer representing the number of
-        rows affected when set to Update Query, or an object matching
-        the datatype of the value returned by a Scalar Query.
-    """
-    print(args, kwargs)
-    return True
-
-
 def runPrepQuery(
     query,  # type: AnyStr
     args,  # type: List[Any]
@@ -668,31 +640,6 @@ def runPrepUpdate(
     return 1
 
 
-def runSFNamedQuery(*args, **kwargs):
-    # type: (*Any, **Any) -> bool
-    """Runs a named query that goes through the Store and Forward
-    system.
-
-    Note that the number of parameters in the function is determined by
-    scope.
-
-    When calling from the Project Scope use:
-    system.db.runSFNamedQuery(path, params)
-
-    When calling from the Gateway Scope use:
-    system.db.runSFNamedQuery(project, path, params)
-
-    Args:
-        *args: Variable length argument list.
-        **kwargs: Arbitrary keyword arguments.
-
-    Returns:
-        True if successfully sent to the Store and Forward system.
-    """
-    print(args, kwargs)
-    return True
-
-
 def runSFPrepUpdate(query, args, datasources):
     # type: (AnyStr, List[Any], List[AnyStr]) -> bool
     """Runs a prepared statement query through the store and forward
@@ -718,22 +665,6 @@ def runSFPrepUpdate(query, args, datasources):
         True if successfully sent to Store and Forward system.
     """
     print(query, args, datasources)
-    return True
-
-
-def runSFUpdateQuery(query, datasources):
-    # type: (AnyStr, List[AnyStr]) -> bool
-    """Runs a query through the store and forward system and to multiple
-    datasources at the same time.
-
-    Args:
-        query: A query (typically an UPDATE, INSERT, or DELETE) to run.
-        datasources: List of datasources to run the query through.
-
-    Returns:
-        True if successful and False if not.
-    """
-    print(query, datasources)
     return True
 
 
@@ -816,3 +747,38 @@ def runUpdateQuery(
     """
     print(query, database, tx, getKey, skipAudit)
     return 1
+
+
+def setDatasourceConnectURL(name, connectUrl):
+    # type: (AnyStr, AnyStr) -> None
+    """Changes the connect URL for a given database connection.
+
+    Args:
+        name: The name of the database connection in Ignition.
+        connectUrl: The new connect URL.
+    """
+    print(name, connectUrl)
+
+
+def setDatasourceEnabled(name, enabled):
+    # type: (AnyStr, bool) -> None
+    """Enables/disables a given database connection.
+
+    Args:
+        name: The name of the database connection in Ignition.
+        enabled: Specifies whether the database connection will be set
+            to enabled or disabled state.
+    """
+    print(name, enabled)
+
+
+def setDatasourceMaxConnections(name, maxConnections):
+    # type: (AnyStr, int) -> None
+    """Sets the Max Active and Max Idle parameters of a given database
+    connection.
+
+    Ags:
+        name: The name of the database connection in Ignition.
+        maxConnections: The new value for Max Active and Max Idle.
+    """
+    print(name, maxConnections)
