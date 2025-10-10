@@ -438,8 +438,6 @@ class PyDataset(AbstractJythonSequence, Dataset):
     class PyRow(AbstractJythonSequence):
         def __init__(self, dataset, row):
             # type: (PyDataset, int) -> None
-            self.dataset = dataset
-            self.row = row
             super(PyDataset.PyRow, self).__init__(Class())
 
     def __init__(self, ds=None):
