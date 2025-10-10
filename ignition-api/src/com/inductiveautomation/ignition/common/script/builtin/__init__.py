@@ -1,6 +1,12 @@
 from __future__ import print_function
 
-__all__ = ["AbstractOPCUtilities", "DatasetUtilities", "SProcCall", "SystemUtilities"]
+__all__ = [
+    "AbstractOPCUtilities",
+    "DatasetUtilities",
+    "PyDataset",
+    "SProcCall",
+    "SystemUtilities",
+]
 
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -38,10 +44,6 @@ class AbstractOPCUtilities(Object):
             self.displayName = displayName
             self.elementType = elementType
             super(AbstractOPCUtilities.PyOPCTag, self).__init__()
-
-        def __findattr_ex__(self, name):
-            # type: (AnyStr) -> PyObject
-            pass
 
         def getDisplayName(self):
             # type: () -> AnyStr
@@ -100,7 +102,7 @@ class AbstractOPCUtilities(Object):
 
 class DatasetUtilities(Object):
 
-    class PyDataSet(Dataset, AbstractJythonSequence):
+    class PyDataSet(AbstractJythonSequence, Dataset):
         def __init__(self, ds=None):
             # type: (Optional[Dataset]) -> None
             print(ds)
@@ -276,10 +278,6 @@ class DatasetUtilities(Object):
             """Used for serialization only."""
             pass
 
-        def __add__(self, other):
-            # type: (PyObject) -> PyObject
-            pass
-
     @staticmethod
     def addColumn(ds, *args):
         # type: (Dataset, *Any) -> Dataset
@@ -434,6 +432,180 @@ class DatasetUtilities(Object):
     def updateRow(ds, row, changes):
         # type: (Dataset, int, Dict[AnyStr, Any]) -> Dataset
         pass
+
+
+class PyDataset(AbstractJythonSequence, Dataset):
+    class PyRow(AbstractJythonSequence):
+        def __init__(self, dataset, row):
+            # type: (PyDataset, int) -> None
+            self.dataset = dataset
+            self.row = row
+            super(PyDataset.PyRow, self).__init__(Class())
+
+    def __init__(self, ds=None):
+        # type: (Optional[Dataset]) -> None
+        print(ds)
+        super(PyDataset, self).__init__(Class())
+
+    def getColumnCount(self):
+        # type: () -> int
+        """Returns the number of columns in the dataset.
+
+        Returns:
+            The number of columns in the dataset.
+        """
+        pass
+
+    def getColumnIndex(self, colName):
+        # type: (AnyStr) -> int
+        """Returns the index of the column with the name colName.
+
+        Args:
+            colName: The name of the column.
+
+        Returns:
+            The index of the column with the name colName.
+
+        Raises:
+            ArrayIndexOutOfBoundsException: If the column isn't
+                found.
+        """
+        if not colName:
+            raise ArrayIndexOutOfBoundsException()
+        return 0
+
+    def getColumnName(self, col):
+        # type: (int) -> AnyStr
+        """Returns the name of the column at the index colIndex.
+
+        Args:
+            col: The column number. Zero-indexed.
+
+        Returns:
+            The name of the column at the index colIndex.
+
+        Raises:
+            ArrayIndexOutOfBoundsException: If the given index is
+                out of range.
+        """
+        if col == -1:
+            raise ArrayIndexOutOfBoundsException()
+        return "column_name"
+
+    def getColumnNames(self):
+        # type: () -> List[AnyStr]
+        """Returns a list with the names of all the columns.
+
+        Returns:
+            A list with the names of all the columns.
+        """
+        pass
+
+    def getColumnType(self, col):
+        # type: (int) -> Class
+        """Returns the type of the column at the index.
+
+        Args:
+            col: The column number. Zero-indexed.
+
+        Returns:
+            The type of the column at the index.
+
+        Raises:
+            ArrayIndexOutOfBoundsException: If the given index is
+                out of range.
+        """
+        if col == -1:
+            raise ArrayIndexOutOfBoundsException()
+        return Class()
+
+    def getColumnTypes(self):
+        # type: () -> List[Class]
+        """Returns an unmodifiable list of this dataset's column types,
+        in order.
+
+        Returns:
+            A list with the types of all the columns.
+        """
+        pass
+
+    def getPrimitiveValueAt(self, row, col):
+        # type: (int, int) -> float
+        """If the given column is a numeric type or a Date, then the
+        value will be returned as a double.
+
+        Args:
+            row: The row index. Zero-based index.
+            col: The column index. Zero-based index.
+
+        Returns:
+            If the given column is a numeric type or a Date, then
+                the value will be returned as a double.
+
+        Raises:
+            IllegalArgumentException: if the value at row, col is
+                not a number or Date.
+            UnsupportedOperationException: If the Dataset
+                implementation declines to implement this operation.
+        """
+        if row == 0 and col == 0:
+            raise IllegalArgumentException()
+        if row == -1 and col == -1:
+            raise UnsupportedOperationException()
+        return 42.0
+
+    def getQualityAt(self, row, col):
+        # type: (int, int) -> QualityCode
+        """Returns the quality of the value at the given location.
+
+        Args:
+            row: The row index. Zero-based index.
+            col: The column index. Zero-based index.
+
+        Returns:
+            The quality of the value at the given location.
+
+        Raises:
+            ArrayIndexOutOfBoundsException: If the column isn't
+                found.
+        """
+        if row == -1 and col == -1:
+            raise ArrayIndexOutOfBoundsException()
+        return QualityCode().Good
+
+    def getRowCount(self):
+        # type: () -> int
+        """Returns the number of rows in the dataset.
+
+        Returns:
+            The number of rows in the dataset.
+        """
+        pass
+
+    def getUnderlyingDataset(self):
+        # type: () -> Dataset
+        return Dataset()
+
+    def getValueAt(self, row, col):
+        # type: (int, Union[int, AnyStr]) -> Any
+        """Returns the value at the specified row index and column name
+        or index.
+
+        Args:
+            row: The row number. Zero-indexed.
+            col: The column number (zero-indexed) or name.
+
+        Returns:
+            The value found at the row and column.
+
+        Raises:
+            ArrayIndexOutOfBoundsException: If the column isn't
+                found.
+        """
+        if row == 0 and col == 0:
+            raise ArrayIndexOutOfBoundsException()
+        print(row, col)
+        return True
 
 
 class SProcCall(Object):
