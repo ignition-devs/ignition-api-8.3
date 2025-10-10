@@ -1,4 +1,4 @@
-from typing import Any, Iterable, List, Optional, Set, Union
+from typing import Any, Iterable, Iterator, List, Optional, Set, Union
 
 from com.inductiveautomation.ignition.common.document import DocumentElement
 from com.inductiveautomation.ignition.common.gson import Gson, JsonElement
@@ -23,6 +23,7 @@ class Dataset:
     def getRowCount(self) -> int: ...
     def getValueAt(self, row: int, col: Union[int, AnyStr]) -> Any: ...
     def hasQualityData(self) -> bool: ...
+    def __iter__(self) -> Iterator[Any]: ...
 
 class AbstractDataset(Dataset):
     def __init__(
