@@ -18,7 +18,7 @@ on:
 
 jobs:
   tox-ignition-api:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@vcoatl
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@coatl
     with:
       working-directory: ignition-api
 
