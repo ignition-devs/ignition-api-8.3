@@ -1,3 +1,13 @@
+## 8.3.1 (2025-10-22)
+
+### Feat
+
+- **system**: add dnp and bring back security (#15)
+
+### Refactor
+
+- **ia**: add PyDataset and make Dataset iterable (#18)
+
 ## 8.3.0.post2 (2025-10-10)
 
 ### Feat
