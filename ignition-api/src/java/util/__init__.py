@@ -16,6 +16,7 @@ __all__ = [
     "Calendar",
     "Collection",
     "Comparator",
+    "ConcurrentModificationException",
     "Currency",
     "Date",
     "Dictionary",
@@ -49,7 +50,7 @@ from typing import (
 
 from dev.coatl.helper.types import AnyStr
 from dev.coatl.utils.decorators import classproperty
-from java.lang import Class, Object
+from java.lang import Class, Object, RuntimeException, Throwable
 from java.util.function import (
     BiFunction,
     Consumer,
@@ -1024,30 +1025,10 @@ class Calendar(Object):
         pass
 
 
-class GregorianCalendar(Calendar):
-    AD = None  # type: int
-    BC = None  # type: int
-
-    def __init__(self, *args):
-        # type: (*Any) -> None
-        super(GregorianCalendar, self).__init__()
-        print(args)
-
-    def getGregorianChange(self):
-        # type: () -> Date
-        pass
-
-    def isLeapYear(self, year):
-        # type: (int) -> bool
-        return True
-
-    def setGregorianChange(self, date):
-        # type: (Date) -> None
-        pass
-
-    def toZonedDatetime(self):
-        # type: () -> ZonedDateTime
-        pass
+class ConcurrentModificationException(RuntimeException):
+    def __init__(self, message=None, cause=None):
+        # type: (Optional[str], Optional[Throwable]) -> None
+        super(ConcurrentModificationException, self).__init__(message, cause)
 
 
 class Currency(Object):
@@ -1166,6 +1147,32 @@ class EventObject(Object):
     def getSource(self):
         # type: () -> Object
         return self._source
+
+
+class GregorianCalendar(Calendar):
+    AD = None  # type: int
+    BC = None  # type: int
+
+    def __init__(self, *args):
+        # type: (*Any) -> None
+        super(GregorianCalendar, self).__init__()
+        print(args)
+
+    def getGregorianChange(self):
+        # type: () -> Date
+        pass
+
+    def isLeapYear(self, year):
+        # type: (int) -> bool
+        return True
+
+    def setGregorianChange(self, date):
+        # type: (Date) -> None
+        pass
+
+    def toZonedDatetime(self):
+        # type: () -> ZonedDateTime
+        pass
 
 
 class HashMap(AbstractMap, Map):
