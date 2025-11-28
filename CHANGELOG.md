@@ -1,3 +1,9 @@
+## 8.3.1.post1 (2025-11-27)
+
+### Refactor
+
+- **java**: add exception classes to java.nio.file (#23)
+
 ## 8.3.1 (2025-10-22)
 
 ### Feat
