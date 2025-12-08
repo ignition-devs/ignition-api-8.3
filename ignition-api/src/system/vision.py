@@ -114,14 +114,6 @@ import getpass
 import os
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
-from com.inductiveautomation.factorypmi.application import FPMIWindow
-from com.inductiveautomation.factorypmi.application.script.builtin import (
-    ClientPrintUtilities,
-    VisionUtilities,
-)
-from com.inductiveautomation.ignition.common import Dataset
-from com.inductiveautomation.ignition.common.i18n.keyboard import KeyboardLayout
-from dev.coatl.helper.types import AnyNum, AnyStr
 from java.awt import Color, Component, Toolkit
 from java.awt.image import BufferedImage
 from java.lang import IllegalArgumentException
@@ -136,6 +128,14 @@ from javax.swing import (
     JPopupMenu,
     JTextField,
 )
+
+from com.inductiveautomation.factorypmi.application import FPMIWindow
+from com.inductiveautomation.factorypmi.application.script.builtin import (
+    ClientPrintUtilities,
+    VisionUtilities,
+)
+from com.inductiveautomation.ignition.common import Dataset
+from com.inductiveautomation.ignition.common.i18n.keyboard import KeyboardLayout
 
 # GUI constants
 ACCL_NONE = 0
@@ -173,7 +173,7 @@ def beep():
 
 
 def centerWindow(arg):
-    # type: (Union[AnyStr, FPMIWindow]) -> None
+    # type: (Union[str, unicode, FPMIWindow]) -> None
     """Given a window path, or a reference to a window itself, it will
     center the window.
 
@@ -188,7 +188,7 @@ def centerWindow(arg):
 
 
 def closeDesktop(handle):
-    # type: (AnyStr) -> None
+    # type: (Union[str, unicode]) -> None
     """Allows you to close any of the open desktops associated with the
     current client.
 
@@ -214,7 +214,7 @@ def closeParentWindow(event):
 
 
 def closeWindow(arg):
-    # type: (Union[AnyStr, FPMIWindow]) -> None
+    # type: (Union[str, unicode, FPMIWindow]) -> None
     """Given a window path, or a reference to a window itself, it will
     close the window.
 
@@ -259,8 +259,11 @@ def createImage(component):
     return ClientPrintUtilities("app").createImage(component)
 
 
-def createPopupMenu(itemNames, itemFunctions):
-    # type: (List[AnyStr], List[Callable[..., Any]]) -> JPopupMenu
+def createPopupMenu(
+    itemNames,  # type: List[Union[str, unicode]]
+    itemFunctions,  # type: List[Callable[..., Any]]
+):
+    # type: (...) -> JPopupMenu
     """Creates a new popup menu, which can then be shown over a
     component on a mouse event.
 
@@ -296,7 +299,7 @@ def createPrintJob(component):
 
 
 def desktop(handle="primary"):
-    # type: (Optional[AnyStr]) -> VisionUtilities
+    # type: (Union[str, unicode, None]) -> VisionUtilities
     """Allows for invoking system.vision functions on a specific
     desktop.
 
@@ -332,7 +335,7 @@ def exit(force=False):
 
 
 def exportCSV(filename, showHeaders, dataset):
-    # type: (AnyStr, bool, Dataset) -> AnyStr
+    # type: (Union[str, unicode], bool, Dataset) -> Union[str, unicode]
     """Exports the contents of a dataset as a CSV file, prompting the
     user to save the file to disk.
 
@@ -354,12 +357,12 @@ def exportCSV(filename, showHeaders, dataset):
 
 
 def exportExcel(
-    filename,  # type: AnyStr
+    filename,  # type: Union[str, unicode]
     showHeaders,  # type: bool
     dataset,  # type: Union[Dataset, List[Dataset]]
     nullsEmpty=False,  # type: bool
 ):
-    # type: (...) -> AnyStr
+    # type: (...) -> Union[str, unicode]
     """Exports the contents of a dataset as an Excel spreadsheet,
     prompting the user to save the file to disk.
 
@@ -387,8 +390,13 @@ def exportExcel(
     return os.path.expanduser("~")
 
 
-def exportHTML(filename, showHeaders, dataset, title):
-    # type: (AnyStr, bool, Dataset, AnyStr) -> AnyStr
+def exportHTML(
+    filename,  # type: Union[str, unicode]
+    showHeaders,  # type: bool
+    dataset,  # type: Dataset
+    title,  # type: Union[str, unicode]
+):
+    # type: (...) -> Union[str, unicode]
     """Exports the contents of a dataset to an HTML page.
 
     Prompts the user to save the file to disk.
@@ -409,7 +417,7 @@ def exportHTML(filename, showHeaders, dataset, title):
 
 
 def findWindow(path):
-    # type: (AnyStr) -> List[FPMIWindow]
+    # type: (Union[str, unicode]) -> List[FPMIWindow]
     """Finds and returns a list of windows with the given path.
 
     If the window is not open, an empty list will be returned. Useful
@@ -428,7 +436,7 @@ def findWindow(path):
 
 
 def getAvailableLocales():
-    # type: () -> List[AnyStr]
+    # type: () -> List[Union[str, unicode]]
     """Returns a collection of strings representing the Locales added to
     the Translation Manager, such as 'en' for English.
 
@@ -440,7 +448,7 @@ def getAvailableLocales():
 
 
 def getAvailableTerms():
-    # type: () -> List[AnyStr]
+    # type: () -> List[Union[str, unicode]]
     """Returns a collection of available terms defined in the
     translation system.
 
@@ -495,7 +503,7 @@ def getConnectionMode():
 
 
 def getCurrentDesktop():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the handle of the desktop this function was called from.
 
     Commonly used with the system.gui.desktop and system.nav.desktop
@@ -508,7 +516,7 @@ def getCurrentDesktop():
 
 
 def getCurrentWindow():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the path of the current "main screen" window, which is
     defined as the maximized window.
 
@@ -523,7 +531,7 @@ def getCurrentWindow():
 
 
 def getDesktopHandles():
-    # type: () -> List[AnyStr]
+    # type: () -> List[Union[str, unicode]]
     """Gets a list of all secondary handles of the open desktops
     associated with the current client.
 
@@ -542,7 +550,7 @@ def getDesktopHandles():
 
 
 def getEdition():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the "edition" of the Vision Client - "standard",
     "limited", or "panel".
 
@@ -553,7 +561,7 @@ def getEdition():
 
 
 def getExternalIpAddress():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the client's IP address, as it is detected by the
     Gateway.
 
@@ -621,7 +629,7 @@ def getKeyboardLayouts():
 
 
 def getLocale():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the current string representing the user's Locale, such
     as 'en' for English.
 
@@ -632,7 +640,7 @@ def getLocale():
 
 
 def getOpenedWindowNames():
-    # type: () -> Tuple[AnyStr, ...]
+    # type: () -> Tuple[Union[str, unicode], ...]
     """Finds all of the currently open windows and returns a tuple of
     their paths.
 
@@ -686,7 +694,7 @@ def getReadTimeout():
 
 
 def getRoles():
-    # type: () -> Tuple[AnyStr, ...]
+    # type: () -> Tuple[Union[str, unicode], ...]
     """Finds the roles that the currently logged in user has, returns
     them as a Python tuple of strings.
 
@@ -710,7 +718,7 @@ def getScreenIndex():
 
 
 def getScreens():
-    # type: () -> List[Tuple[AnyStr, int, int]]
+    # type: () -> List[Tuple[Union[str, unicode], int, int]]
     """Get a list of all the monitors on the computer this client is
     open on.
 
@@ -724,7 +732,7 @@ def getScreens():
 
 
 def getSibling(event, name):
-    # type: (EventObject, AnyStr) -> FPMIWindow
+    # type: (EventObject, Union[str, unicode]) -> FPMIWindow
     """Given a component event object, looks up a sibling component.
 
     Shortcut for event.source.parent.getComponent("siblingName"). If no
@@ -764,7 +772,7 @@ def getSystemFlags():
 
 
 def getUsername():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the currently logged-in username.
 
     Returns:
@@ -774,7 +782,7 @@ def getUsername():
 
 
 def getWindow(name):
-    # type: (AnyStr) -> FPMIWindow
+    # type: (Union[str, unicode]) -> FPMIWindow
     """Finds a reference to an open window with the given name.
 
     Throws a ValueError if the named window is not open or not found.
@@ -790,7 +798,7 @@ def getWindow(name):
 
 
 def getWindowNames():
-    # type: () -> Tuple[AnyStr, ...]
+    # type: () -> Tuple[Union[str, unicode], ...]
     """Returns a list of the paths of all windows in the current
     project, sorted alphabetically.
 
@@ -918,13 +926,13 @@ def logout():
 
 def openDesktop(
     screen=0,  # type: int
-    handle=None,  # type: Optional[AnyStr]
-    title=None,  # type: Optional[AnyStr]
+    handle=None,  # type: Union[str, unicode, None]
+    title=None,  # type: Union[str, unicode, None]
     width=None,  # type: Optional[int]
     height=None,  # type: Optional[int]
     x=0,  # type: int
     y=0,  # type: int
-    windows=None,  # type: Optional[List[AnyStr]]
+    windows=None,  # type: Optional[List[Union[str, unicode]]]
 ):
     # type: (...) -> JFrame
     """Creates an additional Desktop in a new frame.
@@ -958,8 +966,11 @@ def openDesktop(
     return JFrame()
 
 
-def openFile(extension=None, defaultLocation=None):
-    # type: (Optional[AnyStr], Optional[AnyStr]) -> Optional[AnyStr]
+def openFile(
+    extension=None,  # type: Union[str, unicode, None]
+    defaultLocation=None,  # type: Union[str, unicode, None]
+):
+    # type: (...) -> Union[str, unicode, None]
     r"""Shows an "Open File" dialog box, prompting the user to choose a
     file to open.
 
@@ -981,10 +992,10 @@ def openFile(extension=None, defaultLocation=None):
 
 
 def openFiles(
-    extension=None,  # type: Optional[AnyStr]
-    defaultLocation=None,  # type: Optional[AnyStr]
+    extension=None,  # type: Union[str, unicode, None]
+    defaultLocation=None,  # type: Union[str, unicode, None]
 ):
-    # type: (...) -> Optional[List[AnyStr]]
+    # type: (...) -> Optional[List[Union[str, unicode]]]
     r"""Shows an "Open File" dialog box, prompting the user to choose a
     file or files to open.
 
@@ -1006,7 +1017,7 @@ def openFiles(
 
 
 def openURL(url, useApplet=False):
-    # type: (AnyStr, Optional[bool]) -> None
+    # type: (Union[str, unicode], Optional[bool]) -> None
     """Opens the given URL or URI scheme outside of the currently
     running Client in whatever application the host operating system
     deems appropriate.
@@ -1020,8 +1031,11 @@ def openURL(url, useApplet=False):
     print(url, useApplet)
 
 
-def openWindow(path, params=None):
-    # type: (AnyStr, Optional[Dict[AnyStr, Any]]) -> FPMIWindow
+def openWindow(
+    path,  # type: Union[str, unicode]
+    params=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+):
+    # type: (...) -> FPMIWindow
     """Opens the window with the given path.
 
     If the window is already open, brings it to the front. The optional
@@ -1042,8 +1056,11 @@ def openWindow(path, params=None):
     return FPMIWindow("Opened Window")
 
 
-def openWindowInstance(path, params=None):
-    # type: (AnyStr, Optional[Dict[AnyStr, Any]]) -> FPMIWindow
+def openWindowInstance(
+    path,  # type: Union[str, unicode]
+    params=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+):
+    # type: (...) -> FPMIWindow
     """Operates exactly like system.nav.openWindow, except that if the
     named window is already open, then an additional instance of the
     window will be opened.
@@ -1088,7 +1105,7 @@ def playSoundClip(wav, volume=1.0, wait=False):
 
 
 def printToImage(component, filename=None):
-    # type: (Component, Optional[AnyStr]) -> None
+    # type: (Component, Union[str, unicode, None]) -> None
     """This function prints the given component (such as a graph,
     container, entire window, etc.) to an image file, and saves the file
     where ever the operating system deems appropriate.
@@ -1108,7 +1125,7 @@ def printToImage(component, filename=None):
 
 
 def refreshBinding(component, propertyName):
-    # type: (JComponent, AnyStr) -> bool
+    # type: (JComponent, Union[str, unicode]) -> bool
     """This function will cause a Vision component binding to execute
     immediately.
 
@@ -1140,10 +1157,10 @@ def refreshBinding(component, propertyName):
 
 
 def retarget(
-    project,  # type: AnyStr
-    addresses=None,  # type: Optional[Union[AnyStr, List[AnyStr]]]
-    params=None,  # type: Optional[Dict[AnyStr, Any]]
-    windows=None,  # type: Optional[List[AnyStr]]
+    project,  # type: Union[str, unicode]
+    addresses=None,  # type: Optional[Union[str, unicode, List[Union[str, unicode]]]]
+    params=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    windows=None,  # type: Optional[List[Union[str, unicode]]]
 ):
     # type: (...) -> None
     """This function allows you to programmatically 'retarget' the
@@ -1188,11 +1205,11 @@ def retarget(
 
 
 def saveFile(
-    filename,  # type: AnyStr
-    extension=None,  # type: Optional[AnyStr]
-    typeDesc=None,  # type: Optional[AnyStr]
+    filename,  # type: Union[str, unicode]
+    extension=None,  # type: Union[str, unicode, None]
+    typeDesc=None,  # type: Union[str, unicode, None]
 ):
-    # type: (...) -> Optional[AnyStr]
+    # type: (...) -> Union[str, unicode, None]
     """Prompts the user to save a new file named filename.
 
     The optional extension and typeDesc arguments can be added to be
@@ -1247,7 +1264,7 @@ def setConnectionMode(mode):
 
 
 def setLocale(locale):
-    # type: (Union[AnyStr, Locale]) -> None
+    # type: (Union[str, unicode, Locale]) -> None
     """Sets the user's current Locale.
 
     Any valid Java locale code (case-insensitive) can be used as a
@@ -1314,7 +1331,7 @@ def setScreenIndex(index):
 
 
 def showColorInput(initialColor, dialogTitle="Choose Color"):
-    # type: (Color, AnyStr) -> Color
+    # type: (Color, Union[str, unicode]) -> Color
     """Prompts the user to pick a color using the default color-chooser
     dialog box.
 
@@ -1331,8 +1348,12 @@ def showColorInput(initialColor, dialogTitle="Choose Color"):
     return Color()
 
 
-def showConfirm(message, title="Confirm", allowCancel=False):
-    # type: (AnyStr, AnyStr, bool) -> Optional[bool]
+def showConfirm(
+    message,  # type: Union[str, unicode]
+    title="Confirm",  # type: Union[str, unicode]
+    allowCancel=False,  # type: bool
+):
+    # type: (...) -> Optional[bool]
     """Displays a confirmation dialog box to the user with "Yes", "No"
     options, and a custom message.
 
@@ -1382,7 +1403,7 @@ def showDiagnostics():
 
 
 def showError(message, title="Error"):
-    # type: (AnyStr, AnyStr) -> None
+    # type: (Union[str, unicode], Union[str, unicode]) -> None
     """Displays an error-style message box to the user.
 
     Args:
@@ -1392,8 +1413,11 @@ def showError(message, title="Error"):
     JOptionPane.showMessageDialog(None, message, title, JOptionPane.ERROR_MESSAGE)
 
 
-def showInput(message, defaultText=""):
-    # type: (AnyStr, AnyStr) -> Optional[AnyStr]
+def showInput(
+    message,  # type: Union[str, unicode]
+    defaultText="",  # type: Union[str, unicode]
+):
+    # type: (...) -> Union[str, unicode, None]
     """Opens up a popup input dialog box.
 
     This dialog box will show a prompt message, and allow the user to
@@ -1435,7 +1459,7 @@ def showInput(message, defaultText=""):
 
 
 def showMessage(message, title="Information"):
-    # type: (AnyStr, AnyStr) -> None
+    # type: (Union[str, unicode], Union[str, unicode]) -> None
     """Displays an informational-style message popup box to the user.
 
     Args:
@@ -1446,11 +1470,11 @@ def showMessage(message, title="Information"):
 
 
 def showNumericKeypad(
-    initialValue,  # type: AnyNum
+    initialValue,  # type: Union[float, int, long]
     fontSize=None,  # type: Optional[int]
     usePasswordMode=False,  # type: bool
 ):
-    # type: (...) -> AnyNum
+    # type: (...) -> Union[float, int, long]
     """Displays a modal on-screen numeric keypad, allowing for arbitrary
     numeric entry using the mouse, or a finger on a touchscreen monitor.
 
@@ -1469,11 +1493,11 @@ def showNumericKeypad(
 
 
 def showPasswordInput(
-    message,  # type:AnyStr
-    title="Password",  # type: AnyStr
-    echoChar="*",  # type: AnyStr
+    message,  # type:Union[str, unicode]
+    title="Password",  # type: Union[str, unicode]
+    echoChar="*",  # type: Union[str, unicode]
 ):
-    # type: (...) -> Optional[AnyStr]
+    # type: (...) -> Union[str, unicode, None]
     """Pops up a special input box that uses a password field, so the
     text isn't echoed back in clear-text to the user.
 
@@ -1494,8 +1518,12 @@ def showPasswordInput(
     return "password"
 
 
-def showTouchscreenKeyboard(initialText, fontSize=None, passwordMode=False):
-    # type: (AnyStr, Optional[int], Optional[bool]) -> AnyStr
+def showTouchscreenKeyboard(
+    initialText,  # type: Union[str, unicode]
+    fontSize=None,  # type: Optional[int]
+    passwordMode=False,  # type: bool
+):
+    # type: (...) -> Union[str, unicode]
     """Displays a modal on-screen keyboard, allowing for arbitrary text
     entry using the mouse, or a finger on a touchscreen monitor.
 
@@ -1515,7 +1543,7 @@ def showTouchscreenKeyboard(initialText, fontSize=None, passwordMode=False):
 
 
 def showWarning(message, title="Warning"):
-    # type: (AnyStr, AnyStr) -> None
+    # type: (Union[str, unicode], Union[str, unicode]) -> None
     """Displays a message to the user in a warning style popup dialog.
 
     Args:
@@ -1526,8 +1554,11 @@ def showWarning(message, title="Warning"):
     JOptionPane.showMessageDialog(None, message, title, JOptionPane.WARNING_MESSAGE)
 
 
-def swapTo(path, params=None):
-    # type: (AnyStr, Optional[Dict[AnyStr, Any]]) -> FPMIWindow
+def swapTo(
+    path,  # type: Union[str, unicode]
+    params=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+):
+    # type: (...) -> FPMIWindow
     """Performs a window swap from the current main screen window to the
     window specified.
 
@@ -1552,9 +1583,9 @@ def swapTo(path, params=None):
 
 
 def swapWindow(
-    arg,  # type: Union[AnyStr, EventObject]
-    swapToPath,  # type: AnyStr
-    params=None,  # type: Optional[Dict[AnyStr, Any]]
+    arg,  # type: Union[str, unicode, EventObject]
+    swapToPath,  # type: Union[str, unicode]
+    params=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
     # type: (...) -> FPMIWindow
     """Performs a window swap.
@@ -1585,8 +1616,13 @@ def swapWindow(
     return FPMIWindow("Swapped To")
 
 
-def switchUser(username, password, event, hideError=False):
-    # type: (AnyStr, AnyStr, EventObject, bool) -> bool
+def switchUser(
+    username,  # type: Union[str, unicode]
+    password,  # type: Union[str, unicode]
+    event,  # type: EventObject
+    hideError=False,  # type: bool
+):
+    # type: (...) -> bool
     """Attempts to switch the current user on the fly.
 
     If the given username and password fail, this function will return

@@ -2,14 +2,14 @@ from __future__ import print_function
 
 __all__ = ["ScriptFunction", "ScriptManager"]
 
-from typing import Any, List, Mapping, Optional, Set
+from typing import Any, List, Mapping, Set, Union
 
-from com.codahale.metrics import Timer
-from com.inductiveautomation.ignition.common.script.hints import ScriptFunctionHint
-from dev.coatl.helper.types import AnyStr
 from java.io import OutputStream
 from java.lang import Class, Object
 from java.util import UUID
+
+from com.codahale.metrics import Timer
+from com.inductiveautomation.ignition.common.script.hints import ScriptFunctionHint
 from org.python.core import PyObject, PyStringMap, PySystemState
 
 
@@ -22,17 +22,17 @@ class ScriptFunction(object):
 class ScriptManager(Object):
 
     class ExecutionInfo(Object):
-        description = None  # type: AnyStr
+        description = None  # type: Union[str, unicode]
         startTime = None  # type: long
         threadId = None  # type: long
 
     def __init__(self, contextName, pathToExternalLibs):
-        # type: (AnyStr, AnyStr) -> None
+        # type: (Union[str, unicode], Union[str, unicode]) -> None
         super(ScriptManager, self).__init__()
         print(contextName, pathToExternalLibs)
 
     def addGlobalVariable(self, name, value):
-        # type: (AnyStr, PyObject) -> None
+        # type: (Union[str, unicode], PyObject) -> None
         pass
 
     def addScriptModule(self, *args):
@@ -40,7 +40,7 @@ class ScriptManager(Object):
         pass
 
     def addStaticFields(self, path, clazz):
-        # type: (AnyStr, Class) -> None
+        # type: (Union[str, unicode], Class) -> None
         pass
 
     def addStdErrStream(self, os):
@@ -53,7 +53,7 @@ class ScriptManager(Object):
 
     @staticmethod
     def asynchInit(pathToExternalLibs=None):
-        # type: (Optional[AnyStr]) -> None
+        # type: (Union[str, unicode, None]) -> None
         pass
 
     def beginCompileTimer(self):
@@ -65,7 +65,7 @@ class ScriptManager(Object):
         pass
 
     def clearModule(self, moduleName):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass
 
     def clearProjectScriptModules(self):
@@ -107,7 +107,7 @@ class ScriptManager(Object):
         pass
 
     def getHintsMap(self):
-        # type: () -> Mapping[AnyStr, List[ScriptFunctionHint]]
+        # type: () -> Mapping[Union[str, unicode], List[ScriptFunctionHint]]  # noqa: W505
         pass
 
     def getModules(self):
@@ -125,7 +125,7 @@ class ScriptManager(Object):
 
     @staticmethod
     def main(*args):
-        # type: (*AnyStr) -> None
+        # type: (*Union[str, unicode]) -> None
         pass
 
     def removeStdErrStream(self, os):
@@ -145,7 +145,7 @@ class ScriptManager(Object):
         pass
 
     def setContextName(self, name):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass
 
     def setPaused(self, paused):
@@ -157,5 +157,5 @@ class ScriptManager(Object):
         pass
 
     def validatePackageName(self, newName):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass

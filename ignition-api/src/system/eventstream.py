@@ -12,13 +12,11 @@ __all__ = [
     "publishEvent",
 ]
 
-from typing import Any, Dict, Optional
-
-from dev.coatl.helper.types import AnyStr
+from typing import Any, Dict, Union
 
 
 def getDiagnostics(project, path):
-    # type: (AnyStr, AnyStr) -> None
+    # type: (Union[str, unicode], Union[str, unicode]) -> None
     """Retrieves diagnostics for an event stream.
 
     Args:
@@ -29,7 +27,7 @@ def getDiagnostics(project, path):
 
 
 def listEventStreams(project):
-    # type: (AnyStr) -> None
+    # type: (Union[str, unicode]) -> None
     """Lists all event streams in a project.
 
     Args:
@@ -39,13 +37,13 @@ def listEventStreams(project):
 
 
 def publishEvent(
-    project,  # type: AnyStr
-    path,  # type: AnyStr
-    message,  # type: AnyStr
+    project,  # type: Union[str, unicode]
+    path,  # type: Union[str, unicode]
+    message,  # type: Union[str, unicode]
     acknowledge,  # type: bool
-    gatewayId=None,  # type: Optional[AnyStr]
+    gatewayId=None,  # type: Union[str, unicode, None]
 ):
-    # type: (...) -> Dict[AnyStr, Any]
+    # type: (...) -> Dict[Union[str, unicode], Any]
     """Publishes a message to a Gateway Event Source.
 
     You can publish a message to the local Gateway, or a remote Gateway.

@@ -5,7 +5,12 @@ __all__ = [
     "LocaleListener",
 ]
 
-from typing import Any, List
+from typing import Any, List, Union
+
+from java.beans import PropertyChangeListener
+from java.lang import Object
+from java.util import Locale
+from javax.swing import RootPaneContainer
 
 from com.google.common.eventbus import EventBus
 from com.inductiveautomation.ignition.client.launch import LaunchContext
@@ -26,11 +31,6 @@ from com.inductiveautomation.ignition.common.tags.model import TagManager
 from com.inductiveautomation.ignition.common.xmlserialization.deserialization import (
     XMLDeserializer,
 )
-from dev.coatl.helper.types import AnyStr
-from java.beans import PropertyChangeListener
-from java.lang import Object
-from java.util import Locale
-from javax.swing import RootPaneContainer
 from org.apache.log4j import Logger
 
 
@@ -48,15 +48,15 @@ class ClientContext(CommonContext):
         raise NotImplementedError
 
     def getAuthProfileName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         raise NotImplementedError
 
     def getDefaultDataSourceName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         raise NotImplementedError
 
     def getDefaultTagProviderName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         raise NotImplementedError
 
     def getEdgeEditions(self):
@@ -80,7 +80,7 @@ class ClientContext(CommonContext):
         raise NotImplementedError
 
     def getLicenseState(self, moduleId):
-        # type: (AnyStr) -> LicenseState
+        # type: (Union[str, unicode]) -> LicenseState
         raise NotImplementedError
 
     def getLocalizationManager(self):
@@ -92,7 +92,7 @@ class ClientContext(CommonContext):
         raise NotImplementedError
 
     def getModule(self, id_):
-        # type: (AnyStr) -> Object
+        # type: (Union[str, unicode]) -> Object
         raise NotImplementedError
 
     def getModules(self):
@@ -112,7 +112,7 @@ class ClientContext(CommonContext):
         raise NotImplementedError
 
     def getProjectName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         raise NotImplementedError
 
     def getRootPaneContainer(self):
@@ -156,11 +156,11 @@ class ClientLocalizationManager(Object):
         raise NotImplementedError
 
     def addPropertyChangeListener(self, propertyName, listener):
-        # type: (AnyStr, PropertyChangeListener) -> None
+        # type: (Union[str, unicode], PropertyChangeListener) -> None
         pass
 
     def get(self, locale, key):
-        # type: (Locale, AnyStr) -> AnyStr
+        # type: (Locale, Union[str, unicode]) -> Union[str, unicode]
         raise NotImplementedError
 
     def getAvailableLocales(self):
@@ -176,19 +176,19 @@ class ClientLocalizationManager(Object):
         raise NotImplementedError
 
     def getStrict(self, *args):
-        # type: (*Any) -> AnyStr
+        # type: (*Any) -> Union[str, unicode]
         raise NotImplementedError
 
     def getString(self, key):
-        # type: (AnyStr) -> AnyStr
+        # type: (Union[str, unicode]) -> Union[str, unicode]
         raise NotImplementedError
 
     def getStringForBundleKey(self, bundlekey):
-        # type: (AnyStr) -> AnyStr
+        # type: (Union[str, unicode]) -> Union[str, unicode]
         raise NotImplementedError
 
     def getTranslationsFor(self, key):
-        # type: (AnyStr) -> TranslationMap
+        # type: (Union[str, unicode]) -> TranslationMap
         raise NotImplementedError
 
     def isTranslationEnabled(self):
@@ -200,7 +200,7 @@ class ClientLocalizationManager(Object):
         raise NotImplementedError
 
     def removePropertyChangeListener(self, propertyName, listener):
-        # type: (AnyStr, PropertyChangeListener) -> None
+        # type: (Union[str, unicode], PropertyChangeListener) -> None
         pass
 
     def resetLocale(self):

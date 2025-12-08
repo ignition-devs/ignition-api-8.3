@@ -1,54 +1,52 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
-from dev.coatl.helper.types import AnyStr
-
-def listConnectorInfo() -> List[Dict[AnyStr, Any]]: ...
+def listConnectorInfo() -> List[Dict[Union[str, unicode], Any]]: ...
 def listTopicPartitions(
-    connector: AnyStr,
-    topic: AnyStr,
-    groupId: AnyStr,
-    options: Optional[Dict[AnyStr, Any]] = ...,
+    connector: Union[str, unicode],
+    topic: Union[str, unicode],
+    groupId: Union[str, unicode],
+    options: Optional[Dict[Union[str, unicode], Any]] = ...,
 ) -> List[Any]: ...
-def listTopics(connector: AnyStr) -> List[Any]: ...
+def listTopics(connector: Union[str, unicode]) -> List[Any]: ...
 def pollPartition(
-    connector: AnyStr,
-    topic: AnyStr,
+    connector: Union[str, unicode],
+    topic: Union[str, unicode],
     partition: int,
-    offset: AnyStr,
-    options: Optional[Dict[AnyStr, Any]] = ...,
+    offset: Union[str, unicode],
+    options: Optional[Dict[Union[str, unicode], Any]] = ...,
 ) -> List[Any]: ...
 def pollTopic(
-    connector: AnyStr,
-    topic: AnyStr,
-    groupId: AnyStr,
-    options: Optional[Dict[AnyStr, Any]] = ...,
+    connector: Union[str, unicode],
+    topic: Union[str, unicode],
+    groupId: Union[str, unicode],
+    options: Optional[Dict[Union[str, unicode], Any]] = ...,
 ) -> List[Any]: ...
 def seekLatest(
-    connector: AnyStr,
-    topic: AnyStr,
+    connector: Union[str, unicode],
+    topic: Union[str, unicode],
     partition: int,
     recordCount: int,
-    options: Optional[Dict[AnyStr, Any]] = ...,
+    options: Optional[Dict[Union[str, unicode], Any]] = ...,
 ) -> List[Any]: ...
 def sendRecord(
-    connector: AnyStr,
-    topic: AnyStr,
-    key: AnyStr,
-    value: AnyStr,
+    connector: Union[str, unicode],
+    topic: Union[str, unicode],
+    key: Union[str, unicode],
+    value: Union[str, unicode],
     partition: Optional[int] = ...,
     timestamp: Optional[long] = ...,
     headerKeys: Optional[List[Any]] = ...,
     headerValues: Optional[List[Any]] = ...,
-    options: Optional[Dict[AnyStr, Any]] = ...,
-) -> Dict[AnyStr, Any]: ...
+    options: Optional[Dict[Union[str, unicode], Any]] = ...,
+) -> Dict[Union[str, unicode], Any]: ...
 def sendRecordAsync(
-    connector: AnyStr,
-    topic: AnyStr,
-    key: AnyStr,
-    value: AnyStr,
+    connector: Union[str, unicode],
+    topic: Union[str, unicode],
+    key: Union[str, unicode],
+    value: Union[str, unicode],
     partition: Optional[int] = ...,
     timestamp: Optional[long] = ...,
     headerKeys: Optional[List[Any]] = ...,
     headerValues: Optional[List[Any]] = ...,
-    options: Optional[Dict[AnyStr, Any]] = ...,
+    options: Optional[Dict[Union[str, unicode], Any]] = ...,
 ) -> None: ...

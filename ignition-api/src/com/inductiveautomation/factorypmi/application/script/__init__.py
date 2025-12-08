@@ -2,8 +2,10 @@ from __future__ import print_function
 
 __all__ = ["PyComponentWrapper"]
 
-from dev.coatl.helper.types import AnyStr
+from typing import Union
+
 from java.lang import Object
+
 from org.python.core import PyObject
 
 
@@ -14,5 +16,5 @@ class PyComponentWrapper(PyObject):
         super(PyComponentWrapper, self).__init__()
 
     def wrapMethod(self, name):
-        # type: (AnyStr) -> PyObject
+        # type: (Union[str, unicode]) -> PyObject
         pass

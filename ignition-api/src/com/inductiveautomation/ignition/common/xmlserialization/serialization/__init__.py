@@ -1,6 +1,8 @@
 from __future__ import print_function
 
-from typing import Any, List
+from typing import Any, List, Union
+
+from java.lang import Class, Object
 
 from com.inductiveautomation.ignition.common.xmlserialization import ClassNameResolver
 from com.inductiveautomation.ignition.common.xmlserialization.encoding import (
@@ -9,21 +11,19 @@ from com.inductiveautomation.ignition.common.xmlserialization.encoding import (
 from com.inductiveautomation.ignition.common.xmlserialization.serialization.equalitydelegates import (
     EqualityDelegate,
 )
-from dev.coatl.helper.types import AnyStr
-from java.lang import Class, Object
 
 
 class Element(Object):
 
     class Attribute(Object):
         def __init__(self, name, value):
-            # type: (AnyStr, AttributeEncoder) -> None
+            # type: (Union[str, unicode], AttributeEncoder) -> None
             super(Element.Attribute, self).__init__()
             self._name = name
             self._value = value
 
         def getName(self):
-            # type: () -> AnyStr
+            # type: () -> Union[str, unicode]
             return self._name
 
         def getValue(self):
@@ -56,7 +56,7 @@ class Element(Object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getObject(self):
@@ -64,7 +64,7 @@ class Element(Object):
         pass
 
     def getSubName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def isSkipRefTracking(self):
@@ -135,7 +135,7 @@ class XMLSerializer(Object):
         pass
 
     def addRootAttribute(self, key, value):
-        # type: (AnyStr, AnyStr) -> None
+        # type: (Union[str, unicode], Union[str, unicode]) -> None
         pass
 
     def addSerializationDelegate(self, clazz, delegate):

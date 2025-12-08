@@ -14,15 +14,15 @@ __all__ = [
 ]
 
 import socket
-from typing import Any, Callable, List, Optional
+from typing import Any, Callable, List, Optional, Union
+
+from java.lang import IllegalArgumentException
 
 from com.inductiveautomation.ignition.common.script.builtin.http import JythonHttpClient
-from dev.coatl.helper.types import AnyStr
-from java.lang import IllegalArgumentException
 
 
 def getHostName():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the host name of the computer that the script was ran on.
 
     When run in the Gateway scope, returns the Gateway hostname. When
@@ -37,7 +37,7 @@ def getHostName():
 
 
 def getIpAddress():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the IP address of the computer that the script was ran
     on.
 
@@ -48,7 +48,7 @@ def getIpAddress():
 
 
 def getRemoteServers(runningOnly=True):
-    # type: (Optional[bool]) -> List[AnyStr]
+    # type: (Optional[bool]) -> List[Union[str, unicode]]
     """This function returns a List of Gateway Network servers that are
     visible from the local Gateway.
 
@@ -68,12 +68,12 @@ def getRemoteServers(runningOnly=True):
 def httpClient(
     timeout=60000,  # type: int
     bypass_cert_validation=False,  # type: bool
-    username=None,  # type: Optional[AnyStr]
-    password=None,  # type: Optional[AnyStr]
-    proxy=None,  # type: Optional[AnyStr]
-    cookie_policy="ACCEPT_ORIGINAL_SERVER",  # type: AnyStr
-    redirect_policy="NORMAL",  # type: AnyStr
-    version="HTTP_2",  # type: AnyStr
+    username=None,  # type: Union[str, unicode, None]
+    password=None,  # type: Union[str, unicode, None]
+    proxy=None,  # type: Union[str, unicode, None]
+    cookie_policy="ACCEPT_ORIGINAL_SERVER",  # type: Union[str, unicode]
+    redirect_policy="NORMAL",  # type: Union[str, unicode]
+    version="HTTP_2",  # type: Union[str, unicode]
     customizer=None,  # type: Optional[Callable[..., Any]]
 ):
     # type: (...) -> JythonHttpClient
@@ -141,22 +141,22 @@ def httpClient(
 
 
 def _sendEmail(
-    smtpSettings,  # type: Optional[AnyStr]
-    fromAddr,  # type: AnyStr
-    subject=None,  # type: Optional[AnyStr]
-    body=None,  # type: Optional[AnyStr]
+    smtpSettings,  # type: Union[str, unicode, None]
+    fromAddr,  # type: Union[str, unicode]
+    subject=None,  # type: Union[str, unicode, None]
+    body=None,  # type: Union[str, unicode, None]
     html=False,  # type: bool
-    to=None,  # type: Optional[List[AnyStr]]
+    to=None,  # type: Optional[List[Union[str, unicode]]]
     attachmentNames=None,  # type: Optional[List[object]]
     attachmentData=None,  # type: Optional[List[object]]
     timeout=300000,  # type: int
-    username=None,  # type: Optional[AnyStr]
-    password=None,  # type: Optional[AnyStr]
-    priority="3",  # type: AnyStr
-    cc=None,  # type: Optional[List[AnyStr]]
-    bcc=None,  # type: Optional[List[AnyStr]]
+    username=None,  # type: Union[str, unicode, None]
+    password=None,  # type: Union[str, unicode, None]
+    priority="3",  # type: Union[str, unicode]
+    cc=None,  # type: Optional[List[Union[str, unicode]]]
+    bcc=None,  # type: Optional[List[Union[str, unicode]]]
     retries=0,  # type: int
-    replyTo=None,  # type: Optional[List[AnyStr]]
+    replyTo=None,  # type: Optional[List[Union[str, unicode]]]
 ):
     # type: (...) -> None
     _to = [] if to is None else to
@@ -189,23 +189,23 @@ def _sendEmail(
 
 
 def sendEmail(
-    smtp=None,  # type: Optional[AnyStr]
-    fromAddr="",  # type: AnyStr
-    subject=None,  # type: Optional[AnyStr]
-    body=None,  # type: Optional[AnyStr]
+    smtp=None,  # type: Union[str, unicode, None]
+    fromAddr="",  # type: Union[str, unicode]
+    subject=None,  # type: Union[str, unicode, None]
+    body=None,  # type: Union[str, unicode, None]
     html=False,  # type: bool
-    to=None,  # type: Optional[List[AnyStr]]
+    to=None,  # type: Optional[List[Union[str, unicode]]]
     attachmentNames=None,  # type: Optional[List[object]]
     attachmentData=None,  # type: Optional[List[object]]
     timeout=300000,  # type: int
-    username=None,  # type: Optional[AnyStr]
-    password=None,  # type: Optional[AnyStr]
-    priority="3",  # type: AnyStr
-    smtpProfile=None,  # type: Optional[AnyStr]
-    cc=None,  # type: Optional[List[AnyStr]]
-    bcc=None,  # type: Optional[List[AnyStr]]
+    username=None,  # type: Union[str, unicode, None]
+    password=None,  # type: Union[str, unicode, None]
+    priority="3",  # type: Union[str, unicode]
+    smtpProfile=None,  # type: Union[str, unicode, None]
+    cc=None,  # type: Optional[List[Union[str, unicode]]]
+    bcc=None,  # type: Optional[List[Union[str, unicode]]]
     retries=0,  # type: int
-    replyTo=None,  # type: Optional[List[AnyStr]]
+    replyTo=None,  # type: Optional[List[Union[str, unicode]]]
 ):
     # type: (...) -> None
     """Sends an email through the given SMTP server.

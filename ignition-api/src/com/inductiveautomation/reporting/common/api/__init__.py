@@ -2,20 +2,22 @@ from typing import Any, Dict, List, Optional
 
 __all__ = ["QueryResults"]
 
-from com.inductiveautomation.ignition.common import BasicDataset
-from dev.coatl.helper.types import AnyStr
+from typing import Union
+
 from java.lang import Object
 from java.util import AbstractList
+
+from com.inductiveautomation.ignition.common import BasicDataset
 
 
 class QueryResults(AbstractList):
     class Row(Object):
         def getKeys(self):
-            # type: () -> List[AnyStr]
+            # type: () -> List[Union[str, unicode]]
             pass
 
         def getKeyValue(self, aKey):
-            # type: (AnyStr) -> Object
+            # type: (Union[str, unicode]) -> Object
             pass
 
     def __init__(self, dataset, parent=None, parentRow=None):
@@ -24,7 +26,7 @@ class QueryResults(AbstractList):
         print(dataset, parent, parentRow)
 
     def addNestedQueryResults(self, key, results):
-        # type: (AnyStr, QueryResults) -> None
+        # type: (Union[str, unicode], QueryResults) -> None
         print(key, results)
 
     def get(self, index):
@@ -36,11 +38,11 @@ class QueryResults(AbstractList):
         pass
 
     def getNestedQueryResults(self):
-        # type: () -> Dict[AnyStr, List[QueryResults]]
+        # type: () -> Dict[Union[str, unicode], List[QueryResults]]
         pass
 
     def lookup(self, rowIndex, keyName):
-        # type: (int, AnyStr) -> Object
+        # type: (int, Union[str, unicode]) -> Object
         pass
 
     def size(self):

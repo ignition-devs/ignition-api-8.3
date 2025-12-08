@@ -1,13 +1,14 @@
-from typing import List
+from typing import List, Union
 
-from dev.coatl.helper.types import AnyNum, AnyStr
-
-def demandPoll(deviceName: AnyStr, classList: List[int]) -> None: ...
+def demandPoll(deviceName: Union[str, unicode], classList: List[int]) -> None: ...
 def directOperateAnalog(
-    deviceName: AnyStr, variation: int, index: int, value: AnyNum
+    deviceName: Union[str, unicode],
+    variation: int,
+    index: int,
+    value: Union[float, int, long],
 ) -> None: ...
 def directOperateBinary(
-    deviceName: AnyStr,
+    deviceName: Union[str, unicode],
     index: int,
     tcc: int,
     opType: int,
@@ -15,21 +16,32 @@ def directOperateBinary(
     onTime: int,
     offTime: int,
 ) -> None: ...
-def freezeAnalogs(deviceName: AnyStr, indexes: List[int]) -> None: ...
+def freezeAnalogs(deviceName: Union[str, unicode], indexes: List[int]) -> None: ...
 def freezeAtTimeAnalogs(
-    deviceName: AnyStr, absoluteTime: int, intervalTime: int, indexes: List[int]
+    deviceName: Union[str, unicode],
+    absoluteTime: int,
+    intervalTime: int,
+    indexes: List[int],
 ) -> None: ...
 def freezeAtTimeCounters(
-    deviceName: AnyStr, absoluteTime: int, intervalTime: int, indexes: List[int]
+    deviceName: Union[str, unicode],
+    absoluteTime: int,
+    intervalTime: int,
+    indexes: List[int],
 ) -> None: ...
-def freezeClearAnalogs(deviceName: AnyStr, indexes: List[int]) -> None: ...
-def freezeClearCounters(deviceName: AnyStr, indexes: List[int]) -> None: ...
-def freezeCounters(deviceName: AnyStr, indexes: List[int]) -> None: ...
+def freezeClearAnalogs(deviceName: Union[str, unicode], indexes: List[int]) -> None: ...
+def freezeClearCounters(
+    deviceName: Union[str, unicode], indexes: List[int]
+) -> None: ...
+def freezeCounters(deviceName: Union[str, unicode], indexes: List[int]) -> None: ...
 def selectOperateAnalog(
-    deviceName: AnyStr, variation: int, index: int, value: AnyNum
+    deviceName: Union[str, unicode],
+    variation: int,
+    index: int,
+    value: Union[float, int, long],
 ) -> None: ...
 def selectOperateBinary(
-    deviceName: AnyStr,
+    deviceName: Union[str, unicode],
     index: int,
     tcc: int,
     opType: int,
@@ -37,4 +49,4 @@ def selectOperateBinary(
     onTime: int,
     offTime: int,
 ) -> None: ...
-def synchronizeTime(deviceName: AnyStr) -> None: ...
+def synchronizeTime(deviceName: Union[str, unicode]) -> None: ...

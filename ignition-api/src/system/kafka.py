@@ -17,13 +17,11 @@ __all__ = [
     "sendRecordAsync",
 ]
 
-from typing import Any, Dict, List, Optional
-
-from dev.coatl.helper.types import AnyStr
+from typing import Any, Dict, List, Optional, Union
 
 
 def listConnectorInfo():
-    # type: () -> List[Dict[AnyStr, Any]]
+    # type: () -> List[Dict[Union[str, unicode], Any]]
     """Returns descriptions of all Kafka connectors in PyDictionary
     format.
 
@@ -35,10 +33,10 @@ def listConnectorInfo():
 
 
 def listTopicPartitions(
-    connector,  # type: AnyStr
-    topic,  # type: AnyStr
-    groupId,  # type: AnyStr
-    options=None,  # type: Optional[Dict[AnyStr, Any]]
+    connector,  # type: Union[str, unicode]
+    topic,  # type: Union[str, unicode]
+    groupId,  # type: Union[str, unicode]
+    options=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
     # type: (...) -> List[Any]
     """Returns a list of records that match the filter.
@@ -59,7 +57,7 @@ def listTopicPartitions(
 
 
 def listTopics(connector):
-    # type: (AnyStr) -> List[Any]
+    # type: (Union[str, unicode]) -> List[Any]
     """Returns a list of topics for the provided connector.
 
     Args:
@@ -73,11 +71,11 @@ def listTopics(connector):
 
 
 def pollPartition(
-    connector,  # type: AnyStr
-    topic,  # type: AnyStr
+    connector,  # type: Union[str, unicode]
+    topic,  # type: Union[str, unicode]
     partition,  # type: int
-    offset,  # type: AnyStr
-    options=None,  # type: Optional[Dict[AnyStr, Any]]
+    offset,  # type: Union[str, unicode]
+    options=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
     # type: (...) -> List[Any]
     """Polls a specific partition of a topic.
@@ -98,10 +96,10 @@ def pollPartition(
 
 
 def pollTopic(
-    connector,  # type: AnyStr
-    topic,  # type: AnyStr
-    groupId,  # type: AnyStr
-    options=None,  # type: Optional[Dict[AnyStr, Any]]
+    connector,  # type: Union[str, unicode]
+    topic,  # type: Union[str, unicode]
+    groupId,  # type: Union[str, unicode]
+    options=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
     # type: (...) -> List[Any]
     """Returns a list of records from the specified topic.
@@ -122,11 +120,11 @@ def pollTopic(
 
 
 def seekLatest(
-    connector,  # type: AnyStr
-    topic,  # type: AnyStr
+    connector,  # type: Union[str, unicode]
+    topic,  # type: Union[str, unicode]
     partition,  # type: int
     recordCount,  # type: int
-    options=None,  # type: Optional[Dict[AnyStr, Any]]
+    options=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
     # type: (...) -> List[Any]
     """Polls a specific partition of a topic.
@@ -147,17 +145,17 @@ def seekLatest(
 
 
 def sendRecord(
-    connector,  # type: AnyStr
-    topic,  # type: AnyStr
-    key,  # type: AnyStr
-    value,  # type: AnyStr
+    connector,  # type: Union[str, unicode]
+    topic,  # type: Union[str, unicode]
+    key,  # type: Union[str, unicode]
+    value,  # type: Union[str, unicode]
     partition=None,  # type: Optional[int]
     timestamp=None,  # type: Optional[long]
     headerKeys=None,  # type: Optional[List[Any]]
     headerValues=None,  # type: Optional[List[Any]]
-    options=None,  # type: Optional[Dict[AnyStr, Any]]
+    options=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
-    # type: (...) -> Dict[AnyStr, Any]
+    # type: (...) -> Dict[Union[str, unicode], Any]
     """Polls a specific partition of a topic.
 
     Args:
@@ -196,15 +194,15 @@ def sendRecord(
 
 
 def sendRecordAsync(
-    connector,  # type: AnyStr
-    topic,  # type: AnyStr
-    key,  # type: AnyStr
-    value,  # type: AnyStr
+    connector,  # type: Union[str, unicode]
+    topic,  # type: Union[str, unicode]
+    key,  # type: Union[str, unicode]
+    value,  # type: Union[str, unicode]
     partition=None,  # type: Optional[int]
     timestamp=None,  # type: Optional[long]
     headerKeys=None,  # type: Optional[List[Any]]
     headerValues=None,  # type: Optional[List[Any]]
-    options=None,  # type: Optional[Dict[AnyStr, Any]]
+    options=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
     # type: (...) -> None
     """Sends a record to a specified topic asynchronously.

@@ -2,12 +2,12 @@ from __future__ import print_function
 
 __all__ = ["AlarmQueryResult", "AlarmQueryResultImpl"]
 
-from typing import Any, Iterator, List
+from typing import Any, Iterator, List, Union
+
+from java.util import ArrayList
 
 from com.inductiveautomation.ignition.common import Dataset
 from com.inductiveautomation.ignition.common.alarming import AlarmEvent, PyAlarmEvent
-from dev.coatl.helper.types import AnyStr
-from java.util import ArrayList
 
 
 class AlarmQueryResult(object):
@@ -20,7 +20,7 @@ class AlarmQueryResult(object):
     """
 
     def getAssociatedData(self, uuid):
-        # type: (AnyStr) -> Dataset
+        # type: (Union[str, unicode]) -> Dataset
         raise NotImplementedError
 
     def getDataset(self):
@@ -28,7 +28,7 @@ class AlarmQueryResult(object):
         raise NotImplementedError
 
     def getEvent(self, uuid):
-        # type: (AnyStr) -> AlarmEvent
+        # type: (Union[str, unicode]) -> AlarmEvent
         raise NotImplementedError
 
 
@@ -44,7 +44,7 @@ class AlarmQueryResultImpl(AlarmQueryResult, ArrayList):
         pass
 
     def getAssociatedData(self, uuid):
-        # type: (AnyStr) -> Dataset
+        # type: (Union[str, unicode]) -> Dataset
         pass
 
     def getDataset(self):
@@ -52,7 +52,7 @@ class AlarmQueryResultImpl(AlarmQueryResult, ArrayList):
         pass
 
     def getEvent(self, uuid):
-        # type: (AnyStr) -> AlarmEvent
+        # type: (Union[str, unicode]) -> AlarmEvent
         pass
 
     def __iter__(self):

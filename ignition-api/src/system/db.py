@@ -74,14 +74,13 @@ __all__ = [
     "setDatasourceMaxConnections",
 ]
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from com.inductiveautomation.ignition.common import BasicDataset
 from com.inductiveautomation.ignition.common.script.builtin import (
     DatasetUtilities,
     SProcCall,
 )
-from dev.coatl.helper.types import AnyNum, AnyStr
 
 # Type codes
 # These are codes defined by the JDBC specification.
@@ -133,14 +132,14 @@ SERIALIZABLE = 8
 
 
 def addDatasource(
-    jdbcDriver,  # type: AnyStr
-    name,  # type: AnyStr
-    description="",  # type: AnyStr
-    connectUrl=None,  # type: Optional[AnyStr]
-    username=None,  # type: Optional[AnyStr]
-    password=None,  # type: Optional[AnyStr]
-    props=None,  # type: Optional[AnyStr]
-    validationQuery=None,  # type: Optional[AnyStr]
+    jdbcDriver,  # type: Union[str, unicode]
+    name,  # type: Union[str, unicode]
+    description="",  # type: Union[str, unicode]
+    connectUrl=None,  # type: Union[str, unicode, None]
+    username=None,  # type: Union[str, unicode, None]
+    password=None,  # type: Union[str, unicode, None]
+    props=None,  # type: Union[str, unicode, None]
+    validationQuery=None,  # type: Union[str, unicode, None]
     maxConnections=8,  # type: int
 ):
     # type: (...) -> None
@@ -175,7 +174,7 @@ def addDatasource(
 
 
 def beginNamedQueryTransaction(*args, **kwargs):
-    # type: (*Any, **Any) -> AnyStr
+    # type: (*Any, **Any) -> Union[str, unicode]
     """Begins a new database transaction using Named Queries.
 
     Database transactions are used to execute multiple queries in an
@@ -217,8 +216,12 @@ def beginNamedQueryTransaction(*args, **kwargs):
     return "transaction_id"
 
 
-def beginTransaction(database="", isolationLevel=None, timeout=None):
-    # type: (Optional[AnyStr], Optional[int], Optional[int]) -> AnyStr
+def beginTransaction(
+    database="",  # type: Union[str, unicode]
+    isolationLevel=None,  # type: Optional[int]
+    timeout=None,  # type: Optional[int]
+):
+    # type: (...) -> Union[str, unicode]
     """Begins a new database transaction for using run* and runPrep*
     queries.
 
@@ -263,8 +266,11 @@ def beginTransaction(database="", isolationLevel=None, timeout=None):
     return "transaction_id"
 
 
-def clearQueryCache(project=None, path=None):
-    # type: (Optional[AnyStr], Optional[AnyStr]) -> None
+def clearQueryCache(
+    project=None,  # type: Union[str, unicode, None]
+    path=None,  # type: Union[str, unicode, None]
+):
+    # type: (...) -> None
     """This clears the caches for specified Named Queries in a project,
     or all Named Queries if no arguments are provided.
 
@@ -279,7 +285,7 @@ def clearQueryCache(project=None, path=None):
 
 
 def closeTransaction(tx):
-    # type: (AnyStr) -> None
+    # type: (Union[str, unicode]) -> None
     """Closes the transaction with the given ID.
 
     You must commit or rollback the transaction before you close it.
@@ -293,7 +299,7 @@ def closeTransaction(tx):
 
 
 def commitTransaction(tx):
-    # type: (AnyStr) -> None
+    # type: (Union[str, unicode]) -> None
     """Performs a commit for the given transaction.
 
     This will make all statements executed against the transaction since
@@ -312,9 +318,9 @@ def commitTransaction(tx):
 
 
 def createSProcCall(
-    procedureName,  # type: AnyStr
-    database="",  # type: AnyStr
-    tx=None,  # type: Optional[AnyStr]
+    procedureName,  # type: Union[str, unicode]
+    database="",  # type: Union[str, unicode]
+    tx=None,  # type: Union[str, unicode, None]
     skipAudit=False,  # type: bool
 ):
     # type: (...) -> SProcCall
@@ -342,10 +348,10 @@ def createSProcCall(
 
 
 def execQuery(
-    path,  # type: AnyStr
-    parameters=None,  # type: Optional[Dict[AnyStr, Any]]
-    tx=None,  # type: Optional[AnyStr]
-    project=None,  # type: Optional[AnyStr]
+    path,  # type: Union[str, unicode]
+    parameters=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    tx=None,  # type: Union[str, unicode, None]
+    project=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> Any
     """Executes a query from a Named Query resource.
@@ -382,12 +388,12 @@ def execSProcCall(callContext):
 
 
 def execScalar(
-    path,  # type: AnyStr
-    parameters=None,  # type: Optional[Dict[AnyStr, Any]]
-    tx=None,  # type: Optional[AnyStr]
-    project=None,  # type: Optional[AnyStr]
+    path,  # type: Union[str, unicode]
+    parameters=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    tx=None,  # type: Union[str, unicode, None]
+    project=None,  # type: Union[str, unicode, None]
 ):
-    # type: (...) -> Optional[AnyNum]
+    # type: (...) -> Optional[Union[float, int, long]]
     """Executes a scalar query from a named query resource.
 
     Args:
@@ -411,11 +417,11 @@ def execScalar(
 
 
 def execUpdate(
-    path,  # type: AnyStr
-    parameters=None,  # type: Optional[Dict[AnyStr, Any]]
-    tx=None,  # type: Optional[AnyStr]
+    path,  # type: Union[str, unicode]
+    parameters=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    tx=None,  # type: Union[str, unicode, None]
     getKey=False,  # type: bool
-    project=None,  # type: Optional[AnyStr]
+    project=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> int
     """Executes an update query from a Named Query resource. If the
@@ -446,9 +452,9 @@ def execUpdate(
 
 
 def execUpdateAsync(
-    path,  # type: AnyStr
-    parameters=None,  # type: Optional[Dict[AnyStr, Any]]
-    project=None,  # type: Optional[AnyStr]
+    path,  # type: Union[str, unicode]
+    parameters=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    project=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> bool
     """Executes an update query from a Named Query resource through the
@@ -472,7 +478,7 @@ def execUpdateAsync(
 
 
 def getConnectionInfo(name=""):
-    # type: (Optional[AnyStr]) -> BasicDataset
+    # type: (Union[str, unicode, None]) -> BasicDataset
     """Returns a dataset of information about a single database
     connection, as specified by the name argument, or about the current
     project's default database connection.
@@ -508,7 +514,7 @@ def getConnections():
 
 
 def removeDatasource(name):
-    # type: (AnyStr) -> None
+    # type: (Union[str, unicode]) -> None
     """Removes a database connection from Ignition.
 
     Args:
@@ -518,7 +524,7 @@ def removeDatasource(name):
 
 
 def rollbackTransaction(tx):
-    # type: (AnyStr) -> None
+    # type: (Union[str, unicode]) -> None
     """Performs a rollback on the given connection.
 
     This will make all statements executed against this transaction
@@ -535,10 +541,10 @@ def rollbackTransaction(tx):
 
 
 def runPrepQuery(
-    query,  # type: AnyStr
+    query,  # type: Union[str, unicode]
     args,  # type: List[Any]
-    database="",  # type: AnyStr
-    tx=None,  # type: Optional[AnyStr]
+    database="",  # type: Union[str, unicode]
+    tx=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> DatasetUtilities.PyDataSet
     """Runs a prepared statement against the database, returning the
@@ -585,10 +591,10 @@ def runPrepQuery(
 
 
 def runPrepUpdate(
-    query,  # type: AnyStr
+    query,  # type: Union[str, unicode]
     args,  # type: List[Any]
-    database="",  # type: AnyStr
-    tx=None,  # type: Optional[AnyStr]
+    database="",  # type: Union[str, unicode]
+    tx=None,  # type: Union[str, unicode, None]
     getKey=False,  # type: bool
     skipAudit=True,  # type: bool
 ):
@@ -640,8 +646,12 @@ def runPrepUpdate(
     return 1
 
 
-def runSFPrepUpdate(query, args, datasources):
-    # type: (AnyStr, List[Any], List[AnyStr]) -> bool
+def runSFPrepUpdate(
+    query,  # type: Union[str, unicode]
+    args,  # type: List[Any]
+    datasources,  # type: List[Union[str, unicode]]
+):
+    # type: (...) -> bool
     """Runs a prepared statement query through the store and forward
     system and to multiple datasources at the same time.
 
@@ -669,10 +679,10 @@ def runSFPrepUpdate(query, args, datasources):
 
 
 def runScalarPrepQuery(
-    query,  # type: AnyStr
+    query,  # type: Union[str, unicode]
     args,  # type: List[Any]
-    database="",  # type: AnyStr
-    tx=None,  # type: Optional[AnyStr]
+    database="",  # type: Union[str, unicode]
+    tx=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> Any
     """Runs a prepared statement against a database connection just like
@@ -704,9 +714,9 @@ def runScalarPrepQuery(
 
 
 def runUpdateQuery(
-    query,  # type: AnyStr
-    database="",  # type: AnyStr
-    tx=None,  # type: Optional[AnyStr]
+    query,  # type: Union[str, unicode]
+    database="",  # type: Union[str, unicode]
+    tx=None,  # type: Union[str, unicode, None]
     getKey=False,  # type: bool
     skipAudit=True,  # type: bool
 ):
@@ -750,7 +760,7 @@ def runUpdateQuery(
 
 
 def setDatasourceConnectURL(name, connectUrl):
-    # type: (AnyStr, AnyStr) -> None
+    # type: (Union[str, unicode], Union[str, unicode]) -> None
     """Changes the connect URL for a given database connection.
 
     Args:
@@ -761,7 +771,7 @@ def setDatasourceConnectURL(name, connectUrl):
 
 
 def setDatasourceEnabled(name, enabled):
-    # type: (AnyStr, bool) -> None
+    # type: (Union[str, unicode], bool) -> None
     """Enables/disables a given database connection.
 
     Args:
@@ -773,7 +783,7 @@ def setDatasourceEnabled(name, enabled):
 
 
 def setDatasourceMaxConnections(name, maxConnections):
-    # type: (AnyStr, int) -> None
+    # type: (Union[str, unicode], int) -> None
     """Sets the Max Active and Max Idle parameters of a given database
     connection.
 

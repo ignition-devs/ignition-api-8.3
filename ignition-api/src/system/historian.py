@@ -19,24 +19,27 @@ __all__ = [
     "updateRegisteredNodePath",
 ]
 
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
+
+from java.util import Date
 
 from com.inductiveautomation.ignition.common import BasicDataset
 from com.inductiveautomation.ignition.common.browsing import Results
 from com.inductiveautomation.ignition.common.model.values import BasicQualifiedValue
-from dev.coatl.helper.types import AnyStr
-from java.util import Date
 
 
 def browse(rootPath, *args, **kwargs):
-    # type: (AnyStr, *Any, **Any) -> Results
+    # type: (Union[str, unicode], *Any, **Any) -> Results
     """Returns a list of browse results for the specified Historian."""
     print(rootPath, args, kwargs)
     return Results()
 
 
-def deleteAnnotations(paths, storageIds):
-    # type: (List[AnyStr], List[AnyStr]) -> List[BasicQualifiedValue]
+def deleteAnnotations(
+    paths,  # type: List[Union[str, unicode]]
+    storageIds,  # type: List[Union[str, unicode]]
+):
+    # type: (...) -> List[BasicQualifiedValue]
     """Deletes desired annotations from the specified Historian.
 
     Args:
@@ -55,12 +58,12 @@ def deleteAnnotations(paths, storageIds):
 
 
 def queryAggregatedPoints(
-    paths,  # type: List[AnyStr]
+    paths,  # type: List[Union[str, unicode]]
     startTime=None,  # type: Optional[Date]
     endTime=None,  # type: Optional[Date]
-    aggregates=None,  # type: Optional[List[AnyStr]]
-    fillModes=None,  # type: Optional[List[AnyStr]]
-    columnNames=None,  # type: Optional[List[AnyStr]]
+    aggregates=None,  # type: Optional[List[Union[str, unicode]]]
+    fillModes=None,  # type: Optional[List[Union[str, unicode]]]
+    columnNames=None,  # type: Optional[List[Union[str, unicode]]]
     returnFormat="Wide",  # type: str
     returnSize=1,  # type: int
     includeBounds=False,  # type: bool
@@ -106,10 +109,10 @@ def queryAggregatedPoints(
 
 
 def queryAnnotations(
-    paths,  # type: List[AnyStr]
+    paths,  # type: List[Union[str, unicode]]
     startDate=None,  # type: Optional[Date]
     endDate=None,  # type: Optional[Date]
-    allowedTypes=None,  # type: Optional[List[AnyStr]]
+    allowedTypes=None,  # type: Optional[List[Union[str, unicode]]]
 ):
     # type: (...) -> Results
     """Queries user stored annotations from the Tag history system for a
@@ -129,8 +132,12 @@ def queryAnnotations(
     return Results()
 
 
-def queryMetadata(paths, startDate=None, endDate=None):
-    # type: (List[AnyStr], Optional[Date], Optional[Date]) -> Results
+def queryMetadata(
+    paths,  # type: List[Union[str, unicode]]
+    startDate=None,  # type: Optional[Date]
+    endDate=None,  # type: Optional[Date]
+):
+    # type: (...) -> Results
     """Queries metadata for the specified Historian.
 
     Args:
@@ -148,10 +155,10 @@ def queryMetadata(paths, startDate=None, endDate=None):
 
 
 def queryRawPoints(
-    paths,  # type: List[AnyStr]
+    paths,  # type: List[Union[str, unicode]]
     startTime=None,  # type: Optional[Date]
     endTime=None,  # type: Optional[Date]
-    columnNames=None,  # type: Optional[List[AnyStr]]
+    columnNames=None,  # type: Optional[List[Union[str, unicode]]]
     returnFormat="Wide",  # type: str
     returnSize=-1,  # type: int
     includeBounds=False,  # type: bool
@@ -239,8 +246,11 @@ def storeMetadata(*args, **kwargs):
     return [BasicQualifiedValue()]
 
 
-def updateRegisteredNodePath(previousPath, currentPath):
-    # type: (AnyStr, AnyStr) -> List[BasicQualifiedValue]
+def updateRegisteredNodePath(
+    previousPath,  # type: Union[str, unicode]
+    currentPath,  # type: Union[str, unicode]
+):
+    # type: (...) -> List[BasicQualifiedValue]
     """Updates the existing historical path for a stored historian node
     to the newly specific path.
 

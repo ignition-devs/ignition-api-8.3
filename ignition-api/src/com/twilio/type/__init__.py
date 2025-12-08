@@ -2,16 +2,17 @@ from __future__ import print_function
 
 __all__ = ["PhoneNumber"]
 
-from dev.coatl.helper.types import AnyStr
+from typing import Union
+
 from java.lang import Object
 
 
 class PhoneNumber(Object):
     def __init__(self, number):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         super(PhoneNumber, self).__init__()
         print(number)
 
     def getEndPoint(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass

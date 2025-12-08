@@ -1,10 +1,14 @@
-from typing import Optional, Tuple
-
-from dev.coatl.helper.types import AnyStr
+from typing import Optional, Tuple, Union
 
 def getUserRoles(
-    username: AnyStr, password: AnyStr, authProfile: AnyStr = ..., timeout: int = ...
-) -> Optional[Tuple[AnyStr, ...]]: ...
+    username: Union[str, unicode],
+    password: Union[str, unicode],
+    authProfile: Union[str, unicode] = ...,
+    timeout: int = ...,
+) -> Optional[Tuple[Union[str, unicode], ...]]: ...
 def validateUser(
-    username: AnyStr, password: AnyStr, authProfile: AnyStr = ..., timeout: int = ...
+    username: Union[str, unicode],
+    password: Union[str, unicode],
+    authProfile: Union[str, unicode] = ...,
+    timeout: int = ...,
 ) -> bool: ...

@@ -1,10 +1,10 @@
 __all__ = ["Level"]
 
-from typing import Any
+from typing import Any, Union
+
+from java.lang import Object
 
 import org.slf4j.event
-from dev.coatl.helper.types import AnyStr
-from java.lang import Object
 
 
 class Level(Object):
@@ -42,5 +42,5 @@ class Level(Object):
 
     @staticmethod
     def valueOf(sArg):
-        # type: (AnyStr) -> Level
+        # type: (Union[str, unicode]) -> Level
         pass

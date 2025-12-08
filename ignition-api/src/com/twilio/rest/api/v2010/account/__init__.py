@@ -9,14 +9,14 @@ __all__ = [
     "CallUpdater",
 ]
 
-from typing import Any, List, Optional, Union
+from typing import Any, List, Union
+
+from java.lang import Enum
+from java.net import URI
 
 from com.twilio.base import Creator, Deleter, Fetcher, Reader, Resource, Updater
 from com.twilio.http import HttpMethod
 from com.twilio.type import PhoneNumber
-from dev.coatl.helper.types import AnyStr
-from java.lang import Enum
-from java.net import URI
 from org.joda.time import DateTime
 
 
@@ -27,7 +27,7 @@ class CallCreator(Creator):
         print(args, kwargs)
 
     def setApplicationSid(self, applicationSid):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setFallbackMethod(self, fallbackMethod):
@@ -35,15 +35,15 @@ class CallCreator(Creator):
         pass
 
     def setFallbackUrl(self, fallbackUrl):
-        # type: (Union[AnyStr, URI]) -> CallCreator
+        # type: (Union[str, unicode, URI]) -> CallCreator
         pass
 
     def setIfMachine(self, ifMachine):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setMachineDetection(self, machineDetection):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setMachineDetectionTimeout(self, machineDetectionTimeout):
@@ -59,11 +59,11 @@ class CallCreator(Creator):
         pass
 
     def setRecordingChannels(self, recordingChannels):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setRecordingStatusCallback(self, recordingStatusCallback):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setRecordingStatusCallbackMethod(self, recordingStatusCallbackMethod):
@@ -71,23 +71,26 @@ class CallCreator(Creator):
         pass
 
     def setSendDigits(self, sendDigits):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setSipAuthPassword(self, sipAuthPassword):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setSipAuthUsername(self, sipAuthUsername):
-        # type: (AnyStr) -> CallCreator
+        # type: (Union[str, unicode]) -> CallCreator
         pass
 
     def setStatusCallback(self, statusCallback):
-        # type: (Union[AnyStr, URI]) -> CallCreator
+        # type: (Union[str, unicode, URI]) -> CallCreator
         pass
 
-    def setStatusCallbacEvent(self, statusCallbackEvent):
-        # type: (Union[AnyStr, List[AnyStr]]) -> CallCreator
+    def setStatusCallbacEvent(
+        self,
+        statusCallbackEvent,  # type: Union[str, unicode, List[Union[str, unicode]]]
+    ):
+        # type: (...) -> CallCreator
         pass
 
     def setStatusCallbackMethod(self, statusCallbackMethod):
@@ -99,7 +102,7 @@ class CallCreator(Creator):
         pass
 
     def setUrl(self, url):
-        # type: (Union[AnyStr, URI]) -> CallCreator
+        # type: (Union[str, unicode, URI]) -> CallCreator
         pass
 
 
@@ -120,7 +123,7 @@ class Call(Resource):
 
         @staticmethod
         def forValue(value):
-            # type: (AnyStr) -> Call.UpdateStatus
+            # type: (Union[str, unicode]) -> Call.UpdateStatus
             pass
 
         @staticmethod
@@ -130,7 +133,7 @@ class Call(Resource):
 
     @staticmethod
     def forValue(value):
-        # type: (AnyStr) -> Call.Status
+        # type: (Union[str, unicode]) -> Call.Status
         pass
 
     @staticmethod
@@ -146,12 +149,12 @@ class Call(Resource):
 
     @staticmethod
     def deleter(*args):
-        # type: (*AnyStr) -> CallDeleter
+        # type: (*Union[str, unicode]) -> CallDeleter
         pass
 
     @staticmethod
     def fetcher(*args):
-        # type: (*AnyStr) -> CallFetcher
+        # type: (*Union[str, unicode]) -> CallFetcher
         pass
 
     @staticmethod
@@ -160,23 +163,23 @@ class Call(Resource):
         pass
 
     def getAccountSid(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getAnnotation(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getAnsweredBy(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getApiVersion(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getCallerName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getDateCreated(self):
@@ -188,7 +191,7 @@ class Call(Resource):
         pass
 
     def getDuration(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getEndTime(self):
@@ -196,31 +199,31 @@ class Call(Resource):
         pass
 
     def getForwardedFrom(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getFrom(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getFromFormatted(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getGroupSid(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getParentCallSid(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getPhoneNumberSid(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getSid(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getStartTime(self):
@@ -232,41 +235,41 @@ class Call(Resource):
         pass
 
     def getTo(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getUri(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     @staticmethod
     def reader(pathAccountSid=None):
-        # type: (Optional[AnyStr]) -> CallReader
+        # type: (Union[str, unicode, None]) -> CallReader
         pass
 
     @staticmethod
     def updater(*args):
-        # type: (*AnyStr) -> CallUpdater
+        # type: (*Union[str, unicode]) -> CallUpdater
         pass
 
 
 class CallDeleter(Deleter):
     def __init__(self, *args):
-        # type: (*AnyStr) -> None
+        # type: (*Union[str, unicode]) -> None
         print(args)
         super(CallDeleter, self).__init__()
 
 
 class CallFetcher(Fetcher):
     def __init__(self, *args):
-        # type: (*AnyStr) -> None
+        # type: (*Union[str, unicode]) -> None
         print(args)
         super(CallFetcher, self).__init__()
 
 
 class CallReader(Reader):
     def __init__(self, pathAccountSid=None):
-        # type: (Optional[AnyStr]) -> None
+        # type: (Union[str, unicode, None]) -> None
         super(CallReader, self).__init__()
         print(pathAccountSid)
 
@@ -279,7 +282,7 @@ class CallReader(Reader):
         pass
 
     def setParentCallSid(self, parentCallSid):
-        # type: (AnyStr) -> CallReader
+        # type: (Union[str, unicode]) -> CallReader
         pass
 
     def setStartTime(self, absoluteStartTime):
@@ -297,7 +300,7 @@ class CallReader(Reader):
 
 class CallUpdater(Updater):
     def __init__(self, *args):
-        # type: (*AnyStr) -> None
+        # type: (*Union[str, unicode]) -> None
         print(args)
         super(CallUpdater, self).__init__()
 
@@ -306,7 +309,7 @@ class CallUpdater(Updater):
         pass
 
     def setFallbackUrl(self, fallbackUrl):
-        # type: (Union[AnyStr, URI]) -> CallUpdater
+        # type: (Union[str, unicode, URI]) -> CallUpdater
         pass
 
     def setMethod(self, method):
@@ -318,9 +321,9 @@ class CallUpdater(Updater):
         pass
 
     def setStatusCallback(self, statusCallback):
-        # type: (Union[AnyStr, URI]) -> CallUpdater
+        # type: (Union[str, unicode, URI]) -> CallUpdater
         pass
 
     def setUrl(self, url):
-        # type: (Union[AnyStr, URI]) -> CallUpdater
+        # type: (Union[str, unicode, URI]) -> CallUpdater
         pass

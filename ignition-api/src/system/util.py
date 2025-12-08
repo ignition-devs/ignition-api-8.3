@@ -43,7 +43,10 @@ import getpass
 import json
 import os
 import platform
-from typing import Any, Callable, Dict, Iterable, List, Optional
+from typing import Any, Callable, Dict, Iterable, List, Optional, Union
+
+from java.lang import Thread
+from java.util import Date
 
 import system.__version__ as version
 from com.inductiveautomation.ignition.common import BasicDataset
@@ -53,9 +56,6 @@ from com.inductiveautomation.ignition.common.script.builtin import (
     SystemUtilities,
 )
 from com.inductiveautomation.ignition.common.util import LoggerEx
-from dev.coatl.helper.types import AnyStr
-from java.lang import Thread
-from java.util import Date
 
 APPLET_FLAG = 16
 CLIENT_FLAG = 4
@@ -67,16 +67,16 @@ SSL_FLAG = 64
 WEBSTART_FLAG = 8
 
 
-globals = {}  # type: Dict[AnyStr, Any]
+globals = {}  # type: Dict[Union[str, unicode], Any]
 
 
 def audit(
-    action=None,  # type: Optional[AnyStr]
-    actionValue=None,  # type: Optional[AnyStr]
-    auditProfile="",  # type: AnyStr
-    actor=None,  # type: Optional[AnyStr]
-    actorHost="localhost",  # type: AnyStr
-    originatingSystem=None,  # type: Optional[List[AnyStr]]
+    action=None,  # type: Union[str, unicode, None]
+    actionValue=None,  # type: Union[str, unicode, None]
+    auditProfile="",  # type: Union[str, unicode]
+    actor=None,  # type: Union[str, unicode, None]
+    actorHost="localhost",  # type: Union[str, unicode]
+    originatingSystem=None,  # type: Optional[List[Union[str, unicode]]]
     eventTimestamp=None,  # type: Optional[Date]
     originatingContext=4,  # type: int
     statusCode=0,  # type: int
@@ -120,7 +120,7 @@ def audit(
 
 
 def execute(commands):
-    # type: (List[AnyStr]) -> None
+    # type: (List[Union[str, unicode]]) -> None
     """Executes the given commands via the operating system, in a
     separate process.
 
@@ -136,7 +136,7 @@ def execute(commands):
 
 
 def getGatewayStatus(
-    gatewayAddress,  # type: AnyStr
+    gatewayAddress,  # type: Union[str, unicode]
     connectTimeoutMillis=None,  # type: Optional[int]
     socketTimeoutMillis=None,  # type: Optional[int]
     bypassCertValidation=True,  # type: bool
@@ -172,7 +172,7 @@ def getGatewayStatus(
 
 
 def getGlobals():
-    # type: () -> Dict[AnyStr, Any]
+    # type: () -> Dict[Union[str, unicode], Any]
     """This method returns a dictionary that provides access to the
     legacy global namespace.
 
@@ -193,7 +193,7 @@ def getGlobals():
 
 
 def getLogger(name):
-    # type: (AnyStr) -> LoggerEx
+    # type: (Union[str, unicode]) -> LoggerEx
     """Returns a Logger object that can be used to log messages to the
     console.
 
@@ -222,7 +222,7 @@ def getModules():
 
 
 def getProjectName():
-    # type: () -> AnyStr
+    # type: () -> Union[str, unicode]
     """Returns the name of the project that is currently being run.
 
     Returns:
@@ -232,7 +232,7 @@ def getProjectName():
 
 
 def getProperty(propertyName):
-    # type: (AnyStr) -> Optional[unicode]
+    # type: (Union[str, unicode]) -> Optional[unicode]
     r"""Retrieves the value of a named system property.
 
     Some of the available properties are:
@@ -274,8 +274,8 @@ def getProperty(propertyName):
 
 
 def getSessionInfo(
-    usernameFilter=None,  # type: Optional[AnyStr]
-    projectFilter=None,  # type: Optional[AnyStr]
+    usernameFilter=None,  # type: Union[str, unicode, None]
+    projectFilter=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> DatasetUtilities.PyDataSet
     """Returns a PyDataSet holding information about all of the open
@@ -313,8 +313,8 @@ def getVersion():
 def invokeAsynchronous(
     function,  # type: Callable[..., Any]
     args=None,  # type: Optional[Iterable[Any]]
-    kwargs=None,  # type: Optional[Dict[AnyStr, Any]]
-    description=None,  # type: Optional[AnyStr]
+    kwargs=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    description=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> Thread
     """Invokes (calls) the given Python function on a different thread.
@@ -350,7 +350,7 @@ def invokeAsynchronous(
 
 
 def jsonDecode(jsonString):
-    # type: (AnyStr) -> Any
+    # type: (Union[str, unicode]) -> Any
     """Takes a JSON string and converts it into a Python object such as
     a list or a dictionary.
 
@@ -366,7 +366,7 @@ def jsonDecode(jsonString):
 
 
 def jsonEncode(pyObj, indentFactor=4):
-    # type: (Iterable[Any], int) -> AnyStr
+    # type: (Iterable[Any], int) -> Union[str, unicode]
     """Takes a Python object such as a list or dict and converts into a
     JSON string.
 
@@ -382,8 +382,12 @@ def jsonEncode(pyObj, indentFactor=4):
     return json.dumps(pyObj, indent=indentFactor)
 
 
-def modifyTranslation(term, translation, locale="es_MX"):
-    # type: (AnyStr, AnyStr, AnyStr) -> None
+def modifyTranslation(
+    term,  # type: Union[str, unicode]
+    translation,  # type: Union[str, unicode]
+    locale="es_MX",  # type: Union[str, unicode]
+):
+    # type: (...) -> None
     """This function allows you to add or modify a global translation.
 
     Args:
@@ -397,14 +401,14 @@ def modifyTranslation(term, translation, locale="es_MX"):
 
 
 def queryAuditLog(
-    auditProfileName=None,  # type: Optional[AnyStr]
+    auditProfileName=None,  # type: Union[str, unicode, None]
     startDate=None,  # type: Optional[Date]
     endDate=None,  # type: Optional[Date]
-    actorFilter=None,  # type: Optional[AnyStr]
-    actionFilter=None,  # type: Optional[AnyStr]
-    targetFilter=None,  # type: Optional[AnyStr]
-    valueFilter=None,  # type: Optional[AnyStr]
-    systemFilter=None,  # type: Optional[AnyStr]
+    actorFilter=None,  # type: Union[str, unicode, None]
+    actionFilter=None,  # type: Union[str, unicode, None]
+    targetFilter=None,  # type: Union[str, unicode, None]
+    valueFilter=None,  # type: Union[str, unicode, None]
+    systemFilter=None,  # type: Union[str, unicode, None]
     contextFilter=None,  # type: Optional[int]
 ):
     # type: (...) -> BasicDataset
@@ -452,17 +456,17 @@ def queryAuditLog(
 
 
 def sendMessage(
-    project,  # type: AnyStr
-    messageHandler,  # type: AnyStr
-    payload=None,  # type: Optional[Dict[AnyStr, Any]]
-    scope=None,  # type: Optional[AnyStr]
-    clientSessionId=None,  # type: Optional[AnyStr]
-    user=None,  # type: Optional[AnyStr]
-    hasRole=None,  # type: Optional[AnyStr]
-    hostName=None,  # type: Optional[AnyStr]
-    remoteServers=None,  # type: Optional[List[AnyStr]]
+    project,  # type: Union[str, unicode]
+    messageHandler,  # type: Union[str, unicode]
+    payload=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    scope=None,  # type: Union[str, unicode, None]
+    clientSessionId=None,  # type: Union[str, unicode, None]
+    user=None,  # type: Union[str, unicode, None]
+    hasRole=None,  # type: Union[str, unicode, None]
+    hostName=None,  # type: Union[str, unicode, None]
+    remoteServers=None,  # type: Optional[List[Union[str, unicode]]]
 ):
-    # type: (...) -> List[AnyStr]
+    # type: (...) -> List[Union[str, unicode]]
     """This function sends a message to clients running under the
     Gateway, or to a project within the Gateway itself.
 
@@ -517,12 +521,12 @@ def sendMessage(
 
 
 def sendRequest(
-    project,  # type: AnyStr
-    messageHandler,  # type: AnyStr
-    payload=None,  # type: Optional[Dict[AnyStr, Any]]
-    hostName=None,  # type: Optional[AnyStr]
-    remoteServer=None,  # type: Optional[AnyStr]
-    timeoutSec=None,  # type: Optional[AnyStr]
+    project,  # type: Union[str, unicode]
+    messageHandler,  # type: Union[str, unicode]
+    payload=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    hostName=None,  # type: Union[str, unicode, None]
+    remoteServer=None,  # type: Union[str, unicode, None]
+    timeoutSec=None,  # type: Union[str, unicode, None]
 ):
     # type: (...) -> Any
     """This function sends a message to the Gateway, working in a
@@ -568,11 +572,11 @@ def sendRequest(
 
 
 def sendRequestAsync(
-    project,  # type: AnyStr
-    messageHandler,  # type: AnyStr
-    payload=None,  # type: Optional[Dict[AnyStr, Any]]
-    hostName=None,  # type: Optional[AnyStr]
-    remoteServer=None,  # type: Optional[AnyStr]
+    project,  # type: Union[str, unicode]
+    messageHandler,  # type: Union[str, unicode]
+    payload=None,  # type: Optional[Dict[Union[str, unicode], Any]]
+    hostName=None,  # type: Union[str, unicode, None]
+    remoteServer=None,  # type: Union[str, unicode, None]
     timeoutSec=None,  # type: Optional[int]
     onSuccess=None,  # type: Optional[Callable[..., Any]]
     onError=None,  # type: Optional[Callable[..., Any]]
@@ -627,7 +631,7 @@ def sendRequestAsync(
 
 
 def setLoggingLevel(loggerName, loggerLevel):
-    # type: (AnyStr, AnyStr) -> None
+    # type: (Union[str, unicode], Union[str, unicode]) -> None
     """Sets the logging level on the given logger.
 
     This can be a logger you create, or a logger already defined in the
@@ -654,8 +658,12 @@ def threadDump():
     )
 
 
-def translate(term, locale="es_MX", strict=False):
-    # type: (AnyStr, Optional[AnyStr], Optional[bool]) -> AnyStr
+def translate(
+    term,  # type: Union[str, unicode]
+    locale="es_MX",  # type: Union[str, unicode]
+    strict=False,  # type: Optional[bool]
+):
+    # type: (...) -> Union[str, unicode]
     """This function allows you to retrieve the global translation of a
     term from the translation database using the current locale.
 

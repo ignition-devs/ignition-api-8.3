@@ -19,15 +19,14 @@ __all__ = [
     "sendWhatsAppTemplate",
 ]
 
-from typing import List
+from typing import List, Union
 
 from com.inductiveautomation.ignition.common import BasicDataset
 from com.twilio.rest.api.v2010.account import Call
-from dev.coatl.helper.types import AnyStr
 
 
 def getAccounts():
-    # type: () -> List[AnyStr]
+    # type: () -> List[Union[str, unicode]]
     """Return a list of Twilio accounts that have been configured in the
     Gateway.
 
@@ -49,7 +48,7 @@ def getAccountsDataset():
 
 
 def getActiveCalls(accountName):
-    # type: (AnyStr) -> List[Call]
+    # type: (Union[str, unicode]) -> List[Call]
     """Returns a list of configurations for currently active Twilio
     voice calls.
 
@@ -70,7 +69,7 @@ def getActiveCalls(accountName):
 
 
 def getPhoneNumbers(accountName):
-    # type: (AnyStr) -> List[AnyStr]
+    # type: (Union[str, unicode]) -> List[Union[str, unicode]]
     """Returns a list of outgoing phone numbers for a Twilio account.
 
     Note that these numbers are supplied by Twilio, and are not defined
@@ -82,14 +81,14 @@ def getPhoneNumbers(accountName):
     Returns:
         A list of phone numbers for the given Twilio account.
     """
-    phoneNumbers = []  # type: List[AnyStr]
+    phoneNumbers = []  # type: List[Union[str, unicode]]
     if accountName == "Jenny":
         phoneNumbers.append("+12058675309")
     return phoneNumbers
 
 
 def getPhoneNumbersDataset(accountName):
-    # type: (AnyStr) -> BasicDataset
+    # type: (Union[str, unicode]) -> BasicDataset
     """Return a list of outgoing phone numbers for a Twilio account as a
     single-column Dataset.
 
@@ -107,8 +106,13 @@ def getPhoneNumbersDataset(accountName):
     return BasicDataset()
 
 
-def sendFreeformWhatsApp(accountName, fromNumber, toNumber, message):
-    # type: (AnyStr, AnyStr, AnyStr, AnyStr) -> None
+def sendFreeformWhatsApp(
+    accountName,  # type: Union[str, unicode]
+    fromNumber,  # type: Union[str, unicode]
+    toNumber,  # type: Union[str, unicode]
+    message,  # type: Union[str, unicode]
+):
+    # type: (...) -> None
     """Sends a free-form WhatsApp message.
 
     WhatsApp considers any message that is not a pre-approved template a
@@ -129,12 +133,12 @@ def sendFreeformWhatsApp(accountName, fromNumber, toNumber, message):
 
 
 def sendPhoneCall(
-    accountName,  # type: AnyStr
-    fromNumber,  # type: AnyStr
-    toNumber,  # type: AnyStr
-    message,  # type: AnyStr
-    voice="man",  # type: AnyStr
-    language="en-US",  # type: AnyStr
+    accountName,  # type: Union[str, unicode]
+    fromNumber,  # type: Union[str, unicode]
+    toNumber,  # type: Union[str, unicode]
+    message,  # type: Union[str, unicode]
+    voice="man",  # type: Union[str, unicode]
+    language="en-US",  # type: Union[str, unicode]
     recordCall=False,  # type: bool
 ):
     # type: (...) -> None
@@ -171,8 +175,13 @@ def sendPhoneCall(
     )
 
 
-def sendSms(accountName, fromNumber, toNumber, message):
-    # type: (AnyStr, AnyStr, AnyStr, AnyStr) -> None
+def sendSms(
+    accountName,  # type: Union[str, unicode]
+    fromNumber,  # type: Union[str, unicode]
+    toNumber,  # type: Union[str, unicode]
+    message,  # type: Union[str, unicode]
+):
+    # type: (...) -> None
     """Sends an SMS message.
 
     Args:
@@ -186,11 +195,11 @@ def sendSms(accountName, fromNumber, toNumber, message):
 
 
 def sendWhatsAppTemplate(
-    accountName,  # type: AnyStr
-    userNumber,  # type: AnyStr
-    whatsAppService,  # type: AnyStr
-    whatsAppTemplate,  # type: AnyStr
-    templateParameters,  # type: AnyStr
+    accountName,  # type: Union[str, unicode]
+    userNumber,  # type: Union[str, unicode]
+    whatsAppService,  # type: Union[str, unicode]
+    whatsAppTemplate,  # type: Union[str, unicode]
+    templateParameters,  # type: Union[str, unicode]
 ):
     # type: (...) -> None
     """Sends a WhatsApp template message.

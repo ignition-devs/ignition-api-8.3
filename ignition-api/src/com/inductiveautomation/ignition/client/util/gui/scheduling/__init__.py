@@ -1,10 +1,10 @@
 __all__ = ["ScheduleModel"]
 
-from typing import Iterable
+from typing import Iterable, Union
+
+from java.lang import Enum
 
 from com.palantir.ptoss.cinch.core import DefaultBindableModel
-from dev.coatl.helper.types import AnyStr
-from java.lang import Enum
 
 
 class ScheduleModel(DefaultBindableModel):
@@ -24,19 +24,19 @@ class ScheduleModel(DefaultBindableModel):
         pass
 
     def getEveryHour(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getHour(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getMinute(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getSelectedDays(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def isAlldays(self):
@@ -72,11 +72,11 @@ class ScheduleModel(DefaultBindableModel):
         pass
 
     def setEveryHour(self, everyHour):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass
 
     def setHour(self, hour):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass
 
     def setHourEnabled(self, hourEnabled):
@@ -84,7 +84,7 @@ class ScheduleModel(DefaultBindableModel):
         pass
 
     def setMinute(self, minute):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass
 
     def setMinuteEnabled(self, minuteEnabled):
@@ -92,9 +92,9 @@ class ScheduleModel(DefaultBindableModel):
         pass
 
     def setSelectedDays(self, selectedDays):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass
 
     def toCronString(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass

@@ -4,11 +4,11 @@ __all__ = ["Annotation", "AnnotationType"]
 
 from typing import Any, Union
 
-from com.inductiveautomation.ignition.common import QualifiedPath
-from com.inductiveautomation.ignition.common.gson import JsonElement
-from dev.coatl.helper.types import AnyStr
 from java.lang import Object
 from java.util import Date
+
+from com.inductiveautomation.ignition.common import QualifiedPath
+from com.inductiveautomation.ignition.common.gson import JsonElement
 
 
 class Annotation(Object):
@@ -23,7 +23,7 @@ class Annotation(Object):
             pass
 
         def data(self, value):
-            # type: (AnyStr) -> Annotation.Builder
+            # type: (Union[str, unicode]) -> Annotation.Builder
             pass
 
         def delete(self):
@@ -56,7 +56,7 @@ class Annotation(Object):
 
         def type(
             self,
-            arg,  # type: Union[AnnotationType, AnyStr]
+            arg,  # type: Union[str, unicode, AnnotationType]
         ):
             # type: (...) -> Annotation.Builder
             pass
@@ -79,7 +79,7 @@ class Annotation(Object):
         pass
 
     def getData(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getLastUpdated(self):
@@ -103,7 +103,7 @@ class Annotation(Object):
         pass
 
     def getType(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def hasStorageId(self):
@@ -129,7 +129,7 @@ class Annotation(Object):
         pass
 
     def toJson(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def updatePath(self, path):
@@ -139,6 +139,6 @@ class Annotation(Object):
 
 class AnnotationType(Object):
     def __init__(self, type_, isRange):
-        # type: (AnyStr, bool) -> None
+        # type: (Union[str, unicode], bool) -> None
         super(AnnotationType, self).__init__()
         print(type_, isRange)

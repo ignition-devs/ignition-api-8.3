@@ -1,38 +1,39 @@
-from typing import Any, Callable, List, Optional
+from typing import Any, Callable, List, Optional, Union
 
 from com.inductiveautomation.ignition.common.script.builtin.http import JythonHttpClient
-from dev.coatl.helper.types import AnyStr
 
-def getHostName() -> AnyStr: ...
-def getIpAddress() -> AnyStr: ...
-def getRemoteServers(runningOnly: Optional[bool] = ...) -> List[AnyStr]: ...
+def getHostName() -> Union[str, unicode]: ...
+def getIpAddress() -> Union[str, unicode]: ...
+def getRemoteServers(
+    runningOnly: Optional[bool] = ...,
+) -> List[Union[str, unicode]]: ...
 def httpClient(
     timeout: int = ...,
     bypass_cert_validation: bool = ...,
-    username: Optional[AnyStr] = ...,
-    password: Optional[AnyStr] = ...,
-    proxy: Optional[AnyStr] = ...,
-    cookie_policy: AnyStr = ...,
-    redirect_policy: AnyStr = ...,
-    version: AnyStr = ...,
+    username: Union[str, unicode, None] = ...,
+    password: Union[str, unicode, None] = ...,
+    proxy: Union[str, unicode, None] = ...,
+    cookie_policy: Union[str, unicode] = ...,
+    redirect_policy: Union[str, unicode] = ...,
+    version: Union[str, unicode] = ...,
     customizer: Optional[Callable[..., Any]] = ...,
 ) -> JythonHttpClient: ...
 def sendEmail(
-    smtp: Optional[AnyStr] = ...,
-    fromAddr: AnyStr = ...,
-    subject: Optional[AnyStr] = ...,
-    body: Optional[AnyStr] = ...,
+    smtp: Union[str, unicode, None] = ...,
+    fromAddr: Union[str, unicode] = ...,
+    subject: Union[str, unicode, None] = ...,
+    body: Union[str, unicode, None] = ...,
     html: bool = ...,
-    to: Optional[List[AnyStr]] = ...,
+    to: Optional[List[Union[str, unicode]]] = ...,
     attachmentNames: Optional[List[object]] = ...,
     attachmentData: Optional[List[object]] = ...,
     timeout: int = ...,
-    username: Optional[AnyStr] = ...,
-    password: Optional[AnyStr] = ...,
-    priority: AnyStr = ...,
-    smtpProfile: Optional[AnyStr] = ...,
-    cc: Optional[List[AnyStr]] = ...,
-    bcc: Optional[List[AnyStr]] = ...,
+    username: Union[str, unicode, None] = ...,
+    password: Union[str, unicode, None] = ...,
+    priority: Union[str, unicode] = ...,
+    smtpProfile: Union[str, unicode, None] = ...,
+    cc: Optional[List[Union[str, unicode]]] = ...,
+    bcc: Optional[List[Union[str, unicode]]] = ...,
     retries: int = ...,
-    replyTo: Optional[List[AnyStr]] = ...,
+    replyTo: Optional[List[Union[str, unicode]]] = ...,
 ) -> None: ...

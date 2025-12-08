@@ -21,13 +21,11 @@ __all__ = [
     "synchronizeTime",
 ]
 
-from typing import List
-
-from dev.coatl.helper.types import AnyNum, AnyStr
+from typing import List, Union
 
 
 def demandPoll(deviceName, classList):
-    # type: (AnyStr, List[int]) -> None
+    # type: (Union[str, unicode], List[int]) -> None
     """Issues a poll request for one or more classes.
 
     Args:
@@ -37,8 +35,13 @@ def demandPoll(deviceName, classList):
     print(deviceName, classList)
 
 
-def directOperateAnalog(deviceName, variation, index, value):
-    # type: (AnyStr, int, int, AnyNum) -> None
+def directOperateAnalog(
+    deviceName,  # type: Union[str, unicode]
+    variation,  # type: int
+    index,  # type: int
+    value,  # type: Union[float, int, long]
+):
+    # type: (...) -> None
     """Issues a Direct Operate command to set an analog value in an
     analog output point.
 
@@ -52,7 +55,7 @@ def directOperateAnalog(deviceName, variation, index, value):
 
 
 def directOperateBinary(deviceName, index, tcc, opType, count, onTime, offTime):
-    # type: (AnyStr, int, int, int, int, int, int) -> None
+    # type: (Union[str, unicode], int, int, int, int, int, int) -> None
     """Performs a Direct Operate command on a binary point.
 
     Args:
@@ -72,7 +75,7 @@ def directOperateBinary(deviceName, index, tcc, opType, count, onTime, offTime):
 
 
 def freezeAnalogs(deviceName, indexes):
-    # type: (AnyStr, List[int]) -> None
+    # type: (Union[str, unicode], List[int]) -> None
     """Issues an Immediate Freeze command targeting one or more analog
     points.
 
@@ -84,7 +87,7 @@ def freezeAnalogs(deviceName, indexes):
 
 
 def freezeAtTimeAnalogs(deviceName, absoluteTime, intervalTime, indexes):
-    # type: (AnyStr, int, int, List[int]) -> None
+    # type: (Union[str, unicode], int, int, List[int]) -> None
     """Issues a Freeze at Time command targeting one or more analog
     points.
 
@@ -100,7 +103,7 @@ def freezeAtTimeAnalogs(deviceName, absoluteTime, intervalTime, indexes):
 
 
 def freezeAtTimeCounters(deviceName, absoluteTime, intervalTime, indexes):
-    # type: (AnyStr, int, int, List[int]) -> None
+    # type: (Union[str, unicode], int, int, List[int]) -> None
     """Issues a Freeze at Time command targeting one or more counters.
 
     Args:
@@ -115,7 +118,7 @@ def freezeAtTimeCounters(deviceName, absoluteTime, intervalTime, indexes):
 
 
 def freezeClearAnalogs(deviceName, indexes):
-    # type: (AnyStr, List[int]) -> None
+    # type: (Union[str, unicode], List[int]) -> None
     """Issues a Freeze and Clear command targeting one or more analog
     points.
 
@@ -127,7 +130,7 @@ def freezeClearAnalogs(deviceName, indexes):
 
 
 def freezeClearCounters(deviceName, indexes):
-    # type: (AnyStr, List[int]) -> None
+    # type: (Union[str, unicode], List[int]) -> None
     """Issues a Freeze and Clear command targeting one or more counters.
 
     Args:
@@ -138,7 +141,7 @@ def freezeClearCounters(deviceName, indexes):
 
 
 def freezeCounters(deviceName, indexes):
-    # type: (AnyStr, List[int]) -> None
+    # type: (Union[str, unicode], List[int]) -> None
     """Issues an Immediate Freeze command targeting one or more
     counters.
 
@@ -149,8 +152,13 @@ def freezeCounters(deviceName, indexes):
     print(deviceName, indexes)
 
 
-def selectOperateAnalog(deviceName, variation, index, value):
-    # type: (AnyStr, int, int, AnyNum) -> None
+def selectOperateAnalog(
+    deviceName,  # type: Union[str, unicode]
+    variation,  # type: int
+    index,  # type: int
+    value,  # type: Union[float, int, long]
+):
+    # type: (...) -> None
     """Performs a Select then Operate command on an analog point.
 
     Args:
@@ -163,7 +171,7 @@ def selectOperateAnalog(deviceName, variation, index, value):
 
 
 def selectOperateBinary(deviceName, index, tcc, opType, count, onTime, offTime):
-    # type: (AnyStr, int, int, int, int, int, int) -> None
+    # type: (Union[str, unicode], int, int, int, int, int, int) -> None
     """Performs a Select then Operate command on a binary point.
 
     Args:
@@ -183,7 +191,7 @@ def selectOperateBinary(deviceName, index, tcc, opType, count, onTime, offTime):
 
 
 def synchronizeTime(deviceName):
-    # type: (AnyStr) -> None
+    # type: (Union[str, unicode]) -> None
     """Issues a Synchronize Time command using the current Ignition
     Gateway time.
 

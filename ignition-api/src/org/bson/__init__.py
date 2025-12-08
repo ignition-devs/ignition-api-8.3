@@ -6,9 +6,9 @@ __all__ = ["BSONObject", "BsonDocument", "BsonValue", "Document"]
 
 from typing import TYPE_CHECKING, Any, Set, Union
 
-from dev.coatl.helper.types import AnyStr
 from java.lang import Class, Object
 from java.util import Collection, Date, Map
+
 from org.bson.codecs.configuration import CodecRegistry
 
 if TYPE_CHECKING:
@@ -17,19 +17,19 @@ if TYPE_CHECKING:
 
 class BSONObject(object):
     def containsField(self, s):
-        # type: (AnyStr) -> bool
+        # type: (Union[str, unicode]) -> bool
         raise NotImplementedError
 
     def get(self, key):
-        # type: (AnyStr) -> Object
+        # type: (Union[str, unicode]) -> Object
         raise NotImplementedError
 
     def keySet(self):
-        # type: () -> Set[AnyStr]
+        # type: () -> Set[Union[str, unicode]]
         raise NotImplementedError
 
     def put(self, k, v):
-        # type: (AnyStr, Object) -> Object
+        # type: (Union[str, unicode], Object) -> Object
         raise NotImplementedError
 
     def putAll(self, arg):
@@ -37,7 +37,7 @@ class BSONObject(object):
         raise NotImplementedError
 
     def removeField(self, key):
-        # type: (AnyStr) -> Object
+        # type: (Union[str, unicode]) -> Object
         raise NotImplementedError
 
     def toMap(self):
@@ -65,7 +65,7 @@ class Document(Object):
         print(args)
 
     def append(self, key, value):
-        # type: (AnyStr, Object) -> Document
+        # type: (Union[str, unicode], Object) -> Document
         pass
 
     def clear(self):
@@ -113,7 +113,7 @@ class Document(Object):
         pass
 
     def getString(self, key):
-        # type: (Object) -> AnyStr
+        # type: (Object) -> Union[str, unicode]
         pass
 
     def isEmpty(self):
@@ -121,7 +121,7 @@ class Document(Object):
         return True
 
     def keySet(self):
-        # type: () -> Set[AnyStr]
+        # type: () -> Set[Union[str, unicode]]
         pass
 
     @staticmethod
@@ -130,7 +130,7 @@ class Document(Object):
         pass
 
     def put(self, key, value):
-        # type: (AnyStr, Object) -> Object
+        # type: (Union[str, unicode], Object) -> Object
         pass
 
     def putAll(self, map):
@@ -150,7 +150,7 @@ class Document(Object):
         pass
 
     def toJson(self, *args):
-        # type: (*Any) -> AnyStr
+        # type: (*Any) -> Union[str, unicode]
         pass
 
     def values(self):

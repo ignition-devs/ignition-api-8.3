@@ -22,9 +22,7 @@ __all__ = [
 import io
 import os.path
 import tempfile
-from typing import Any, Optional
-
-from dev.coatl.helper.types import AnyStr
+from typing import Any, Union
 
 # Encoding Constants
 ISO8859_1 = "ISO-8859-1"
@@ -36,7 +34,7 @@ UTF_16LE = "UTF-16LE"
 
 
 def fileExists(filepath):
-    # type: (AnyStr) -> bool
+    # type: (Union[str, unicode]) -> bool
     """Checks to see if a file or folder at a given path exists.
 
     Note:
@@ -54,7 +52,7 @@ def fileExists(filepath):
 
 
 def getTempFile(extension):
-    # type: (AnyStr) -> AnyStr
+    # type: (Union[str, unicode]) -> Union[str, unicode]
     """Creates a new temp file on the host machine with a certain
     extension, returning the path to the file.
 
@@ -78,7 +76,7 @@ def getTempFile(extension):
 
 
 def readFileAsBytes(filepath):
-    # type: (AnyStr) -> Any
+    # type: (Union[str, unicode]) -> Any
     """Opens the file found at path filename, and reads the entire file.
 
     Returns the file as an array of bytes. Commonly this array of bytes
@@ -104,8 +102,11 @@ def readFileAsBytes(filepath):
         return f.read()
 
 
-def readFileAsString(filepath, encoding="UTF-8"):
-    # type: (AnyStr, Optional[AnyStr]) -> AnyStr
+def readFileAsString(
+    filepath,  # type: Union[str, unicode]
+    encoding="UTF-8",  # type: Union[str, unicode]
+):
+    # type: (...) -> Union[str, unicode]
     """Opens the file found at path filename, and reads the entire file.
 
     Returns the file as a string. Common things to do with this string
@@ -133,10 +134,10 @@ def readFileAsString(filepath, encoding="UTF-8"):
 
 
 def writeFile(
-    filepath,  # type: AnyStr
+    filepath,  # type: Union[str, unicode]
     data,  # type: Any
     append=False,  # type: bool
-    encoding="UTF-8",  # type: AnyStr
+    encoding="UTF-8",  # type: Union[str, unicode]
 ):
     # type: (...) -> None
     """Writes the given data to the file at file path filename.
