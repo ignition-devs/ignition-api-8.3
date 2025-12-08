@@ -2,13 +2,13 @@ __all__ = ["ResourceFilter"]
 
 from typing import List, Union
 
+from java.lang import Object
+
 from com.inductiveautomation.ignition.common.project.resource import (
     ProjectResource,
     ProjectResourceId,
     ResourceType,
 )
-from dev.coatl.helper.types import AnyStr
-from java.lang import Object
 
 
 class ResourceFilter(Object):
@@ -27,7 +27,7 @@ class ResourceFilter(Object):
             pass
 
         def setApplicationScope(self, applicationScope):
-            # type: (Union[AnyStr, int]) -> ResourceFilter.Builder
+            # type: (Union[str, unicode, int]) -> ResourceFilter.Builder
             pass
 
     def __init__(self, applicationScope, resourceTypes):

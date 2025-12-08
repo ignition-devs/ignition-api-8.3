@@ -14,20 +14,20 @@ __all__ = [
     "getReportNamesAsList",
 ]
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
+
+from java.lang import IllegalArgumentException
 
 from com.inductiveautomation.ignition.common import BasicDataset
 from com.inductiveautomation.reporting.common.api import QueryResults
-from dev.coatl.helper.types import AnyStr
-from java.lang import IllegalArgumentException
 
 
 def executeAndDistribute(
-    path,  # type: AnyStr
-    project="project",  # type: AnyStr
-    parameters=None,  # type: Optional[Dict[AnyStr, int]]
-    action=None,  # type: Optional[AnyStr]
-    actionSettings=None,  # type: Optional[Dict[AnyStr, Any]]
+    path,  # type: Union[str, unicode]
+    project="project",  # type: Union[str, unicode]
+    parameters=None,  # type: Optional[Dict[Union[str, unicode], int]]
+    action=None,  # type: Union[str, unicode, None]
+    actionSettings=None,  # type: Optional[Dict[Union[str, unicode], Any]]
 ):
     # type: (...) -> None
     """Executes and distributes a report.
@@ -67,10 +67,10 @@ def executeAndDistribute(
 
 
 def executeReport(
-    path,  # type: AnyStr
-    project="project",  # type: AnyStr
-    parameters=None,  # type: Optional[Dict[AnyStr, int]]
-    fileType="pdf",  # type: AnyStr
+    path,  # type: Union[str, unicode]
+    project="project",  # type: Union[str, unicode]
+    parameters=None,  # type: Optional[Dict[Union[str, unicode], int]]
+    fileType="pdf",  # type: Union[str, unicode]
 ):
     # type: (...) -> Any
     """Immediately executes an existing report and returns a byte[] of
@@ -110,7 +110,7 @@ def executeReport(
 
 
 def getReportNamesAsDataset(project="project", includeReportName=True):
-    # type: (Optional[AnyStr], bool) -> BasicDataset
+    # type: (Union[str, unicode, None], bool) -> BasicDataset
     """Gets a data of all reports for a project.
 
     Args:
@@ -136,7 +136,7 @@ def getReportNamesAsDataset(project="project", includeReportName=True):
 
 
 def getReportNamesAsList(project="project"):
-    # type: (Optional[AnyStr]) -> List[AnyStr]
+    # type: (Union[str, unicode, None]) -> List[Union[str, unicode]]
     """Gets a list of all reports for a project.
 
     Args:

@@ -13,15 +13,15 @@ __all__ = [
 
 from typing import Any, Iterator, Optional, Union
 
-from dev.coatl.helper.types import AnyStr
 from java.lang import Class
+
 from org.python.core import PyInteger, PyList, PyObject, PySequence
 
 
 class JythonMap(object):
 
     def __finditem__(self, key):
-        # type: (Union[int, PyObject, AnyStr]) -> PyObject
+        # type: (Union[int, PyObject, Union[str, unicode]]) -> PyObject
         raise NotImplementedError
 
     def get(self, pyKey, def_=None):
@@ -119,7 +119,7 @@ class MutableJythonMap(object):
         raise NotImplementedError
 
     def update(self, *args, **kwargs):
-        # type: (*PyObject, **AnyStr) -> None
+        # type: (*PyObject, **Union[str, unicode]) -> None
         raise NotImplementedError
 
     def __setitem__(self, pyKey, pyValue):
@@ -154,7 +154,7 @@ class MutableJythonSequence(JythonSequence):
         raise NotImplementedError
 
     def sort(self, *args, **kwargs):
-        # type: (*PyObject, **AnyStr) -> None
+        # type: (*PyObject, **Union[str, unicode]) -> None
         raise NotImplementedError
 
     def __add__(self, other):
@@ -169,7 +169,7 @@ class MutableJythonSequence(JythonSequence):
 class AbstractJythonMap(JythonMap):
 
     def __finditem__(self, key):
-        # type: (Union[int, PyObject, AnyStr]) -> PyObject
+        # type: (Union[int, PyObject, Union[str, unicode]]) -> PyObject
         pass
 
     def get(self, pyKey, def_=None):
@@ -243,7 +243,7 @@ class AbstractMutableJythonMap(MutableJythonMap):
         pass
 
     def update(self, *args, **kwargs):
-        # type: (*PyObject, **AnyStr) -> None
+        # type: (*PyObject, **Union[str, unicode]) -> None
         raise NotImplementedError
 
     def __setitem__(self, pyKey, value):
@@ -278,5 +278,5 @@ class AbstractMutableJythonSequence(AbstractJythonSequence, MutableJythonSequenc
         raise NotImplementedError
 
     def sort(self, *args, **kwargs):
-        # type: (*PyObject, **AnyStr) -> None
+        # type: (*PyObject, **Union[str, unicode]) -> None
         pass

@@ -13,18 +13,16 @@ __all__ = [
     "validateUser",
 ]
 
-from typing import Optional, Tuple
-
-from dev.coatl.helper.types import AnyStr
+from typing import Optional, Tuple, Union
 
 
 def getUserRoles(
-    username,  # type: AnyStr
-    password,  # type: AnyStr
-    authProfile="",  # type: AnyStr
+    username,  # type: Union[str, unicode]
+    password,  # type: Union[str, unicode]
+    authProfile="",  # type: Union[str, unicode]
     timeout=60000,  # type: int
 ):
-    # type: (...) -> Optional[Tuple[AnyStr, ...]]
+    # type: (...) -> Optional[Tuple[Union[str, unicode], ...]]
     """Fetches the roles for a user from the Gateway.
 
     This may not be the currently logged in user. Requires the password
@@ -49,8 +47,13 @@ def getUserRoles(
     return "Administrator", "Developer"
 
 
-def validateUser(username, password, authProfile="", timeout=60000):
-    # type: (AnyStr, AnyStr, AnyStr, int) -> bool
+def validateUser(
+    username,  # type: Union[str, unicode]
+    password,  # type: Union[str, unicode]
+    authProfile="",  # type: Union[str, unicode]
+    timeout=60000,  # type: int
+):
+    # type: (...) -> bool
     """Tests credentials (username and password) against an
     authentication profile.
 

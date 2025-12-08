@@ -2,11 +2,9 @@ from __future__ import print_function
 
 __all__ = ["JsonReader", "JsonToken", "JsonWriter"]
 
-from typing import Any
+from typing import Any, Union
 
 from enum import Enum
-
-from dev.coatl.helper.types import AnyStr
 from java.io import Closeable, Flushable, Reader, Writer
 from java.lang import Object
 
@@ -38,7 +36,7 @@ class JsonReader(Object, Closeable):
         pass
 
     def getPath(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def hasNext(self):
@@ -66,7 +64,7 @@ class JsonReader(Object, Closeable):
         pass
 
     def nextName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def nextNull(self):
@@ -74,7 +72,7 @@ class JsonReader(Object, Closeable):
         pass
 
     def nextString(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def peek(self):
@@ -146,11 +144,11 @@ class JsonWriter(Object, Closeable, Flushable):
         return True
 
     def jsonValue(self, value):
-        # type: (AnyStr) -> JsonWriter
+        # type: (Union[str, unicode]) -> JsonWriter
         pass
 
     def name(self, name):
-        # type: (AnyStr) -> JsonWriter
+        # type: (Union[str, unicode]) -> JsonWriter
         pass
 
     def setHtmlSafe(self, htmlSafe):
@@ -158,7 +156,7 @@ class JsonWriter(Object, Closeable, Flushable):
         pass
 
     def setIndent(self, indent):
-        # type: (AnyStr) -> None
+        # type: (Union[str, unicode]) -> None
         pass
 
     def setLenient(self, lenient):

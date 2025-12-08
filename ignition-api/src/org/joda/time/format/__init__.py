@@ -12,7 +12,6 @@ __all__ = [
 
 from typing import TYPE_CHECKING, Any, Optional, Union
 
-from dev.coatl.helper.types import AnyStr
 from java.io import Writer
 from java.lang import CharSequence, Object, String, StringBuffer
 from java.util import Locale
@@ -43,7 +42,7 @@ class DateTimeParser(object):
         raise NotImplementedError
 
     def parseInto(self, bucket, text, position):
-        # type: (DateTimeParserBucket, AnyStr, int) -> int
+        # type: (DateTimeParserBucket, Union[str, unicode], int) -> int
         raise NotImplementedError
 
 
@@ -59,8 +58,14 @@ class DateTimePrinter(object):
 
 class PeriodParser(object):
 
-    def parseInto(self, period, periodStr, position, locale):
-        # type: (ReadWritablePeriod, AnyStr, int, Locale) -> int
+    def parseInto(
+        self,
+        period,  # type: ReadWritablePeriod
+        periodStr,  # type: Union[str, unicode]
+        position,  # type: int
+        locale,  # type: Locale
+    ):
+        # type: (...) -> int
         raise NotImplementedError
 
 
@@ -125,38 +130,38 @@ class DateTimeFormatter(Object):
         pass
 
     def parseDateTime(self, text):
-        # type: (AnyStr) -> DateTime
+        # type: (Union[str, unicode]) -> DateTime
         pass
 
     def parseInto(self, instant, text, position):
-        # type: (ReadWritableInstant, AnyStr, int) -> int
+        # type: (ReadWritableInstant, Union[str, unicode], int) -> int
         pass
 
     def parseLocalDate(self, text):
-        # type: (AnyStr) -> LocalDate
+        # type: (Union[str, unicode]) -> LocalDate
         pass
 
     def parseLocalDateTime(self, text):
-        # type: (AnyStr) -> LocalDateTime
+        # type: (Union[str, unicode]) -> LocalDateTime
         pass
 
     def parseLocalTime(self, text):
-        # type: (AnyStr) -> LocalTime
+        # type: (Union[str, unicode]) -> LocalTime
         pass
 
     def parseMillis(self, text):
-        # type: (AnyStr) -> long
+        # type: (Union[str, unicode]) -> long
         pass
 
     def parseMutableDateTime(self, text):
-        # type: (AnyStr) -> MutableDateTime
+        # type: (Union[str, unicode]) -> MutableDateTime
         pass
 
     def print(
         self,
         arg,  # type: Union[long, ReadableInstant, ReadablePartial]
     ):
-        # type: (...) -> AnyStr
+        # type: (...) -> Union[str, unicode]
         pass
 
     def printTo(self, *args):
@@ -292,15 +297,15 @@ class PeriodFormatter(Object):
         pass
 
     def parseInto(self, period, text, position):
-        # type: (ReadWritablePeriod, AnyStr, int) -> int
+        # type: (ReadWritablePeriod, Union[str, unicode], int) -> int
         pass
 
     def parseMutablePeriod(self, text):
-        # type: (AnyStr) -> MutablePeriod
+        # type: (Union[str, unicode]) -> MutablePeriod
         pass
 
     def parsePeriod(self, text):
-        # type: (AnyStr) -> Period
+        # type: (Union[str, unicode]) -> Period
         pass
 
     def print(self, period):

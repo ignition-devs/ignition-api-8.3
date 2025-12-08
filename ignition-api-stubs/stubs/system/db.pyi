@@ -1,11 +1,10 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from com.inductiveautomation.ignition.common import BasicDataset
 from com.inductiveautomation.ignition.common.script.builtin import (
     DatasetUtilities,
     SProcCall,
 )
-from dev.coatl.helper.types import AnyNum, AnyStr
 
 BIT: int
 REAL: int
@@ -50,86 +49,96 @@ REPEATABLE_READ: int
 SERIALIZABLE: int
 
 def addDatasource(
-    jdbcDriver: AnyStr,
-    name: AnyStr,
-    description: AnyStr = ...,
-    connectUrl: Optional[AnyStr] = ...,
-    username: Optional[AnyStr] = ...,
-    password: Optional[AnyStr] = ...,
-    props: Optional[AnyStr] = ...,
-    validationQuery: Optional[AnyStr] = ...,
+    jdbcDriver: Union[str, unicode],
+    name: Union[str, unicode],
+    description: Union[str, unicode] = ...,
+    connectUrl: Union[str, unicode, None] = ...,
+    username: Union[str, unicode, None] = ...,
+    password: Union[str, unicode, None] = ...,
+    props: Union[str, unicode, None] = ...,
+    validationQuery: Union[str, unicode, None] = ...,
     maxConnections: int = ...,
 ) -> None: ...
-def beginNamedQueryTransaction(*args: Any, **kwargs: Any) -> AnyStr: ...
+def beginNamedQueryTransaction(*args: Any, **kwargs: Any) -> Union[str, unicode]: ...
 def beginTransaction(
-    database: Optional[AnyStr] = ...,
+    database: Union[str, unicode] = ...,
     isolationLevel: Optional[int] = ...,
     timeout: Optional[int] = ...,
-) -> AnyStr: ...
+) -> Union[str, unicode]: ...
 def clearQueryCache(
-    project: Optional[AnyStr] = ..., path: Optional[AnyStr] = ...
+    project: Union[str, unicode, None] = ..., path: Union[str, unicode, None] = ...
 ) -> None: ...
-def closeTransaction(tx: AnyStr) -> None: ...
-def commitTransaction(tx: AnyStr) -> None: ...
+def closeTransaction(tx: Union[str, unicode]) -> None: ...
+def commitTransaction(tx: Union[str, unicode]) -> None: ...
 def createSProcCall(
-    procedureName: AnyStr,
-    database: AnyStr = ...,
-    tx: Optional[AnyStr] = ...,
+    procedureName: Union[str, unicode],
+    database: Union[str, unicode] = ...,
+    tx: Union[str, unicode, None] = ...,
     skipAudit: bool = ...,
 ) -> SProcCall: ...
 def execQuery(
-    path: AnyStr,
-    parameters: Optional[Dict[AnyStr, Any]] = ...,
-    tx: Optional[AnyStr] = ...,
-    project: Optional[AnyStr] = ...,
+    path: Union[str, unicode],
+    parameters: Optional[Dict[Union[str, unicode], Any]] = ...,
+    tx: Union[str, unicode, None] = ...,
+    project: Union[str, unicode, None] = ...,
 ) -> Any: ...
 def execSProcCall(callContext: SProcCall) -> None: ...
 def execScalar(
-    path: AnyStr,
-    parameters: Optional[Dict[AnyStr, Any]] = ...,
-    tx: Optional[AnyStr] = ...,
-    project: Optional[AnyStr] = ...,
-) -> Optional[AnyNum]: ...
+    path: Union[str, unicode],
+    parameters: Optional[Dict[Union[str, unicode], Any]] = ...,
+    tx: Union[str, unicode, None] = ...,
+    project: Union[str, unicode, None] = ...,
+) -> Optional[Union[float, int, long]]: ...
 def execUpdate(
-    path: AnyStr,
-    parameters: Optional[Dict[AnyStr, Any]] = ...,
-    tx: Optional[AnyStr] = ...,
+    path: Union[str, unicode],
+    parameters: Optional[Dict[Union[str, unicode], Any]] = ...,
+    tx: Union[str, unicode, None] = ...,
     getKey: bool = ...,
-    project: Optional[AnyStr] = ...,
+    project: Union[str, unicode, None] = ...,
 ) -> int: ...
 def execUpdateAsync(
-    path: AnyStr,
-    parameters: Optional[Dict[AnyStr, Any]] = ...,
-    project: Optional[AnyStr] = ...,
+    path: Union[str, unicode],
+    parameters: Optional[Dict[Union[str, unicode], Any]] = ...,
+    project: Union[str, unicode, None] = ...,
 ) -> bool: ...
-def getConnectionInfo(name: Optional[AnyStr] = ...) -> BasicDataset: ...
+def getConnectionInfo(name: Union[str, unicode, None] = ...) -> BasicDataset: ...
 def getConnections() -> BasicDataset: ...
-def removeDatasource(name: AnyStr) -> None: ...
-def rollbackTransaction(tx: AnyStr) -> None: ...
+def removeDatasource(name: Union[str, unicode]) -> None: ...
+def rollbackTransaction(tx: Union[str, unicode]) -> None: ...
 def runPrepQuery(
-    query: AnyStr, args: List[Any], database: AnyStr = ..., tx: Optional[AnyStr] = ...
+    query: Union[str, unicode],
+    args: List[Any],
+    database: Union[str, unicode] = ...,
+    tx: Union[str, unicode, None] = ...,
 ) -> DatasetUtilities.PyDataSet: ...
 def runPrepUpdate(
-    query: AnyStr,
+    query: Union[str, unicode],
     args: List[Any],
-    database: AnyStr = ...,
-    tx: Optional[AnyStr] = ...,
+    database: Union[str, unicode] = ...,
+    tx: Union[str, unicode, None] = ...,
     getKey: bool = ...,
     skipAudit: bool = ...,
 ) -> int: ...
 def runSFPrepUpdate(
-    query: AnyStr, args: List[Any], datasources: List[AnyStr]
+    query: Union[str, unicode], args: List[Any], datasources: List[Union[str, unicode]]
 ) -> bool: ...
 def runScalarPrepQuery(
-    query: AnyStr, args: List[Any], database: AnyStr = ..., tx: Optional[AnyStr] = ...
+    query: Union[str, unicode],
+    args: List[Any],
+    database: Union[str, unicode] = ...,
+    tx: Union[str, unicode, None] = ...,
 ) -> Any: ...
 def runUpdateQuery(
-    query: AnyStr,
-    database: AnyStr = ...,
-    tx: Optional[AnyStr] = ...,
+    query: Union[str, unicode],
+    database: Union[str, unicode] = ...,
+    tx: Union[str, unicode, None] = ...,
     getKey: bool = ...,
     skipAudit: bool = ...,
 ) -> int: ...
-def setDatasourceConnectURL(name: AnyStr, connectUrl: AnyStr) -> None: ...
-def setDatasourceEnabled(name: AnyStr, enabled: bool) -> None: ...
-def setDatasourceMaxConnections(name: AnyStr, maxConnections: int) -> None: ...
+def setDatasourceConnectURL(
+    name: Union[str, unicode], connectUrl: Union[str, unicode]
+) -> None: ...
+def setDatasourceEnabled(name: Union[str, unicode], enabled: bool) -> None: ...
+def setDatasourceMaxConnections(
+    name: Union[str, unicode], maxConnections: int
+) -> None: ...

@@ -1,11 +1,11 @@
 __all__ = ["Creator", "Deleter", "Fetcher", "Page", "Reader", "Resource", "Updater"]
 
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
+
+from java.lang import Object
 
 from com.google.common.util.concurrent import ListenableFuture
 from com.twilio.http import TwilioRestClient
-from dev.coatl.helper.types import AnyStr
-from java.lang import Object
 
 
 class Creator(Object):
@@ -60,28 +60,44 @@ class Page(Object):
         # type: (*Any) -> Page
         pass
 
-    def getFirstPageUrl(self, domain, region):
-        # type: (AnyStr, AnyStr) -> AnyStr
+    def getFirstPageUrl(
+        self,
+        domain,  # type: Union[str, unicode]
+        region,  # type: Union[str, unicode]
+    ):
+        # type: (...) -> Union[str, unicode]
         pass
 
-    def getNextPageUrl(self, domain, region):
-        # type: (AnyStr, AnyStr) -> AnyStr
+    def getNextPageUrl(
+        self,
+        domain,  # type: Union[str, unicode]
+        region,  # type: Union[str, unicode]
+    ):
+        # type: (...) -> Union[str, unicode]
         pass
 
     def getPageSize(self):
         # type: () -> int
         pass
 
-    def getPreviousPageUrl(self, domain, region):
-        # type: (AnyStr, AnyStr) -> AnyStr
+    def getPreviousPageUrl(
+        self,
+        domain,  # type: Union[str, unicode]
+        region,  # type: Union[str, unicode]
+    ):
+        # type: (...) -> Union[str, unicode]
         pass
 
     def getRecords(self):
         # type: () -> List[Any]
         pass
 
-    def getUrl(self, domain, region):
-        # type: (AnyStr, AnyStr) -> AnyStr
+    def getUrl(
+        self,
+        domain,  # type: Union[str, unicode]
+        region,  # type: Union[str, unicode]
+    ):
+        # type: (...) -> Union[str, unicode]
         pass
 
     def hasNextPage(self):
@@ -102,8 +118,12 @@ class Reader(Object):
         # type: () -> long
         pass
 
-    def getPage(self, targetUrl, client=None):
-        # type: (AnyStr, Optional[TwilioRestClient]) -> Page
+    def getPage(
+        self,
+        targetUrl,  # type: Union[str, unicode]
+        client=None,  # type: Optional[TwilioRestClient]
+    ):
+        # type: (...) -> Page
         pass
 
     def getPageSize(self):

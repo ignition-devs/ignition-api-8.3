@@ -2,7 +2,6 @@ __all__ = ["AbstractReadableInstantFieldProperty"]
 
 from typing import TYPE_CHECKING, Optional, Union
 
-from dev.coatl.helper.types import AnyStr
 from java.lang import Object
 from java.util import Locale
 
@@ -31,15 +30,15 @@ class AbstractReadableInstantFieldProperty(Object):
         pass
 
     def getAsShortText(self, arg=None):
-        # type: (Optional[Locale]) -> AnyStr
+        # type: (Optional[Locale]) -> Union[str, unicode]
         pass
 
     def getAsString(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getAsText(self, locale=None):
-        # type: (Optional[Locale]) -> AnyStr
+        # type: (Optional[Locale]) -> Union[str, unicode]
         pass
 
     def getDifference(self, instant):
@@ -95,7 +94,7 @@ class AbstractReadableInstantFieldProperty(Object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getRangeDurationField(self):

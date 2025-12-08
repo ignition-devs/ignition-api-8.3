@@ -21,12 +21,12 @@ __all__ = [
 
 from typing import Any, Iterable, Optional, Union
 
-from com.inductiveautomation.ignition.common.gson.reflect import TypeToken
-from com.inductiveautomation.ignition.common.gson.stream import JsonReader, JsonWriter
-from dev.coatl.helper.types import AnyNum, AnyStr
 from java.io import Reader, Writer
 from java.lang import Class, Enum, Object
 from java.lang.reflect import Type
+
+from com.inductiveautomation.ignition.common.gson.reflect import TypeToken
+from com.inductiveautomation.ignition.common.gson.stream import JsonReader, JsonWriter
 
 
 class ExclusionStrategy(object):
@@ -41,7 +41,7 @@ class ExclusionStrategy(object):
 
 class FieldNamingStrategy(object):
     def translateName(self, arg):
-        # type: (Any) -> AnyStr
+        # type: (Any) -> Union[str, unicode]
         raise NotImplementedError
 
 
@@ -90,7 +90,7 @@ class FieldAttributes(Object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def hasModifier(self, modifier):
@@ -103,15 +103,15 @@ class FieldAttributes(Object):
 
 
 class FieldNamingPolicy(Enum, FieldNamingStrategy):
-    IDENTITY = None  # type: AnyStr
-    UPPER_CAMEL_CASE = None  # type: AnyStr
-    UPPER_CAMEL_CASE_WITH_SPACES = None  # type: AnyStr
-    LOWER_CASE_WITH_UNDERSCORES = None  # type: AnyStr
-    LOWER_CASE_WITH_DASHES = None  # type: AnyStr
-    LOWER_CASE_WITH_DOTS = None  # type: AnyStr
+    IDENTITY = None  # type: Union[str, unicode]
+    UPPER_CAMEL_CASE = None  # type: Union[str, unicode]
+    UPPER_CAMEL_CASE_WITH_SPACES = None  # type: Union[str, unicode]
+    LOWER_CASE_WITH_UNDERSCORES = None  # type: Union[str, unicode]
+    LOWER_CASE_WITH_DASHES = None  # type: Union[str, unicode]
+    LOWER_CASE_WITH_DOTS = None  # type: Union[str, unicode]
 
     def translateName(self, arg):
-        # type: (Any) -> AnyStr
+        # type: (Any) -> Union[str, unicode]
         pass
 
 
@@ -157,7 +157,7 @@ class Gson(Object):
         return True
 
     def toJson(self, *args):
-        # type: (*Any) -> Optional[AnyStr]
+        # type: (*Any) -> Union[str, unicode, None]
         pass
 
     def toJsonTree(self, src, typeOfSrc=None):
@@ -317,7 +317,7 @@ class JsonElement(object):
         raise NotImplementedError
 
     def getAsNumber(self):
-        # type: () -> AnyNum
+        # type: () -> Union[float, int, long]
         raise NotImplementedError
 
     def getAsShort(self):
@@ -399,7 +399,7 @@ class JsonArray(JsonElement):
         pass
 
     def getAsNumber(self):
-        # type: () -> AnyNum
+        # type: () -> Union[float, int, long]
         pass
 
     def getAsShort(self):
@@ -461,7 +461,7 @@ class JsonNull(JsonElement):
         pass
 
     def getAsNumber(self):
-        # type: () -> AnyNum
+        # type: () -> Union[float, int, long]
         pass
 
     def getAsShort(self):
@@ -475,11 +475,11 @@ class JsonNull(JsonElement):
 
 class JsonObject(JsonElement):
     def add(self, property, value):
-        # type: (AnyStr, JsonElement) -> None
+        # type: (Union[str, unicode], JsonElement) -> None
         pass
 
     def addProperty(self, property, value):
-        # type: (AnyStr, Any) -> None
+        # type: (Union[str, unicode], Any) -> None
         pass
 
     def createJsonElement(self, value):
@@ -487,7 +487,7 @@ class JsonObject(JsonElement):
         pass
 
     def get(self, memberName):
-        # type: (AnyStr) -> JsonElement
+        # type: (Union[str, unicode]) -> JsonElement
         pass
 
     def getAsBigDecimal(self):
@@ -527,7 +527,7 @@ class JsonObject(JsonElement):
         pass
 
     def getAsNumber(self):
-        # type: () -> AnyNum
+        # type: () -> Union[float, int, long]
         pass
 
     def getAsShort(self):
@@ -535,11 +535,11 @@ class JsonObject(JsonElement):
         pass
 
     def has(self, memberName):
-        # type: (AnyStr) -> bool
+        # type: (Union[str, unicode]) -> bool
         return True
 
     def remove(self, property):
-        # type: (AnyStr) -> JsonElement
+        # type: (Union[str, unicode]) -> JsonElement
         pass
 
     def size(self):
@@ -593,7 +593,7 @@ class JsonPrimitive(JsonElement):
         pass
 
     def getAsNumber(self):
-        # type: () -> AnyNum
+        # type: () -> Union[float, int, long]
         pass
 
     def getAsShort(self):
@@ -634,7 +634,7 @@ class LongSerializationPolicy(object):
 
 class TypeAdapter(object):
     def fromJson(self, arg):
-        # type: (Union[Reader, AnyStr]) -> Any
+        # type: (Union[str, unicode, Reader]) -> Any
         pass
 
     def fromJsonTree(self, jsonTree):
@@ -650,7 +650,7 @@ class TypeAdapter(object):
         raise NotImplementedError
 
     def toJson(self, out, value):
-        # type: (Writer, Any) -> Optional[AnyStr]
+        # type: (Writer, Any) -> Union[str, unicode, None]
         pass
 
     def toJsonTree(self, value):

@@ -38,6 +38,8 @@ __all__ = [
 
 from typing import List, Optional, Union
 
+from java.util import Date, Locale
+
 from com.inductiveautomation.ignition.common.messages import UIResponse
 from com.inductiveautomation.ignition.common.user import PyUser, UserSourceMeta
 from com.inductiveautomation.ignition.common.user.schedule import (
@@ -46,12 +48,15 @@ from com.inductiveautomation.ignition.common.user.schedule import (
     HolidayModel,
     ScheduleAdjustment,
 )
-from dev.coatl.helper.types import AnyStr
-from java.util import Date, Locale
 
 
-def addCompositeSchedule(name, scheduleOne, scheduleTwo, description=None):
-    # type: (AnyStr, AnyStr, AnyStr, Optional[AnyStr]) -> UIResponse
+def addCompositeSchedule(
+    name,  # type: Union[str, unicode]
+    scheduleOne,  # type: Union[str, unicode]
+    scheduleTwo,  # type: Union[str, unicode]
+    description=None,  # type: Union[str, unicode, None]
+):
+    # type: (...) -> UIResponse
     """Allows two schedules to be combined into a composite schedule.
 
     Args:
@@ -84,7 +89,7 @@ def addHoliday(holiday):
 
 
 def addRole(userSource, role):
-    # type: (AnyStr, AnyStr) -> UIResponse
+    # type: (Union[str, unicode], Union[str, unicode]) -> UIResponse
     """Allows a role to the specified user source.
 
     When altering the Gateway System User Source, the Allow User Admin
@@ -122,7 +127,7 @@ def addSchedule(schedule):
 
 
 def addUser(userSource, user):
-    # type: (AnyStr, PyUser) -> UIResponse
+    # type: (Union[str, unicode], PyUser) -> UIResponse
     """Adds a new user to a user source.
 
     Used in combination with getNewUser to create new user.
@@ -142,8 +147,13 @@ def addUser(userSource, user):
     return UIResponse(Locale.ENGLISH)
 
 
-def createScheduleAdjustment(startDate, endDate, isAvailable, note):
-    # type: (Date, Date, bool, AnyStr) -> ScheduleAdjustment
+def createScheduleAdjustment(
+    startDate,  # type: Date
+    endDate,  # type: Date
+    isAvailable,  # type: bool
+    note,  # type: Union[str, unicode]
+):
+    # type: (...) -> ScheduleAdjustment
     """Creates a schedule adjustment.
 
     Args:
@@ -160,7 +170,7 @@ def createScheduleAdjustment(startDate, endDate, isAvailable, note):
 
 
 def editHoliday(holidayName, holiday):
-    # type: (AnyStr, HolidayModel) -> UIResponse
+    # type: (Union[str, unicode], HolidayModel) -> UIResponse
     """Allows a holiday to be edited.
 
     Args:
@@ -176,8 +186,12 @@ def editHoliday(holidayName, holiday):
     return UIResponse(Locale.ENGLISH)
 
 
-def editRole(userSource, oldName, newName):
-    # type: (AnyStr, AnyStr, AnyStr) -> UIResponse
+def editRole(
+    userSource,  # type: Union[str, unicode]
+    oldName,  # type: Union[str, unicode]
+    newName,  # type: Union[str, unicode]
+):
+    # type: (...) -> UIResponse
     """Renames a role in the specified user source.
 
     When altering the Gateway System User Source, the Allow User Admin
@@ -199,7 +213,7 @@ def editRole(userSource, oldName, newName):
 
 
 def editSchedule(scheduleName, schedule):
-    # type: (AnyStr, AbstractScheduleModel) -> UIResponse
+    # type: (Union[str, unicode], AbstractScheduleModel) -> UIResponse
     """Allows a schedule to be edited.
 
     Args:
@@ -218,7 +232,7 @@ def editSchedule(scheduleName, schedule):
 
 
 def editUser(userSource, user):
-    # type: (AnyStr, PyUser) -> UIResponse
+    # type: (Union[str, unicode], PyUser) -> UIResponse
     """Alters a specific user in a user source, replacing the previous
     data with the new data passed in.
 
@@ -236,7 +250,7 @@ def editUser(userSource, user):
 
 
 def getHoliday(holidayName):
-    # type: (AnyStr) -> Optional[HolidayModel]
+    # type: (Union[str, unicode]) -> Optional[HolidayModel]
     """Returns a specific holiday.
 
     Args:
@@ -250,7 +264,7 @@ def getHoliday(holidayName):
 
 
 def getHolidayNames():
-    # type: () -> List[AnyStr]
+    # type: () -> List[Union[str, unicode]]
     """Returns a collection of strings of all holiday names.
 
     Returns:
@@ -271,7 +285,7 @@ def getHolidays():
 
 
 def getNewUser(userSource, username):
-    # type: (AnyStr, AnyStr) -> PyUser
+    # type: (Union[str, unicode], Union[str, unicode]) -> PyUser
     """Creates a new user object.
 
     The user will not be added to the user source until addUser is
@@ -291,7 +305,7 @@ def getNewUser(userSource, username):
 
 
 def getRoles(userSource):
-    # type: (AnyStr) -> List[AnyStr]
+    # type: (Union[str, unicode]) -> List[Union[str, unicode]]
     """Returns a sequence of strings representing all of the roles
     configured in a specific user source.
 
@@ -306,7 +320,7 @@ def getRoles(userSource):
 
 
 def getSchedule(scheduleName):
-    # type: (AnyStr) -> Optional[AbstractScheduleModel]
+    # type: (Union[str, unicode]) -> Optional[AbstractScheduleModel]
     """Returns a specific schedule.
 
     Args:
@@ -326,7 +340,7 @@ def getSchedule(scheduleName):
 
 
 def getScheduleNames():
-    # type: () -> List[AnyStr]
+    # type: () -> List[Union[str, unicode]]
     """Returns a sequence of strings representing the names of all of
     the schedules available.
 
@@ -337,8 +351,11 @@ def getScheduleNames():
     return ["A", "Always", "B", "C", "Example", "MyComposite", "MySchedule"]
 
 
-def getScheduledUsers(userSource, date=Date()):
-    # type: (AnyStr, Optional[Union[Date, int]]) -> List[PyUser]
+def getScheduledUsers(
+    userSource,  # type: Union[str, unicode]
+    date=None,  # type: Optional[Union[Date, int]]
+):
+    # type: (...) -> List[PyUser]
     """Returns a list of users that are scheduled on.
 
     If no users are scheduled, it will return an empty list.
@@ -354,6 +371,8 @@ def getScheduledUsers(userSource, date=Date()):
         List of all Users scheduled for the given date, taking schedule
         adjustments into account.
     """
+    if date is None:
+        date = Date()
     print(userSource, date)
     return [PyUser()]
 
@@ -373,7 +392,7 @@ def getSchedules():
 
 
 def getUser(userSource, username):
-    # type: (AnyStr, AnyStr) -> PyUser
+    # type: (Union[str, unicode], Union[str, unicode]) -> PyUser
     """Looks up a specific user in a user source, by username.
 
     The full User object is returned except for the user's password.
@@ -411,7 +430,7 @@ def getUserSources():
 
 
 def getUsers(userSource):
-    # type: (AnyStr) -> List[PyUser]
+    # type: (Union[str, unicode]) -> List[PyUser]
     """Retrieves the list of users in a specific user source.
 
     The User objects that are returned contain all of the information
@@ -447,7 +466,7 @@ def isUserScheduled(user, date=None):
 
 
 def removeHoliday(holidayName):
-    # type: (AnyStr) -> UIResponse
+    # type: (Union[str, unicode]) -> UIResponse
     """Allows a holiday to be deleted.
 
     Args:
@@ -462,7 +481,7 @@ def removeHoliday(holidayName):
 
 
 def removeRole(userSource, role):
-    # type: (AnyStr, AnyStr) -> UIResponse
+    # type: (Union[str, unicode], Union[str, unicode]) -> UIResponse
     """Removes a role from the specified user source.
 
     When altering the Gateway System User Source, the Allow User Admin
@@ -482,7 +501,7 @@ def removeRole(userSource, role):
 
 
 def removeSchedule(scheduleName):
-    # type: (AnyStr) -> UIResponse
+    # type: (Union[str, unicode]) -> UIResponse
     """Allows a schedule to be deleted.
 
     Note that schedules which are used in Composite Schedules can not be
@@ -501,7 +520,7 @@ def removeSchedule(scheduleName):
 
 
 def removeUser(userSource, username):
-    # type: (AnyStr, AnyStr) -> UIResponse
+    # type: (Union[str, unicode], Union[str, unicode]) -> UIResponse
     """Removes a specific user from a user source based on username.
 
     Args:

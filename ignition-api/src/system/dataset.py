@@ -29,19 +29,17 @@ __all__ = [
 
 from typing import Any, Dict, List, Optional, Type, Union
 
-from com.inductiveautomation.ignition.common import Dataset
-from dev.coatl.helper.types import AnyNum, AnyStr
 from java.util import Date, Locale
 
-ColType = Union[AnyNum, AnyStr, Date]
+from com.inductiveautomation.ignition.common import Dataset
 
 
 def addColumn(
     dataset,  # type: Dataset
     colIndex,  # type: int
     col,  # type: List[Any]
-    colName,  # type: AnyStr
-    colType,  # type: Type[ColType]
+    colName,  # type: Union[str, unicode]
+    colType,  # type: Type[Union[Union[float, int, long], Union[str, unicode], Date]]
 ):
     # type: (...) -> Dataset
     """Takes a dataset and returns a new dataset with a new column added
@@ -189,7 +187,7 @@ def clearDataset(dataset):
 
 
 def dataSetToHTML(showHeaders, dataset, title):
-    # type: (bool, Dataset, AnyStr) -> AnyStr
+    # type: (bool, Dataset, Union[str, unicode]) -> Union[str, unicode]
     """Formats the contents of a dataset as an HTML page, returning the
     results as a string.
 
@@ -273,7 +271,7 @@ def deleteRows(dataset, rowIndices):
 
 def filterColumns(
     dataset,  # type: Dataset
-    columns,  # type: Union[List[AnyStr], List[int]]
+    columns,  # type: Union[List[Union[str, unicode]], List[int]]
 ):
     # type: (...) -> Dataset
     """Takes a dataset and returns a view of the dataset containing only
@@ -299,7 +297,7 @@ def filterColumns(
 
 
 def formatDates(dataset, dateFormat, locale=Locale.ENGLISH):
-    # type: (Dataset, AnyStr, Optional[Locale]) -> Dataset
+    # type: (Dataset, Union[str, unicode], Optional[Locale]) -> Dataset
     """Returns a new dataset with Date columns as strings formatted
     according to the dateFormat specified.
 
@@ -325,7 +323,7 @@ def formatDates(dataset, dateFormat, locale=Locale.ENGLISH):
 
 
 def fromCSV(csv):
-    # type: (AnyStr) -> Dataset
+    # type: (Union[str, unicode]) -> Dataset
     """Converts a dataset stored in a CSV formatted string to a dataset
     that can be immediately assignable to a dataset property in your
     project.
@@ -345,7 +343,7 @@ def fromCSV(csv):
 
 
 def getColumnHeaders(dataset):
-    # type: (Dataset) -> List[AnyStr]
+    # type: (Dataset) -> List[Union[str, unicode]]
     """Takes in a dataset and returns the headers as a python list.
 
     Args:
@@ -358,8 +356,13 @@ def getColumnHeaders(dataset):
     return ["column1", "column2"]
 
 
-def setValue(dataset, rowIndex, columnNameOrIndex, value):
-    # type: (Dataset, int, Union[AnyStr, int], Any) -> Dataset
+def setValue(
+    dataset,  # type: Dataset
+    rowIndex,  # type: int
+    columnNameOrIndex,  # type: Union[str, unicode, int]
+    value,  # type: Any
+):
+    # type: (...) -> Dataset
     """Takes a dataset and returns a new dataset with a one value
     altered.
 
@@ -389,7 +392,7 @@ def setValue(dataset, rowIndex, columnNameOrIndex, value):
 
 def sort(
     dataset,  # type: Dataset
-    keyColumn,  # type: Union[AnyStr, int]
+    keyColumn,  # type: Union[str, unicode, int]
     ascending=True,  # type: bool
     naturalOrdering=True,  # type: bool
 ):
@@ -431,7 +434,7 @@ def toCSV(
     forExport=False,  # type: bool
     localized=False,  # type: bool
 ):
-    # type: (...) -> AnyStr
+    # type: (...) -> Union[str, unicode]
     """Formats the contents of a dataset as CSV (comma separated
     values), returning the resulting CSV as a string.
 
@@ -481,7 +484,7 @@ def toExcel(
     showHeaders,  # type: bool
     dataset,  # type: List[Dataset]
     nullsEmpty=False,  # type: bool
-    sheetNames=None,  # type: Optional[List[AnyStr]]
+    sheetNames=None,  # type: Optional[List[Union[str, unicode]]]
 ):
     # type: (...) -> Any
     """Formats the contents of one or more datasets as an Excel
@@ -512,7 +515,7 @@ def toExcel(
 
 
 def updateRow(dataset, rowIndex, changes):
-    # type: (Dataset, int, Dict[AnyStr, Any]) -> Dataset
+    # type: (Dataset, int, Dict[Union[str, unicode], Any]) -> Dataset
     """Takes a dataset and returns a new dataset with a one row altered.
 
     To alter the row, this function takes a Python dictionary to

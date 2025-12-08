@@ -35,10 +35,10 @@ __all__ = [
 
 from typing import Any, List, Optional, Union
 
-from dev.coatl.helper.types import AnyNum, AnyStr
 from java.lang import Comparable, Object
 from java.math import RoundingMode
 from java.util import Calendar, Date, Locale, TimeZone
+
 from org.joda.time.base import (
     AbstractInstant,
     BaseDateTime,
@@ -223,7 +223,7 @@ class ReadableDuration(Comparable):
         pass
 
     def toString(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
 
@@ -293,7 +293,7 @@ class ReadableInterval(object):
         pass
 
     def toString(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
 
@@ -343,7 +343,7 @@ class ReadablePartial(Comparable):
         pass
 
     def toString(self):
-        # type: (*Any) -> AnyStr
+        # type: (*Any) -> Union[str, unicode]
         pass
 
 
@@ -389,7 +389,7 @@ class ReadablePeriod(object):
         pass
 
     def toString(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
 
@@ -793,7 +793,7 @@ class Chronology(Object):
 class DateTime(BaseDateTime):
     class Property(AbstractReadableInstantFieldProperty):
         def addToCopy(self, value):
-            # type: (AnyNum) -> DateTime
+            # type: (Union[float, int, long]) -> DateTime
             pass
 
         def addWrapFieldToCopy(self, value):
@@ -930,8 +930,11 @@ class DateTime(BaseDateTime):
         pass
 
     @staticmethod
-    def parse(str_, formatter=None):
-        # type: (AnyStr, Optional[DateTimeFormatter]) -> DateTime
+    def parse(
+        str_,  # type: Union[str, unicode]
+        formatter=None,  # type: Optional[DateTimeFormatter]
+    ):
+        # type: (...) -> DateTime
         pass
 
     def plus(
@@ -1160,11 +1163,11 @@ class DateTimeField(Object):
         pass
 
     def getAsShortText(self, *args):
-        # type: (*Any) -> AnyStr
+        # type: (*Any) -> Union[str, unicode]
         pass
 
     def getAsText(self, *args):
-        # type: (*Any) -> AnyStr
+        # type: (*Any) -> Union[str, unicode]
         pass
 
     def getDifference(self, minuendInstant, subtrahendInstant):
@@ -1200,7 +1203,7 @@ class DateTimeField(Object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getRangeDurationField(self):
@@ -1382,7 +1385,7 @@ class DateTimeFieldType(Object):
 
 
 class DateTimeZone(Object):
-    DEFAULT_TZ_DATA_PATH = None  # type: AnyStr
+    DEFAULT_TZ_DATA_PATH = None  # type: Union[str, unicode]
     UTC = None  # type: DateTimeZone
 
     def adjustOffset(self, instant, earlierOrLater):
@@ -1400,7 +1403,7 @@ class DateTimeZone(Object):
 
     @staticmethod
     def forID(id_):
-        # type: (AnyStr) -> DateTimeZone
+        # type: (Union[str, unicode]) -> DateTimeZone
         pass
 
     @staticmethod
@@ -1425,7 +1428,7 @@ class DateTimeZone(Object):
 
     @staticmethod
     def getAvailableIDs():
-        # type: () -> List[AnyStr]
+        # type: () -> List[Union[str, unicode]]
         pass
 
     @staticmethod
@@ -1434,7 +1437,7 @@ class DateTimeZone(Object):
         pass
 
     def getID(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getMillisKeepLocal(self, newZone, oldInstant):
@@ -1442,11 +1445,11 @@ class DateTimeZone(Object):
         pass
 
     def getName(self, instant):
-        # type: (long) -> AnyStr
+        # type: (long) -> Union[str, unicode]
         pass
 
     def getNameKey(self, instant):
-        # type: (long) -> AnyStr
+        # type: (long) -> Union[str, unicode]
         pass
 
     @staticmethod
@@ -1468,7 +1471,7 @@ class DateTimeZone(Object):
         pass
 
     def getShortName(self, instant, locale=None):
-        # type: (long, Optional[Locale]) -> AnyStr
+        # type: (long, Optional[Locale]) -> Union[str, unicode]
         pass
 
     def getStandardOffset(self, instant):
@@ -1575,7 +1578,7 @@ class Days(BaseSingleFieldPeriod):
 
     @staticmethod
     def parseDays(periodStr):
-        # type: (AnyStr) -> Days
+        # type: (Union[str, unicode]) -> Days
         pass
 
     def plus(self, days):
@@ -1659,7 +1662,7 @@ class Duration(BaseDuration):
 
     @staticmethod
     def parse(str_):
-        # type: (AnyStr) -> Duration
+        # type: (Union[str, unicode]) -> Duration
         pass
 
     def plus(self, amount):
@@ -1716,8 +1719,12 @@ class DurationField(Object):
         # type: () -> None
         super(DurationField, self).__init__()
 
-    def add(self, instant, value):
-        # type: (AnyNum, AnyNum) -> long
+    def add(
+        self,
+        instant,  # type: Union[float, int, long]
+        value,  # type: Union[float, int, long]
+    ):
+        # type: (...) -> long
         pass
 
     def getDifference(self, minuendInstant, subtrahendInstant):
@@ -1729,11 +1736,11 @@ class DurationField(Object):
         pass
 
     def getMillis(self, *args):
-        # type: (*AnyNum) -> long
+        # type: (*Union[float, int, long]) -> long
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getType(self):
@@ -1752,8 +1759,12 @@ class DurationField(Object):
         # type: () -> bool
         pass
 
-    def subtract(self, instant, value):
-        # type: (AnyNum, AnyNum) -> long
+    def subtract(
+        self,
+        instant,  # type: Union[float, int, long]
+        value,  # type: Union[float, int, long]
+    ):
+        # type: (...) -> long
         pass
 
 
@@ -1779,7 +1790,7 @@ class DurationFieldType(Object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     @staticmethod
@@ -1893,7 +1904,7 @@ class Hours(BaseSingleFieldPeriod):
 
     @staticmethod
     def parseHours(periodStr):
-        # type: (AnyStr) -> Hours
+        # type: (Union[str, unicode]) -> Hours
         pass
 
     def plus(self, hours):
@@ -1960,8 +1971,11 @@ class Instant(AbstractInstant):
         pass
 
     @staticmethod
-    def parse(str_, formatter=None):
-        # type: (AnyStr, Optional[DateTimeFormatter]) -> Instant
+    def parse(
+        str_,  # type: Union[str, unicode]
+        formatter=None,  # type: Optional[DateTimeFormatter]
+    ):
+        # type: (...) -> Instant
         pass
 
     def plus(self, duration):
@@ -1997,12 +2011,12 @@ class Interval(BaseInterval):
 
     @staticmethod
     def parse(str_):
-        # type: (AnyStr) -> Interval
+        # type: (Union[str, unicode]) -> Interval
         pass
 
     @staticmethod
     def parseWithOffset(str_):
-        # type: (AnyStr) -> Interval
+        # type: (Union[str, unicode]) -> Interval
         pass
 
     def withChronology(self, chronology):
@@ -2045,7 +2059,7 @@ class Interval(BaseInterval):
 class LocalDate(BaseLocal):
     class Property(AbstractReadableInstantFieldProperty):
         def addToCopy(self, value):
-            # type: (AnyNum) -> LocalDate
+            # type: (Union[float, int, long]) -> LocalDate
             pass
 
         def addWrapFieldToCopy(self, value):
@@ -2193,8 +2207,11 @@ class LocalDate(BaseLocal):
         pass
 
     @staticmethod
-    def parse(str_, formatter=None):
-        # type: (AnyStr, Optional[DateTimeFormatter]) -> LocalDate
+    def parse(
+        str_,  # type: Union[str, unicode]
+        formatter=None,  # type: Optional[DateTimeFormatter]
+    ):
+        # type: (...) -> LocalDate
         pass
 
     def plus(self, period):
@@ -2325,7 +2342,7 @@ class LocalDate(BaseLocal):
 class LocalDateTime(BaseLocal):
     class Property(AbstractReadableInstantFieldProperty):
         def addToCopy(self, value):
-            # type: (AnyNum) -> LocalDateTime
+            # type: (Union[float, int, long]) -> LocalDateTime
             pass
 
         def addWrapFieldToCopy(self, value):
@@ -2528,8 +2545,11 @@ class LocalDateTime(BaseLocal):
         pass
 
     @staticmethod
-    def parse(str_, formatter=None):
-        # type: (AnyStr, Optional[DateTimeFormatter]) -> LocalDateTime
+    def parse(
+        str_,  # type: Union[str, unicode]
+        formatter=None,  # type: Optional[DateTimeFormatter]
+    ):
+        # type: (...) -> LocalDateTime
         pass
 
     def plus(
@@ -2700,7 +2720,7 @@ class LocalTime(BaseLocal):
 
     class Property(AbstractReadableInstantFieldProperty):
         def addCopy(self, value):
-            # type: (AnyNum) -> LocalTime
+            # type: (Union[float, int, long]) -> LocalTime
             pass
 
         def addNoWrapToCopy(self, value):
@@ -2831,8 +2851,11 @@ class LocalTime(BaseLocal):
         pass
 
     @staticmethod
-    def parse(str_, formatter=None):
-        # type: (AnyStr, Optional[DateTimeFormatter]) -> LocalTime
+    def parse(
+        str_,  # type: Union[str, unicode]
+        formatter=None,  # type: Optional[DateTimeFormatter]
+    ):
+        # type: (...) -> LocalTime
         pass
 
     def plus(self, period):
@@ -2955,7 +2978,7 @@ class Minutes(BaseSingleFieldPeriod):
 
     @staticmethod
     def parseMinutes(periodStr):
-        # type: (AnyStr) -> Minutes
+        # type: (Union[str, unicode]) -> Minutes
         pass
 
     def plus(self, minutes):
@@ -2992,7 +3015,7 @@ class MutableDateTime(BaseDateTime, ReadWritableDateTime):
 
     class Property(AbstractReadableInstantFieldProperty):
         def add(self, value):
-            # type: (AnyNum) -> MutableDateTime
+            # type: (Union[float, int, long]) -> MutableDateTime
             pass
 
         def addWrapField(self, value):
@@ -3103,8 +3126,11 @@ class MutableDateTime(BaseDateTime, ReadWritableDateTime):
         pass
 
     @staticmethod
-    def parse(str_, formatter=None):
-        # type: (AnyStr, Optional[DateTimeFormatter]) -> MutableDateTime
+    def parse(
+        str_,  # type: Union[str, unicode]
+        formatter=None,  # type: Optional[DateTimeFormatter]
+    ):
+        # type: (...) -> MutableDateTime
         pass
 
     def property(self, type_):
@@ -3160,7 +3186,7 @@ class MutableInterval(BaseInterval, ReadableInterval):
 
     @staticmethod
     def parse(str_):
-        # type: (AnyStr) -> MutableInterval
+        # type: (Union[str, unicode]) -> MutableInterval
         pass
 
     def setChronology(self, chronology):
@@ -3354,8 +3380,11 @@ class Period(BasePeriod):
         pass
 
     @staticmethod
-    def parse(str_, formatter=None):
-        # type: (AnyStr, Optional[PeriodFormatter]) -> Period
+    def parse(
+        str_,  # type: Union[str, unicode]
+        formatter=None,  # type: Optional[PeriodFormatter]
+    ):
+        # type: (...) -> Period
         pass
 
     def plus(self, period):
@@ -3499,7 +3528,7 @@ class PeriodType(Object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     @staticmethod
@@ -3660,7 +3689,7 @@ class Seconds(BaseSingleFieldPeriod):
 
     @staticmethod
     def parseSeconds(periodStr):
-        # type: (AnyStr) -> Seconds
+        # type: (Union[str, unicode]) -> Seconds
         pass
 
     def plus(self, seconds):
@@ -3749,7 +3778,7 @@ class Weeks(BaseSingleFieldPeriod):
 
     @staticmethod
     def parseWeeks(periodStr):
-        # type: (AnyStr) -> Weeks
+        # type: (Union[str, unicode]) -> Weeks
         pass
 
     def plus(self, weeks):

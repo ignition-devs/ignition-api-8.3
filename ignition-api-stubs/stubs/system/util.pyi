@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Iterable, List, Optional
+from typing import Any, Callable, Dict, Iterable, List, Optional, Union
 
 from com.inductiveautomation.ignition.common import BasicDataset
 from com.inductiveautomation.ignition.common.model import Version
@@ -7,7 +7,6 @@ from com.inductiveautomation.ignition.common.script.builtin import (
     SystemUtilities,
 )
 from com.inductiveautomation.ignition.common.util import LoggerEx
-from dev.coatl.helper.types import AnyStr
 from java.lang import Thread
 from java.util import Date
 
@@ -19,88 +18,97 @@ MOBILE_FLAG: int
 PREVIEW_FLAG: int
 SSL_FLAG: int
 WEBSTART_FLAG: int
-globals: Dict[AnyStr, Any]
+globals: Dict[Union[str, unicode], Any]
 
 def audit(
-    action: Optional[AnyStr] = ...,
-    actionValue: Optional[AnyStr] = ...,
-    auditProfile: AnyStr = ...,
-    actor: Optional[AnyStr] = ...,
-    actorHost: AnyStr = ...,
-    originatingSystem: Optional[List[AnyStr]] = ...,
+    action: Union[str, unicode, None] = ...,
+    actionValue: Union[str, unicode, None] = ...,
+    auditProfile: Union[str, unicode] = ...,
+    actor: Union[str, unicode, None] = ...,
+    actorHost: Union[str, unicode] = ...,
+    originatingSystem: Optional[List[Union[str, unicode]]] = ...,
     eventTimestamp: Optional[Date] = ...,
     originatingContext: int = ...,
     statusCode: int = ...,
 ) -> None: ...
-def execute(commands: List[AnyStr]) -> None: ...
+def execute(commands: List[Union[str, unicode]]) -> None: ...
 def getGatewayStatus(
-    gatewayAddress: AnyStr,
+    gatewayAddress: Union[str, unicode],
     connectTimeoutMillis: Optional[int] = ...,
     socketTimeoutMillis: Optional[int] = ...,
     bypassCertValidation: bool = ...,
 ) -> unicode: ...
-def getGlobals() -> Dict[AnyStr, Any]: ...
-def getLogger(name: AnyStr) -> LoggerEx: ...
+def getGlobals() -> Dict[Union[str, unicode], Any]: ...
+def getLogger(name: Union[str, unicode]) -> LoggerEx: ...
 def getModules() -> BasicDataset: ...
-def getProjectName() -> AnyStr: ...
-def getProperty(propertyName: AnyStr) -> Optional[unicode]: ...
+def getProjectName() -> Union[str, unicode]: ...
+def getProperty(propertyName: Union[str, unicode]) -> Optional[unicode]: ...
 def getSessionInfo(
-    usernameFilter: Optional[AnyStr] = ..., projectFilter: Optional[AnyStr] = ...
+    usernameFilter: Union[str, unicode, None] = ...,
+    projectFilter: Union[str, unicode, None] = ...,
 ) -> DatasetUtilities.PyDataSet: ...
 def getVersion() -> Version: ...
 def invokeAsynchronous(
     function: Callable[..., Any],
     args: Optional[Iterable[Any]] = ...,
-    kwargs: Optional[Dict[AnyStr, Any]] = ...,
-    description: Optional[AnyStr] = ...,
+    kwargs: Optional[Dict[Union[str, unicode], Any]] = ...,
+    description: Union[str, unicode, None] = ...,
 ) -> Thread: ...
-def jsonDecode(jsonString: AnyStr) -> Any: ...
-def jsonEncode(pyObj: Iterable[Any], indentFactor: int = ...) -> AnyStr: ...
+def jsonDecode(jsonString: Union[str, unicode]) -> Any: ...
+def jsonEncode(
+    pyObj: Iterable[Any], indentFactor: int = ...
+) -> Union[str, unicode]: ...
 def modifyTranslation(
-    term: AnyStr, translation: AnyStr, locale: AnyStr = ...
+    term: Union[str, unicode],
+    translation: Union[str, unicode],
+    locale: Union[str, unicode] = ...,
 ) -> None: ...
 def queryAuditLog(
-    auditProfileName: Optional[AnyStr] = ...,
+    auditProfileName: Union[str, unicode, None] = ...,
     startDate: Optional[Date] = ...,
     endDate: Optional[Date] = ...,
-    actorFilter: Optional[AnyStr] = ...,
-    actionFilter: Optional[AnyStr] = ...,
-    targetFilter: Optional[AnyStr] = ...,
-    valueFilter: Optional[AnyStr] = ...,
-    systemFilter: Optional[AnyStr] = ...,
+    actorFilter: Union[str, unicode, None] = ...,
+    actionFilter: Union[str, unicode, None] = ...,
+    targetFilter: Union[str, unicode, None] = ...,
+    valueFilter: Union[str, unicode, None] = ...,
+    systemFilter: Union[str, unicode, None] = ...,
     contextFilter: Optional[int] = ...,
 ) -> BasicDataset: ...
 def sendMessage(
-    project: AnyStr,
-    messageHandler: AnyStr,
-    payload: Optional[Dict[AnyStr, Any]] = ...,
-    scope: Optional[AnyStr] = ...,
-    clientSessionId: Optional[AnyStr] = ...,
-    user: Optional[AnyStr] = ...,
-    hasRole: Optional[AnyStr] = ...,
-    hostName: Optional[AnyStr] = ...,
-    remoteServers: Optional[List[AnyStr]] = ...,
-) -> List[AnyStr]: ...
+    project: Union[str, unicode],
+    messageHandler: Union[str, unicode],
+    payload: Optional[Dict[Union[str, unicode], Any]] = ...,
+    scope: Union[str, unicode, None] = ...,
+    clientSessionId: Union[str, unicode, None] = ...,
+    user: Union[str, unicode, None] = ...,
+    hasRole: Union[str, unicode, None] = ...,
+    hostName: Union[str, unicode, None] = ...,
+    remoteServers: Optional[List[Union[str, unicode]]] = ...,
+) -> List[Union[str, unicode]]: ...
 def sendRequest(
-    project: AnyStr,
-    messageHandler: AnyStr,
-    payload: Optional[Dict[AnyStr, Any]] = ...,
-    hostName: Optional[AnyStr] = ...,
-    remoteServer: Optional[AnyStr] = ...,
-    timeoutSec: Optional[AnyStr] = ...,
+    project: Union[str, unicode],
+    messageHandler: Union[str, unicode],
+    payload: Optional[Dict[Union[str, unicode], Any]] = ...,
+    hostName: Union[str, unicode, None] = ...,
+    remoteServer: Union[str, unicode, None] = ...,
+    timeoutSec: Union[str, unicode, None] = ...,
 ) -> Any: ...
 def sendRequestAsync(
-    project: AnyStr,
-    messageHandler: AnyStr,
-    payload: Optional[Dict[AnyStr, Any]] = ...,
-    hostName: Optional[AnyStr] = ...,
-    remoteServer: Optional[AnyStr] = ...,
+    project: Union[str, unicode],
+    messageHandler: Union[str, unicode],
+    payload: Optional[Dict[Union[str, unicode], Any]] = ...,
+    hostName: Union[str, unicode, None] = ...,
+    remoteServer: Union[str, unicode, None] = ...,
     timeoutSec: Optional[int] = ...,
     onSuccess: Optional[Callable[..., Any]] = ...,
     onError: Optional[Callable[..., Any]] = ...,
 ) -> SystemUtilities.RequestImpl: ...
-def setLoggingLevel(loggerName: AnyStr, loggerLevel: AnyStr) -> None: ...
+def setLoggingLevel(
+    loggerName: Union[str, unicode], loggerLevel: Union[str, unicode]
+) -> None: ...
 def threadDump() -> unicode: ...
 def translate(
-    term: AnyStr, locale: Optional[AnyStr] = ..., strict: Optional[bool] = ...
-) -> AnyStr: ...
+    term: Union[str, unicode],
+    locale: Union[str, unicode] = ...,
+    strict: Optional[bool] = ...,
+) -> Union[str, unicode]: ...

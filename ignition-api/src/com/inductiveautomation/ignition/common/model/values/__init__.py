@@ -4,11 +4,10 @@ __all__ = ["BasicQualifiedValue", "QualifiedValue", "Quality", "QualityCode"]
 
 from typing import Any, Iterable, Union
 
-from com.inductiveautomation.ignition.common.gson import JsonObject
-from dev.coatl.helper.types import AnyStr
-from dev.coatl.utils.decorators import classproperty
 from java.lang import Enum, Object
 from java.util import Date
+
+from com.inductiveautomation.ignition.common.gson import JsonObject
 
 
 class QualifiedValue(object):
@@ -16,8 +15,11 @@ class QualifiedValue(object):
     it.
     """
 
-    def derive(self, arg=None):
-        # type: (Union[None, QualityCode, AnyStr]) -> QualifiedValue
+    def derive(
+        self,
+        arg=None,  # type: Union[str, unicode, None, QualityCode]
+    ):
+        # type: (...) -> QualifiedValue
         raise NotImplementedError
 
     def getQuality(self):
@@ -49,7 +51,7 @@ class Quality(object):
             pass
 
     def getDescription(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         raise NotImplementedError
 
     def getLevel(self):
@@ -57,7 +59,7 @@ class Quality(object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         raise NotImplementedError
 
     def getQualityCode(self):
@@ -134,7 +136,7 @@ class QualityCode(Object):
         print(args)
 
     def derive(self, diagnosticMessage):
-        # type: (AnyStr) -> QualityCode
+        # type: (Union[str, unicode]) -> QualityCode
         pass
 
     def getCode(self):
@@ -143,7 +145,7 @@ class QualityCode(Object):
 
     @staticmethod
     def getCodeName(code):
-        # type: (Union[int, QualityCode]) -> AnyStr
+        # type: (Union[int, QualityCode]) -> Union[str, unicode]
         pass
 
     @staticmethod
@@ -152,7 +154,7 @@ class QualityCode(Object):
         pass
 
     def getDiagnosticMessage(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getLevel(self):
@@ -160,7 +162,7 @@ class QualityCode(Object):
         pass
 
     def getName(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def isBad(self):
@@ -195,6 +197,21 @@ class BasicQualifiedValue(QualifiedValue, Object):
     timestamp = None  # type: Date
     value = None  # type: Object
 
+    # Class attribute constants
+    BAD = None  # type: BasicQualifiedValue
+    CONFIG_ERROR = None  # type: BasicQualifiedValue
+    DISABLED = None  # type: BasicQualifiedValue
+    EXPRESSION_EVAL_ERROR = None  # type: BasicQualifiedValue
+    INITIAL_VALUE = None  # type: BasicQualifiedValue
+    NOT_CONNECTED = None  # type: BasicQualifiedValue
+    NOT_FOUND = None  # type: BasicQualifiedValue
+    REFERENCE_NOT_FOUND = None  # type: BasicQualifiedValue
+    STALE = None  # type: BasicQualifiedValue
+    TRANSFORM_ERROR = None  # type: BasicQualifiedValue
+    TYPE_CONVERSION = None  # type: BasicQualifiedValue
+    UNKNOWN = None  # type: BasicQualifiedValue
+    UNSUPPORTED = None  # type: BasicQualifiedValue
+
     def __init__(self, *args):
         # type: (*Any) -> None
         super(BasicQualifiedValue, self).__init__()
@@ -203,77 +220,15 @@ class BasicQualifiedValue(QualifiedValue, Object):
         self.timestamp = Date()
         self.value = Object()
 
-    @classproperty
-    def BAD(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad)
-
-    @classproperty
-    def CONFIG_ERROR(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Error_Configuration)
-
-    @classproperty
-    def DISABLED(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad_Disabled)
-
-    @classproperty
-    def EXPRESSION_EVAL_ERROR(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Error_ExpressionEval)
-
-    @classproperty
-    def INITIAL_VALUE(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Uncertain_InitialValue)
-
-    @classproperty
-    def NOT_CONNECTED(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad_NotConnected)
-
-    @classproperty
-    def NOT_FOUND(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad_NotFound)
-
-    @classproperty
-    def REFERENCE_NOT_FOUND(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad_ReferenceNotFound)
-
-    @classproperty
-    def STALE(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad_Stale)
-
-    @classproperty
-    def TRANSFORM_ERROR(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad)
-
-    @classproperty
-    def TYPE_CONVERSION(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Error_TypeConversion)
-
-    @classproperty
-    def UNKNOWN(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Uncertain)
-
-    @classproperty
-    def UNSUPPORTED(self):
-        # type: () -> BasicQualifiedValue
-        return BasicQualifiedValue(None, QualityCode.Bad_Unsupported)
-
     def clone(self):
         # type: () -> BasicQualifiedValue
         pass
 
-    def derive(self, arg=None):
-        # type: (Union[None, QualityCode, AnyStr]) -> QualifiedValue
+    def derive(
+        self,
+        arg=None,  # type: Union[str, unicode, None, QualityCode]
+    ):
+        # type: (...) -> QualifiedValue
         pass
 
     @staticmethod
@@ -319,3 +274,30 @@ class BasicQualifiedValue(QualifiedValue, Object):
     def valueOf(obj):
         # type: (Object) -> Object
         pass
+
+
+BasicQualifiedValue.BAD = BasicQualifiedValue(None, QualityCode.Bad)
+BasicQualifiedValue.CONFIG_ERROR = BasicQualifiedValue(
+    None, QualityCode.Error_Configuration
+)
+BasicQualifiedValue.DISABLED = BasicQualifiedValue(None, QualityCode.Bad_Disabled)
+BasicQualifiedValue.EXPRESSION_EVAL_ERROR = BasicQualifiedValue(
+    None, QualityCode.Error_ExpressionEval
+)
+BasicQualifiedValue.INITIAL_VALUE = BasicQualifiedValue(
+    None, QualityCode.Uncertain_InitialValue
+)
+BasicQualifiedValue.NOT_CONNECTED = BasicQualifiedValue(
+    None, QualityCode.Bad_NotConnected
+)
+BasicQualifiedValue.NOT_FOUND = BasicQualifiedValue(None, QualityCode.Bad_NotFound)
+BasicQualifiedValue.REFERENCE_NOT_FOUND = BasicQualifiedValue(
+    None, QualityCode.Bad_ReferenceNotFound
+)
+BasicQualifiedValue.STALE = BasicQualifiedValue(None, QualityCode.Bad_Stale)
+BasicQualifiedValue.TRANSFORM_ERROR = BasicQualifiedValue(None, QualityCode.Bad)
+BasicQualifiedValue.TYPE_CONVERSION = BasicQualifiedValue(
+    None, QualityCode.Error_TypeConversion
+)
+BasicQualifiedValue.UNKNOWN = BasicQualifiedValue(None, QualityCode.Uncertain)
+BasicQualifiedValue.UNSUPPORTED = BasicQualifiedValue(None, QualityCode.Bad_Unsupported)

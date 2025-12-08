@@ -2,12 +2,12 @@ from __future__ import print_function
 
 __all__ = ["HttpClient", "HttpMethod", "Request", "Response", "TwilioRestClient"]
 
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
-from com.google.common.collect import Range
-from dev.coatl.helper.types import AnyStr
 from java.io import InputStream
 from java.lang import Enum, Object
+
+from com.google.common.collect import Range
 
 
 class HttpClient(Object):
@@ -48,7 +48,7 @@ class HttpMethod(Enum):
 
     @staticmethod
     def forValue(value):
-        # type: (AnyStr) -> HttpMethod
+        # type: (Union[str, unicode]) -> HttpMethod
         pass
 
     @staticmethod
@@ -64,11 +64,11 @@ class Request(Object):
         print(args, kwargs)
 
     def addPostParam(self, name, value):
-        # type: (AnyStr, AnyStr) -> None
+        # type: (Union[str, unicode], Union[str, unicode]) -> None
         print(name, value)
 
     def addQueryDateRange(self, name, range):
-        # type: (AnyStr, Range) -> None
+        # type: (Union[str, unicode], Range) -> None
         print(name, range)
 
 
@@ -79,7 +79,7 @@ class Response(Object):
         print(args, kwargs)
 
     def getContent(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getStatusCode(self):
@@ -95,12 +95,12 @@ class TwilioRestClient(Object):
 
     class Builder(Object):
         def __init__(self, username, password):
-            # type: (AnyStr, AnyStr) -> None
+            # type: (Union[str, unicode], Union[str, unicode]) -> None
             super(TwilioRestClient.Builder, self).__init__()
             print(username, password)
 
         def accountSid(self, accountSid):
-            # type: (AnyStr) -> TwilioRestClient.Builder
+            # type: (Union[str, unicode]) -> TwilioRestClient.Builder
             print(accountSid)
             return self
 
@@ -114,7 +114,7 @@ class TwilioRestClient(Object):
             return self
 
         def region(self, region):
-            # type: (AnyStr) -> TwilioRestClient.Builder
+            # type: (Union[str, unicode]) -> TwilioRestClient.Builder
             print(region)
             return self
 
@@ -123,7 +123,7 @@ class TwilioRestClient(Object):
     HTTP_STATUS_CODE_OK = 200
 
     def getAccountSid(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def getHttpClient(self):
@@ -135,7 +135,7 @@ class TwilioRestClient(Object):
         pass
 
     def getRegion(self):
-        # type: () -> AnyStr
+        # type: () -> Union[str, unicode]
         pass
 
     def request(self, request):
