@@ -113,8 +113,6 @@ This project consists of the following packages:
   - [google]
   - [inductiveautomation](#cominductiveautomation)
   - palantir
-- [java](#javajavax)
-- [javax](#javajavax)
 - org
   - [apache](#orgapache)
   - [bson](#orgbson)
@@ -135,12 +133,6 @@ Libraries for Java 32.0.1-jre API. For more information, see documentation here:
 This package includes supporting Inductive Automation's classes and interfaces.
 For more information, see documentation here:
 <https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.1/index.html>.
-
-#### java/javax
-
-These packages include supporting Java classes and interfaces. For more
-information, see documentation here:
-<https://docs.oracle.com/en/java/javase/17/docs/api/index.html>.
 
 #### org.apache
 
