@@ -23,6 +23,16 @@ python3 -m pip install ignition-api-stubs
 To run `mypy` against your code, execute the following command passing the
 source directory (typically `src`) or a single file:
 
+> [!NOTE]
+> Ensure you have installed [`mypy`] before running the commands
+> below.
+
+```sh
+python3 -m pip install "mypy[python2]==0.971"
+```
+
+Then
+
 ```sh
 mypy --py2 src
 ```
@@ -62,5 +72,6 @@ See [CODE_OF_CONDUCT.md].
 [Discussions]: https://github.com/orgs/ignition-devs/discussions
 [`ignition-api-8.3`]: https://github.com/ignition-devs/ignition-api-8.3
 [LICENSE]: https://github.com/ignition-devs/ignition-api-8.3/blob/main/LICENSE
+[`mypy`]: https://coatl-mypy.readthedocs.io/en/v0.971/
 [`stubgen`]: https://coatl-mypy.readthedocs.io/en/v0.971/stubgen.html
 [stubs]: https://www.python.org/dev/peps/pep-484/
