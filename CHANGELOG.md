@@ -1,3 +1,10 @@
+## 8.3.2 (2025-12-10)
+
+### Refactor
+
+- decouple java[x] into standalone package (#26)
+- **java**: add exception classes to java.nio.file (#23)
+
 ## 8.3.1.post2 (2025-12-08)
 
 ### Refactor
