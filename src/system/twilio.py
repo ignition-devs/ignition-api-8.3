@@ -10,7 +10,7 @@ from __future__ import print_function
 __all__ = [
     "getAccounts",
     "getAccountsDataset",
-    "getActiveCalls",
+    "getActiveCall",
     "getPhoneNumbers",
     "getPhoneNumbersDataset",
     "sendFreeformWhatsApp",
@@ -47,7 +47,7 @@ def getAccountsDataset():
     return BasicDataset()
 
 
-def getActiveCalls(accountName):
+def getActiveCall(accountName):
     # type: (Union[str, unicode]) -> List[Call]
     """Returns a list of configurations for currently active Twilio
     voice calls.
