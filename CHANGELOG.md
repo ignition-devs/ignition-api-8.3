@@ -1,3 +1,9 @@
+## 8.3.2.post1 (2025-12-12)
+
+### Fix
+
+- **system**: rename getActiveCalls to getActiveCall (#29)
+
 ## 8.3.2 (2025-12-10)
 
 ### Refactor
