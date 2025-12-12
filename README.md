@@ -110,13 +110,12 @@ This project consists of the following packages:
 
 - com
   - codahale
-  - [google]
+  - [google](#comgoogle)
   - [inductiveautomation](#cominductiveautomation)
   - palantir
 - org
   - [apache](#orgapache)
   - [bson](#orgbson)
-  - [joda.time](#orgjodatime)
   - [json](#orgjson)
   - [python](#orgpython)
   - [slf4j](#orgslf4j)
@@ -132,7 +131,7 @@ Libraries for Java 32.0.1-jre API. For more information, see documentation here:
 
 This package includes supporting Inductive Automation's classes and interfaces.
 For more information, see documentation here:
-<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.1/index.html>.
+<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.2/index.html>.
 
 #### org.apache
 
@@ -155,20 +154,16 @@ API. For more information, see documentation here:
 <https://www.javadoc.io/doc/org.apache.poi/poi/4.1.2/index.html>
 
 #### org.bson
+
 This package includes supporting classes and interfaces from Mongo Java driver
 4.8.1, see documentation here:
 <https://javadoc.io/doc/org.mongodb/bson/4.8.1/index.html>
-
-#### org.joda.time
-This package includes supporting classes and interfaces from Joda Time 2.10.2,
-see documentation here:
-<https://javadoc.io/doc/joda-time/joda-time/2.10.2/overview-summary.html>
 
 #### org.json
 
 This package includes supporting classes and interfaces from the Inductive
 Automation's `org.json` package, see documentation here:
-<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.1/org/json/package-summary.html>
+<https://files.inductiveautomation.com/sdk/javadoc/ignition83/8.3.2/org/json/package-summary.html>
 
 #### org.python
 
@@ -214,7 +209,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct].
 [CONTRIBUTING.md]: https://github.com/ignition-devs/ignition-api-8.3/blob/main/CONTRIBUTING.md#contributing-to-ignition-api
 [CONTRIBUTORS]: https://github.com/ignition-devs/ignition-api-8.3/graphs/contributors
 [Discussions]: https://github.com/orgs/ignition-devs/discussions
-[`ignition-api-stubs`]: https://github.com/ignition-devs/ignition-api-stubs
+[`ignition-api-stubs`]: https://pypi.org/project/ignition-api-stubs
 [Ignition System Functions]: https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions
 [LICENSE]: https://github.com/ignition-devs/ignition-api-8.3/blob/main/LICENSE
 [Microsoft Open Source Code of Conduct]: https://opensource.microsoft.com/codeofconduct/
